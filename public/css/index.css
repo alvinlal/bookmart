@@ -1,0 +1,245 @@
+:root {
+  --primary-color: #002460;
+  --secondary-color: #ffc458;
+  --accent-color: #f1f1f1;
+}
+
+* {
+  box-sizing: border-box;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: var(--accent-color);
+}
+
+input:focus {
+  outline: none;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  padding: 5px 50px;
+  background-color: white;
+}
+
+.left-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 70px;
+  width: 380px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  height: 50px;
+  width: 100px;
+  margin-left: 20px;
+}
+
+.dropdown span {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary-color);
+  margin: 15px 0px 10px 10px;
+}
+
+.dropdown span img {
+  margin-left: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  z-index: 1;
+}
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  width: 520px;
+  position: relative;
+  min-width: 300px;
+  border: 2px solid var(--accent-color);
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.search-bar input[type="text"] {
+  height: 20px;
+  width: 100%;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.search-bar .dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: auto;
+  width: 100%;
+  position: absolute;
+  display: none;
+  top: 45px;
+  left: 0px;
+  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: white;
+  background-color: red;
+}
+
+.search-bar .dropdown .dropdown-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  border-radius: 0px;
+  padding: 10px 10px 10px 20px;
+  background-color: white;
+  margin: 0px;
+}
+
+.search-bar .dropdown .dropdown-item a {
+  font-size: 14px;
+  font-weight: 300;
+  text-decoration: none;
+  color: black;
+}
+
+.search-bar .dropdown .dropdown-item a:hover {
+  background-color: var(--accent-color);
+}
+
+.right-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 350px;
+}
+
+.right-action a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-left: 35px;
+  text-decoration: none;
+}
+
+.right-action a:hover {
+  transform: scale(1.1);
+  font-size: 16px;
+  box-shadow: 7px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 455px;
+  width: 350px;
+  padding: 40px 20px;
+  border-radius: 5px;
+  background-color: white;
+  color: var(--primary-color);
+  margin: 44px auto;
+}
+.signup-form h1 {
+  font-size: 36px;
+  margin-bottom: 42px;
+}
+
+.form-textfield {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  padding: 10px;
+  background-color: #f1f4f8;
+  border-radius: 5px;
+}
+
+.form-textfield input[type="text"],
+input[type="password"],
+input[type="email"] {
+  height: 16px;
+  width: 100%;
+  background-color: #f1f4f8;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.error-div-email,
+.error-div-confirm-password {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 42px;
+  width: 100%;
+  color: red;
+  font-size: 13px;
+  padding: 10px;
+}
+
+.error-div-password {
+  height: 42px;
+  width: 100%;
+  color: red;
+  font-size: 13px;
+  margin: 10px 0px;
+}
+
+.error-div-password li {
+  margin: 5px 0px;
+}
+
+.signup-button {
+  height: 40px;
+  width: 100%;
+  border-radius: 3px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.signup-button:hover {
+  cursor: pointer;
+}
