@@ -30,22 +30,22 @@
             <input type="text" placeholder="Search" />
             <div class="dropdown">
                 <div class="dropdown-item">
-                    <a href="#">Laptops in Electronics</a>
+                    <a href="#"></a>
                 </div>
                 <div class="dropdown-item">
-                    <a href="#">Dell inspiron</a>
+                    <a href="#"></a>
                 </div>
                 <div class="dropdown-item">
-                    <a href="#">Asus vivobook 14</a>
+                    <a href="#"></a>
                 </div>
                 <div class="dropdown-item">
-                    <a href="#">Asus vivobook 15</a>
+                    <a href="#"></a>
                 </div>
                 <div class="dropdown-item">
-                    <a href="#">LG gram</a>
+                    <a href="#"></a>
                 </div>
                 <div class="dropdown-item">
-                    <a href="#">Lenovo legion</a>
+                    <a href="#"></a>
                 </div>
             </div>
         </div>
