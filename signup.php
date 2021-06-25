@@ -13,8 +13,10 @@
         <input type="password" placeholder="password" />
     </div>
     <div class="error-div-password">
-        <li>Password should be atleast 6 characters</li>
-        <li>Password must contain only letters and numbers</li>
+        <ul>
+            <li>Password should be atleast six characters</li>
+            <li>Password must contain only letters and numbers</li>
+        </ul>
     </div>
     <div class="form-textfield">
         <img src="/bookmart/public/images/lock.svg" />

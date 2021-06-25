@@ -167,13 +167,14 @@ header {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 455px;
+  min-height: 455px;
+  height: auto;
   width: 350px;
   padding: 40px 20px;
   border-radius: 5px;
   background-color: white;
   color: var(--primary-color);
-  margin: 44px auto;
+  margin: 40px auto;
 }
 .signup-form h1 {
   font-size: 36px;
@@ -208,7 +209,7 @@ input[type="email"] {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: 42px;
+  height: 40px;
   width: 100%;
   color: red;
   font-size: 13px;
@@ -216,15 +217,20 @@ input[type="email"] {
 }
 
 .error-div-password {
-  height: 42px;
+  min-height: 40px;
+  height: auto;
   width: 100%;
   color: red;
   font-size: 13px;
-  margin: 10px 0px;
+}
+
+.error-div-password ul {
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
 .error-div-password li {
-  margin: 5px 0px;
+  margin-top: 10px;
 }
 
 .signup-button {
