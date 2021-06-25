@@ -1,5 +1,5 @@
 <?php include "./layouts/header.php";?>
-<form class="signup-form">
+<form class="auth-form">
     <h1>Sign Up</h1>
     <div class="form-textfield">
         <img src="/bookmart/public/images/email.svg" />
@@ -25,6 +25,6 @@
     <div class="error-div-confirm-password">
         Passwords don't match
     </div>
-    <button type="submit" class="signup-button">SIGNUP</button>
+    <button type="submit" class="auth-button">SIGNUP</button>
 </form>
 <?php include "./layouts/footer.php";?>
