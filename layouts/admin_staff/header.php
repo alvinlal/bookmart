@@ -18,21 +18,21 @@
         </nav>
         <nav class="admin-staff-menus">
             <a href="/bookmart/admin/staffs.php" id="staffs-link">STAFFS</a>
-            <a href="/bookmart/admin/customers.php" id="customers-link">CUSTOMERS</a>
-            <a href="/bookmart/admin/vendors.php" id="vendors-link">VENDORS</a>
-            <a href="/bookmart/admin/purchase.php" id="purchase-link">PURCHASE</a>
-            <a href="/bookmart/admin/orders.php" id="orders-link">ORDERS</a>
-            <a href="/bookmart/admin/reviews.php" id="reviews-link">REVIEWS</a>
-            <a href="/bookmart/admin/report.php" id="report-link">REPORT</a>
-            <a href="/bookmart/admin/edit_admin.php" id="my-details-link">MY DETAILS</a>
+            <a href="/bookmart/customers.php" id="customers-link">CUSTOMERS</a>
+            <a href="/bookmart/vendors" id="vendors-link">VENDORS</a>
+            <a href="/bookmart/purchases" id="purchase-link">PURCHASE</a>
+            <a href="/bookmart/orders" id="orders-link">ORDERS</a>
+            <a href="/bookmart/reviews" id="reviews-link">REVIEWS</a>
+            <a href="/bookmart/report" id="report-link">REPORT</a>
+            <a href="/bookmart/admin/details.php" id="my-details-link">MY DETAILS</a>
             <div class="dropdown-item">
                 <span id="items-link">ITEM <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
-                    <a href=#>Manage Category</a>
-                    <a href=#>Manage Sub Category</a>
-                    <a href=#>Manage Publisher</a>
-                    <a href=#>Manage Author</a>
-                    <a href=#>Manage Item</a>
+                    <a href="/bookmart/categories">Manage Category</a>
+                    <a href="/bookmart/subcategories">Manage Sub Category</a>
+                    <a href="/bookmart/publishers">Manage Publisher</a>
+                    <a href="/bookmart/authors">Manage Author</a>
+                    <a href="/bookmart/items">Manage Item</a>
                 </div>
             </div>
             <a href="/bookmart/logout.php" class="auth-header-btn">LOGOUT</a>
@@ -40,27 +40,26 @@
     </header>
     <script>
     // This javascript highlights the link in header that the current page is on with an underline.
-    var currentUrl = window.location.href;
-    var page = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+    var page = window.location.pathname;
 
-    if (page === "staffs.php") {
+    if (page === "/bookmart/admin/staffs.php") {
         document.getElementById("staffs-link").classList.add('highlighted');
-    } else if (page == "customers.php") {
+    } else if (page === "/bookmart/customers.php") {
         document.getElementById("customers-link").classList.add('highlighted');
-    } else if (page == "vendors.php") {
+    } else if (page === "/bookmart/vendors/") {
         document.getElementById("vendors-link").classList.add('highlighted');
-    } else if (page == "purchase.php") {
+    } else if (page === "/bookmart/purchases/") {
         document.getElementById("purchase-link").classList.add('highlighted');
-    } else if (page == "orders.php") {
+    } else if (page === "/bookmart/orders/") {
         document.getElementById("orders-link").classList.add('highlighted');
-    } else if (page == "report.php") {
+    } else if (page === "/bookmart/report/") {
         document.getElementById("report-link").classList.add('highlighted');
-    } else if (page == "reviews.php") {
+    } else if (page === "/bookmart/reviews/") {
         document.getElementById("reviews-link").classList.add('highlighted');
-    } else if (page == "edit_admin.php") {
+    } else if (page === "/bookmart/admin/details.php") {
         document.getElementById("my-details-link").classList.add('highlighted');
-    } else if (page == "categories.php" || page == "subcategories.php" || page == "authors.php" || page == "publishers.php") {
-        document.getElementById("items-link").classList.add('highlighted');
+    } else if (page === "/bookmart/categories/" || page === "/bookmart/subcategories/" || page === "/bookmart/authors/" || page === "/bookmart/publishers/" || page === "/bookmart/items/") {
+        document.getElementById("items-link").classList.add('highlighted-span');
     }
 
     // To keep the dropdown arrows in hovered state

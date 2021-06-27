@@ -219,6 +219,11 @@ header {
   border-bottom: 3px solid var(--primary-color);
 }
 
+.highlighted-span {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
 .dropdown-item {
   position: relative;
   display: inline-block;

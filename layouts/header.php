@@ -242,30 +242,12 @@
         <div class="search-bar">
             <img src="/bookmart/public/images/search.svg" class="search-icon" />
             <input type="text" placeholder="Search" />
-            <div class="dropdown">
-                <div class="dropdown-item">
-                    <a href="#"></a>
-                </div>
-                <div class="dropdown-item">
-                    <a href="#"></a>
-                </div>
-                <div class="dropdown-item">
-                    <a href="#"></a>
-                </div>
-                <div class="dropdown-item">
-                    <a href="#"></a>
-                </div>
-                <div class="dropdown-item">
-                    <a href="#"></a>
-                </div>
-                <div class="dropdown-item">
-                    <a href="#"></a>
-                </div>
+            <div class="dropdown-search">
             </div>
         </div>
         <nav class="right-action">
-            <a href="/bookmart/login.php" class="auth-header-btn">LOGIN</a>
-            <a href="/bookmart/signup.php" class="auth-header-btn">SIGNUP</a>
+            <a href="/bookmart/auth/login.php" class="auth-header-btn">LOGIN</a>
+            <a href="/bookmart/auth/signup.php" class="auth-header-btn">SIGNUP</a>
         </nav>
         <script>
         // To keep the dropdown arrows in hovered state

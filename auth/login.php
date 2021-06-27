@@ -1,4 +1,4 @@
-<?php include "./layouts/header.php";?>
+<?php include "../layouts/header.php";?>
 <form class="auth-form">
     <h1>Login</h1>
     <div class="form-textfield">
@@ -17,4 +17,4 @@
     </div>
     <button type="submit" class="auth-button">LOGIN</button>
 </form>
-<?php include "./layouts/footer.php";?>
+<?php include "../layouts/footer.php";?>
