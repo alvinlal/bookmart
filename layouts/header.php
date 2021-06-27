@@ -1,3 +1,9 @@
+<?php
+
+	$loggedIn = $_SESSION['userId'] ?? false;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +22,7 @@
         <nav class="left-action">
             <a href="/bookmart"><img src="/bookmart/public/images/brand.svg" /></a>
             <div class="dropdown-buy">
-                <span>BUY <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowYellow.svg" /></span>
+                <span>BUY <img id="dropdownArrowBuy" src="/bookmart/public/images/dropdownArrowYellow.svg" /></span>
                 <div class="dropdown-buy-content">
                     <div class="dropdown-buy-entry">
                         <a href="#">Art & Music</a>
@@ -109,132 +115,6 @@
                         <a href="#">Interior Designing</a>
                         <a href="#">More...</a>
                     </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Kids</a>
-                        <a href="#">Action & Adventure</a>
-                        <a href="#">Activities, Crafts & Games</a>
-                        <a href="#">Activitiy Books</a>
-                        <a href="#">Animals</a>
-                        <a href="#">Colouring Books</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Religion</a>
-                        <a href="#">Christianity</a>
-                        <a href="#">Hinduism</a>
-                        <a href="#">Islamic</a>
-                        <a href="#">Atheism</a>
-                        <a href="#">History</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Medical</a>
-                        <a href="#">Administration</a>
-                        <a href="#">Allied Health</a>
-                        <a href="#">Basic Sciences</a>
-                        <a href="#">Clinical</a>
-                        <a href="#">Dentistry</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">History</a>
-                        <a href="#">African</a>
-                        <a href="#">Ancient</a>
-                        <a href="#">Asian</a>
-                        <a href="#">Black History</a>
-                        <a href="#">Indian</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Business & Management</a>
-                        <a href="#">Economics</a>
-                        <a href="#">Finance & Accounting</a>
-                        <a href="#">Industry & Industrial studies</a>
-                        <a href="#">Business Strategies</a>
-                        <a href="#">Investments and Funds</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Science</a>
-                        <a href="#">Physics</a>
-                        <a href="#">Chemistry</a>
-                        <a href="#">Biology</a>
-                        <a href="#">Geography</a>
-                        <a href="#">Mathematics</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Hobbies & Crafts</a>
-                        <a href="#">Antiques</a>
-                        <a href="#">Clay</a>
-                        <a href="#">Collecting</a>
-                        <a href="#">Fashion</a>
-                        <a href="#">Jewelry Making</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Home & Garden</a>
-                        <a href="#">Architecture</a>
-                        <a href="#">Flowers</a>
-                        <a href="#">Fruits</a>
-                        <a href="#">Home Decorating</a>
-                        <a href="#">Interior Designing</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Kids</a>
-                        <a href="#">Action & Adventure</a>
-                        <a href="#">Activities, Crafts & Games</a>
-                        <a href="#">Activitiy Books</a>
-                        <a href="#">Animals</a>
-                        <a href="#">Colouring Books</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Religion</a>
-                        <a href="#">Christianity</a>
-                        <a href="#">Hinduism</a>
-                        <a href="#">Islamic</a>
-                        <a href="#">Atheism</a>
-                        <a href="#">History</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Medical</a>
-                        <a href="#">Administration</a>
-                        <a href="#">Allied Health</a>
-                        <a href="#">Basic Sciences</a>
-                        <a href="#">Clinical</a>
-                        <a href="#">Dentistry</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">History</a>
-                        <a href="#">African</a>
-                        <a href="#">Ancient</a>
-                        <a href="#">Asian</a>
-                        <a href="#">Black History</a>
-                        <a href="#">Indian</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Business & Manage</a>
-                        <a href="#">Economics</a>
-                        <a href="#">Finance & Accounting</a>
-                        <a href="#">Industry & Industrial studies</a>
-                        <a href="#">Business Strategies</a>
-                        <a href="#">Investments and Funds</a>
-                        <a href="#">More...</a>
-                    </div>
-                    <div class="dropdown-buy-entry">
-                        <a href="#">Science</a>
-                        <a href="#">Physics</a>
-                        <a href="#">Chemistry</a>
-                        <a href="#">Biology</a>
-                        <a href="#">Geography</a>
-                        <a href="#">Mathematics</a>
-                        <a href="#">More...</a>
-                    </div>
                 </div>
             </div>
 
@@ -245,18 +125,38 @@
             <div class="dropdown-search">
             </div>
         </div>
+        <?php if ($loggedIn): ?>
+        <nav class="right-action">
+            <div class="dropdown-item">
+                <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
+                <div class="dropdown-item-content">
+                    <a href="/bookmart/customer/orders">Your Orders</a>
+                    <a href="/bookmart/customer/details">Your Details</a>
+                    <a href="/bookmart/auth/logout.php">Logout</a>
+                </div>
+            </div>
+            <a href="/bookmart/cart" class="cart-icon"><img src="/bookmart/public/images/cart.svg" />12</a>
+        </nav>
+        <?php else: ?>
         <nav class="right-action">
             <a href="/bookmart/auth/login.php" class="auth-header-btn">LOGIN</a>
             <a href="/bookmart/auth/signup.php" class="auth-header-btn">SIGNUP</a>
         </nav>
+        <?php endif?>
+
         <script>
         // To keep the dropdown arrows in hovered state
         document.querySelector(".dropdown-buy-content").addEventListener("mouseenter", () => {
-            document.getElementById("dropdownArrow").classList.add("dropdowned");
+            document.getElementById("dropdownArrowBuy").classList.add("dropdowned");
         });
-
         document.querySelector(".dropdown-buy-content").addEventListener("mouseleave", () => {
-            document.getElementById("dropdownArrow").classList.remove("dropdowned");
-        })
+            document.getElementById("dropdownArrowBuy").classList.remove("dropdowned");
+        });
+        document.querySelector(".dropdown-item-content").addEventListener("mouseenter", () => {
+            document.getElementById("dropdownArrowMyaccount").classList.add("dropdowned");
+        });
+        document.querySelector(".dropdown-item-content").addEventListener("mouseleave", () => {
+            document.getElementById("dropdownArrowMyaccount").classList.remove("dropdowned");
+        });
         </script>
     </header>

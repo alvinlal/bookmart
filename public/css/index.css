@@ -198,6 +198,27 @@ header {
   width: 350px;
 }
 
+.right-action .dropdown-item span {
+  font-size: 18px;
+}
+
+.cart-icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  color: var(--primary-color);
+  font-weight: bold;
+  height: 40px;
+  width: 95px;
+  padding: 17px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 2px solid var(--accent-color);
+  margin-left: 40px;
+}
+
 .admin-staff-menus {
   display: flex;
   flex-direction: row;
@@ -237,6 +258,8 @@ header {
   color: var(--primary-color);
   margin: 40px 0px 0px 20px;
   padding-bottom: 40px;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 .dropdown-item span img {
@@ -266,6 +289,10 @@ header {
   padding: 0px 10px 10px 10px;
 }
 
+.right-action .dropdown-item .dropdown-item-content {
+  left: -15%;
+}
+
 .dropdown-item-content a {
   color: var(--primary-color);
   height: 40px;
@@ -275,6 +302,7 @@ header {
   padding: 10px;
   margin: 10px 0px 0px 0px;
   border-radius: 5px;
+  text-decoration: none;
 }
 
 .dropdown-item-content a:hover {

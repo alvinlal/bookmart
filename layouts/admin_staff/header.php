@@ -1,3 +1,10 @@
+<?php
+
+	$userType = "admin" // will be $_SESSION["userType"]
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,14 +24,18 @@
             <a href="/bookmart"><img src="/bookmart/public/images/brand.svg" /></a>
         </nav>
         <nav class="admin-staff-menus">
+            <?php if ($userType == "admin"): ?>
             <a href="/bookmart/admin/staffs.php" id="staffs-link">STAFFS</a>
+            <?php endif?>
             <a href="/bookmart/customers.php" id="customers-link">CUSTOMERS</a>
             <a href="/bookmart/vendors" id="vendors-link">VENDORS</a>
             <a href="/bookmart/purchases" id="purchase-link">PURCHASE</a>
             <a href="/bookmart/orders" id="orders-link">ORDERS</a>
             <a href="/bookmart/reviews" id="reviews-link">REVIEWS</a>
+            <?php if ($userType == "admin"): ?>
             <a href="/bookmart/report" id="report-link">REPORT</a>
-            <a href="/bookmart/admin/details.php" id="my-details-link">MY DETAILS</a>
+            <?php endif?>
+            <?php echo '<a href="/bookmart/' . $userType . '/details.php" id="my-details-link">MY DETAILS</a>' ?>
             <div class="dropdown-item">
                 <span id="items-link">ITEM <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
@@ -35,7 +46,7 @@
                     <a href="/bookmart/items">Manage Item</a>
                 </div>
             </div>
-            <a href="/bookmart/logout.php" class="auth-header-btn">LOGOUT</a>
+            <a href="/bookmart/auth/logout.php" class="auth-header-btn">LOGOUT</a>
         </nav>
     </header>
     <script>
@@ -56,7 +67,7 @@
         document.getElementById("report-link").classList.add('highlighted');
     } else if (page === "/bookmart/reviews/") {
         document.getElementById("reviews-link").classList.add('highlighted');
-    } else if (page === "/bookmart/admin/details.php") {
+    } else if (page === "/bookmart/admin/details.php" || page == "/bookmart/staff/details.php") {
         document.getElementById("my-details-link").classList.add('highlighted');
     } else if (page === "/bookmart/categories/" || page === "/bookmart/subcategories/" || page === "/bookmart/authors/" || page === "/bookmart/publishers/" || page === "/bookmart/items/") {
         document.getElementById("items-link").classList.add('highlighted-span');
