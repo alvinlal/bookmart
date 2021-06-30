@@ -23,6 +23,8 @@ input:focus {
 }
 
 header {
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -31,6 +33,10 @@ header {
   width: 100%;
   padding: 5px 50px;
   background-color: white;
+}
+
+.background-color-transition {
+  transition: background-color 400ms linear;
 }
 
 .left-action {
@@ -72,6 +78,7 @@ header {
 
 .dropdown-buy span:hover img {
   transform: rotate(180deg);
+  transition: transform ease-out 150ms;
 }
 
 .dropdown-buy .dropdown-buy-content {
@@ -88,7 +95,7 @@ header {
   background-color: white;
   border-radius: 5px;
   box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
-  padding: 20px 30px 20px 20px;
+  padding: 20px 30px 50px 20px;
 }
 
 .dropdown-buy .dropdown-buy-content::after {
@@ -98,6 +105,15 @@ header {
 
 .dropdown-buy:hover .dropdown-buy-content {
   display: flex;
+}
+
+.all-categories {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 16px;
+  position: absolute;
+  left: 20px;
+  bottom: 5%;
 }
 
 .dropdown-buy-entry {
@@ -133,6 +149,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  background-color: white;
   align-items: center;
   height: 40px;
   width: 520px;
@@ -140,6 +157,7 @@ header {
   border: 2px solid var(--accent-color);
   padding: 10px;
   margin-left: 10px;
+  border-radius: 5px;
 }
 
 .search-bar input[type="text"] {
@@ -292,6 +310,9 @@ header {
 .right-action .dropdown-item .dropdown-item-content {
   left: -15%;
 }
+.yellow {
+  background-color: var(--secondary-color) !important;
+}
 
 .dropdown-item-content a {
   color: var(--primary-color);
@@ -311,6 +332,7 @@ header {
 
 .dropdowned {
   transform: rotate(180deg);
+  transition: transform ease-out 100ms;
 }
 
 .dropdown-item:hover .dropdown-item-content {
@@ -331,6 +353,7 @@ header {
   border-radius: 5px;
   margin-left: 35px;
   text-decoration: none;
+  transition: transform ease-in 100ms;
 }
 
 .auth-header-btn:hover {
@@ -429,4 +452,130 @@ input[type="email"] {
 
 .auth-button:hover {
   cursor: pointer;
+}
+
+.home-main-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  margin: 0px 50px;
+}
+
+.title-wrapper {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title-wrapper h1 {
+  color: var(--primary-color);
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.title-wrapper p {
+  color: var(--secondary-color);
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 35px;
+  width: 85%;
+  margin-left: 5px;
+}
+
+.title-actions {
+  margin-top: 42px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title-actions a:first-child {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 120px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 22px;
+  text-decoration: none;
+  padding: 20px;
+  transition: transform ease-in 100ms;
+}
+.title-actions a:last-child {
+  background-color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 120px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 22px;
+  text-decoration: none;
+  padding: 20px;
+  transition: transform ease-in 100ms;
+}
+
+.title-actions a:hover {
+  transform: scale(1.1);
+  font-size: 16px;
+  box-shadow: 7px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.illustration-wrapper {
+  width: 40%;
+}
+
+.illustration-wrapper img {
+  height: 400px;
+  width: 100%;
+  /* margin-left: 50px; */
+}
+
+.home-page-circle-1 {
+  position: absolute;
+  width: 5.5vw;
+  height: 5.5vw;
+  border-radius: 50%;
+  background-color: rgba(0, 36, 96, 13%);
+  top: 16%;
+  left: 32%;
+  z-index: -1;
+}
+
+.home-page-circle-2 {
+  position: absolute;
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%;
+  background-color: rgba(241, 80, 80, 13%);
+  top: 16%;
+  left: 52%;
+  z-index: -1;
+}
+
+.home-page-circle-3 {
+  position: absolute;
+  width: 12vw;
+  height: 12vw;
+  border-radius: 50%;
+  background-color: rgba(0, 36, 96, 13%);
+  top: 70%;
+  left: 40%;
+  z-index: -1;
+}
+
+.home-items-section {
+  height: 1000px;
 }

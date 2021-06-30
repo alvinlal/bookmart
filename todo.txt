@@ -1,1 +1,4 @@
-1. find a more suitable name for dropdown-item class as it is used in both item dropdown and my account dropdown.
+1. Find a more suitable name for dropdown-item class as it is used in both item dropdown and my account dropdown.
+2. Try to replace the cart image in header with a ::before pseudo selector.
+3. checkout data- attribute on elements and selecting it on javascript(on header and dropdowns).
+4. Fix transition bug on my account and item dropdown

@@ -1,1 +1,1 @@
-<?php header("location:/bookmart/orders")?>
+<?php header("location:/orders")?>
