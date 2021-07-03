@@ -33,6 +33,7 @@ header {
   width: 100%;
   padding: 5px 50px;
   background-color: white;
+  z-index: 100;
 }
 
 .background-color-transition {
@@ -353,7 +354,7 @@ header {
   border-radius: 5px;
   margin-left: 35px;
   text-decoration: none;
-  transition: transform ease-in 100ms;
+  transition: transform ease 100ms;
 }
 
 .auth-header-btn:hover {
@@ -524,7 +525,7 @@ input[type="email"] {
   margin-right: 22px;
   text-decoration: none;
   padding: 20px;
-  transition: transform ease-in 100ms;
+  transition: transform ease 100ms;
 }
 
 .title-actions a:hover {
@@ -577,5 +578,85 @@ input[type="email"] {
 }
 
 .home-items-section {
-  height: 1000px;
+  height: auto;
+  width: 100%;
+  margin: 100px auto 100px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book-preview {
+  background-color: white;
+  height: 380px;
+  width: 230px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 15px;
+  margin-left: 25px;
+  margin-top: 25px;
+  transition: transform ease 100ms;
+  text-decoration: none;
+}
+
+.book-preview:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.book-preview-coverimage {
+  height: 200px;
+  width: 150px;
+  border-radius: 5px;
+}
+
+.book-preview-title-author {
+  /* padding: 10px 0px 0px 10px; */
+  align-self: flex-start;
+  padding-top: 10px;
+  color: var(--primary-color);
+  font-weight: 400;
+  height: 90px;
+  width: 100%;
+}
+
+.book-preview-title-author h1 {
+  line-height: 20px;
+  font-size: 16px;
+}
+
+.book-preview-title-author p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.book-preview-title-author p span {
+  color: var(--secondary-color);
+}
+
+.book-preview-price-addtocart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--primary-color);
+  padding-top: 10px;
+}
+
+.book-preview-price-addtocart img {
+  justify-self: flex-end;
+}
+
+.book-preview-price-addtocart img:hover {
+  cursor: pointer;
+  transform: scale(1.2);
 }
