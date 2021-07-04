@@ -660,3 +660,121 @@ input[type="email"] {
   cursor: pointer;
   transform: scale(1.2);
 }
+
+footer {
+  width: 100%;
+  height: 300px;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 32px 64px;
+}
+
+.contact-info-title {
+  /* display: block; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-info-title h1 {
+  color: var(--secondary-color);
+  font-size: 32px;
+  margin-left: 10px;
+}
+
+.contact-info-title img {
+  height: 32px;
+  width: 32px;
+}
+
+.contact-info-details {
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.contact-info-details p {
+  margin-top: 7px;
+}
+
+.contact-info-details p:nth-child(6) {
+  margin-left: 28px;
+}
+
+.follow-us-other-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 95%;
+}
+
+.follow-us {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 150px;
+  height: 85px;
+}
+
+.follow-us h1 {
+  color: var(--secondary-color);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.other-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.other-links p {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.other-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-top: 7px;
+}
+
+.social-media-icons {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.secure-cards-copyright {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.secure-cards-copyright p {
+  color: white;
+  font-weight: bold;
+  display: flex;
+}
+
+.secure-cards-copyright h1 {
+  color: var(--secondary-color);
+  font-size: 26px;
+}
+
+.credit-card-icons {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}

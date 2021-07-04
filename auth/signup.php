@@ -27,4 +27,6 @@
     </div>
     <button type="submit" class="auth-button">SIGNUP</button>
 </form>
-<?php include "../layouts/footer.php";?>
+</body>
+
+</html>
