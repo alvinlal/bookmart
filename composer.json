@@ -1,0 +1,13 @@
+{
+    "name": "alvin/bookmart",
+    "description": "An online book store",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alvin Lal",
+            "email": "alvinzzz2001@gmail.com"
+        }
+    ],
+    "require": {}
+}
