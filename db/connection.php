@@ -14,14 +14,14 @@ $pdo = new PDO($dsn, $username, $password, array(
 	PDO::MYSQL_ATTR_SSL_CA => '/app/config/amazon-rds-ca-cert.pem',
 ));
 
-$stmt = $pdo->query('SHOW DATABASES;');
+// $stmt = $pdo->query('SHOW DATABASES;');
 
-while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-	echo $row->Database . '<br>';
-}
+// while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+// 	echo $row->Database . '<br>';
+// }
 
-$endtime = microtime();
+// $endtime = microtime();
 
-echo "query took " . $starttime - $endtime;
+// echo "query took " . $starttime - $endtime;
 
 ?>
