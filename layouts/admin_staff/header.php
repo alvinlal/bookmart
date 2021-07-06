@@ -1,6 +1,6 @@
 <?php
 
-	$userType = "admin" // will be $_SESSION["userType"]
+	$userType = "staff" // will be $_SESSION["userType"]
 
 ?>
 

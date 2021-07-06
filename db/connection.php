@@ -1,16 +1,10 @@
 <?php
 
-$dbhost = getenv("DB_HOST");
-$dbport = getenv("DB_PORT");
-$dbname = getenv("DB_NAME");
-$username = getenv("DB_USERNAME");
-$password = getenv("DB_PASSWORD");
-
-$dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};";
+$dbInfo = getenv('DATABASE_URL');
 
 $starttime = microtime();
 
-$pdo = new PDO($dsn, $username, $password);
+$pdo = new PDO($dbInfo);
 
 $stmt = $pdo->query('SHOW DATABASES;');
 
