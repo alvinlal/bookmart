@@ -11,7 +11,7 @@ $dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};";
 $starttime = microtime();
 
 $pdo = new PDO($dsn, $username, $password, array(
-	PDO::MYSQL_ATTR_SSL_CA => '../config/amazon-rds-ca-cert.pem',
+	PDO::MYSQL_ATTR_SSL_CA => '/app/config/amazon-rds-ca-cert.pem',
 ));
 
 $stmt = $pdo->query('SHOW DATABASES;');
