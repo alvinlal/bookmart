@@ -1,4 +1,6 @@
 <?php include "./layouts/header.php";?>
+<?php include "./db/connection.php";?>
+
 
 <section class="home-main-section">
     <div class="title-wrapper">
