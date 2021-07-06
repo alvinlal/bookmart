@@ -1,5 +1,7 @@
 <?php
 
-echo getenv('VAR_TEST');
+$my_env_var = getenv('MY_VAR');
+
+echo $my_env_var;
 
 ?>
