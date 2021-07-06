@@ -2,7 +2,7 @@
 
 $dbInfo = getenv('DATABASE_URL');
 
-phpinfo();
+// phpinfo();
 
 $starttime = microtime();
 
