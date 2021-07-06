@@ -2,6 +2,6 @@
 
 $my_env_var = getenv('VAR_TEST');
 
-echo $my_env_var;
+// echo $my_env_var;
 
 ?>
