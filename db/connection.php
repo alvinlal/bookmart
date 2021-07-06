@@ -2,6 +2,8 @@
 
 $dbInfo = getenv('DATABASE_URL');
 
+phpinfo();
+
 $starttime = microtime();
 
 $pdo = new PDO($dbInfo);
