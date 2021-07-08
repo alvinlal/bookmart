@@ -6,8 +6,9 @@ class User {
 	private $email;
 	private $password;
 	private $confirmPassword;
+	private $userType;
 
-	function __construct(String $email, String $password, String $confirmPassword) {
+	function __construct(String $email, String $password, String $confirmPassword = '') {
 		$this->email = $email;
 		$this->password = $password;
 		$this->confirmPassword = $confirmPassword;
@@ -53,6 +54,36 @@ class User {
 		return $errors;
 	}
 
+	public function validateLoginInput() {
+		$errors = [
+			'email' => '',
+			'password' => '',
+			'invalidCredentials' => '',
+		];
+
+		if (empty(trim($this->email))) {
+			$errors['email'] = 'Please enter an email';
+		} else {
+			$emailExists = selectOne('SELECT Username,User_type FROM tbl_Login WHERE Username=:email;', ['email' => $this->email]);
+			if (!$emailExists) {
+				$errors['invalidCredentials'] = 'Incorrect credentials';
+			} else {
+				$this->userType = $emailExists['User_type'];
+			}
+
+			if (empty($this->password)) {
+				$errors['password'] = 'Please enter a password';
+			} else if (!$errors['invalidCredentials'] && !$errors['email']) {
+				$row = selectOne('SELECT Password FROM tbl_Login WHERE Username=:email;', ['email' => $this->email]);
+				if (!password_verify($this->password, $row['Password'])) {
+					$errors['invalidCredentials'] = 'Incorrect credentials';
+				}
+			}
+
+		}
+		return $errors;
+	}
+
 	public function signup() {
 		return insert('INSERT INTO tbl_Login (Username,User_type,Password) VALUES(:Username,:User_type,:Password)', [
 			'Username' => trim($this->email),
@@ -60,4 +91,9 @@ class User {
 			'Password' => password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10]),
 		]);
 	}
+
+	public function getUserType() {
+		return $this->userType;
+	}
+
 }

@@ -12,10 +12,10 @@ $caPath = getenv("ENV") == "development" ? './config/amazon-rds-ca-cert.pem' : '
 
 $pdo = new PDO($dsn, $username, $password, array(
 	PDO::MYSQL_ATTR_SSL_CA => $caPath,
-	// TODO: change certificate path before pushing to production
 ));
 
 // db functions
+// TODO: add error checking
 
 function exists(string $sql, array $args = []) {
 	global $pdo;
@@ -32,6 +32,13 @@ function insert(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
 	return $stmt->execute($args);
+}
+
+function selectOne(string $sql, array $args = []) {
+	global $pdo;
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute($args);
+	return $stmt->fetch(\PDO::FETCH_ASSOC);
 }
 
 ?>

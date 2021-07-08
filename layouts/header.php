@@ -1,8 +1,11 @@
 <?php
 
-	$loggedIn = $_SESSION['userId'] ?? false;
+	// add auth middlewares here
 
+	session_start();
+	$isLoggedIn = $_SESSION['username'] ?? false;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,7 +127,7 @@
             <div class="dropdown-search">
             </div>
         </div>
-        <?php if ($loggedIn): ?>
+        <?php if ($isLoggedIn): ?>
         <nav class="right-action">
             <div class="dropdown-item">
                 <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/public/images/dropdownArrowBlue.svg" /></span>
@@ -171,7 +174,7 @@
         }
 
         // Only add eventlistener to my account dropdown if authenticated.
-        <?php if ($loggedIn): ?>
+        <?php if ($isLoggedIn): ?>
         const myAccountDropdown = document.querySelector(".dropdown-item-content");
         const myAccountDropdownArrow = document.getElementById("dropdownArrowMyaccount");
 

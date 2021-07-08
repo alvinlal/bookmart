@@ -386,7 +386,15 @@ header {
   height: 50px;
   padding-top: 12px;
   text-align: center;
+}
+
+.green-text {
   color: green;
+}
+
+.red-text {
+  color: red;
+  font-size: 13px;
 }
 
 .form-textfield {

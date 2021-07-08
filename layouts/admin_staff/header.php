@@ -1,6 +1,9 @@
 <?php
 
-	$userType = "staff" // will be $_SESSION["userType"]
+	// add auth middlewares here
+
+	session_start();
+	$userType = $_SESSION["userType"];
 
 ?>
 

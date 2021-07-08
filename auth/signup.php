@@ -1,19 +1,23 @@
 <?php
 
-	include "../classes/User.php";
 	if (isset($_POST['submit'])) {
+		include "../classes/User.php";
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$confirmPassword = $_POST['confirmpassword'];
 
 		$user = new User($email, $password, $confirmPassword);
 
+		// TODO: do error checking on validation db calls
 		$errors = $user->validateSignUpInput();
 
 		if (!array_filter($errors)) {
-			$success = true;
-			$user->signup();
-			header("refresh:2;url='/auth/login.php");
+			if ($user->signup()) {
+				$success = true;
+				header("refresh:2;url='/auth/login.php");
+			} else {
+				$failure = true;
+			}
 		}
 	}
 
@@ -24,7 +28,9 @@
     <h1>Sign Up</h1>
     <div class="success">
         <?php if (isset($success)): ?>
-        <p>Signup was successfull</p>
+        <p class="green-text">Signup was successfull</p>
+        <?php elseif (isset($failure)): ?>
+        <p class="red-text">Something went wrong! Please try again later</p>
         <?php endif?>
     </div>
     <div class="form-textfield">
