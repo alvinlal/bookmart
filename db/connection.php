@@ -8,7 +8,7 @@ $username = getenv("DB_USERNAME");
 $password = getenv("DB_PASSWORD");
 
 $dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};";
-$caPath = getenv("ENV") == "development" ? './config/amazon-rds-ca-cert.pem' : '/app/db/amazon-rds-ca-cert.pem';
+$caPath = getenv("ENV") == "development" ? './config/amazon-rds-ca-cert.pem' : '/app/config/amazon-rds-ca-cert.pem';
 
 $pdo = new PDO($dsn, $username, $password, array(
 	PDO::MYSQL_ATTR_SSL_CA => $caPath,
