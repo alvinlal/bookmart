@@ -379,7 +379,14 @@ header {
 }
 .auth-form h1 {
   font-size: 36px;
-  margin-bottom: 42px;
+}
+
+.auth-form .success {
+  width: 100%;
+  height: 50px;
+  padding-top: 12px;
+  text-align: center;
+  color: green;
 }
 
 .form-textfield {
@@ -424,6 +431,10 @@ input[type="email"] {
   color: red;
   font-size: 13px;
 }
+
+/* .error-div-password p{
+  ;
+} */
 
 .error-div-password ul {
   margin-left: 20px;

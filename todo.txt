@@ -2,4 +2,5 @@
 2. Try to replace the cart image in header with a ::before pseudo selector.
 3. checkout data- attribute on elements and selecting it on javascript(on header and dropdowns).
 4. Fix transition bug on my account and item dropdown
-5. Remove unneccessary display:flex's
+5. Remove unneccessary display:flex's , try to use display:block and inline block etc
+6. Optimize css as much as possible

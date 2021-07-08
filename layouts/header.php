@@ -1,9 +1,8 @@
 <?php
 
-	$loggedIn = $_SESSION['userId'] ?? true;
+	$loggedIn = $_SESSION['userId'] ?? false;
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
