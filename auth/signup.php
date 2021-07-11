@@ -1,18 +1,18 @@
 <?php
 
 	if (isset($_POST['submit'])) {
-		include "../classes/User.php";
+		include "../classes/Customer.php";
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$confirmPassword = $_POST['confirmpassword'];
 
-		$user = new User($email, $password, $confirmPassword);
+		$customer = new Customer(['email' => $email, 'password' => $password, 'confirmpassword' => $confirmPassword]);
 
 		// TODO: do error checking on validation db calls
-		$errors = $user->validateSignUpInput();
+		$errors = $customer->validateSignUpInput();
 
 		if (!array_filter($errors)) {
-			if ($user->signup()) {
+			if ($customer->signup()) {
 				$success = true;
 				header("refresh:2;url='/auth/login.php");
 			} else {

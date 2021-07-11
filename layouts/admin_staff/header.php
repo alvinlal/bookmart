@@ -2,7 +2,9 @@
 
 	// add auth middlewares here
 
-	session_start();
+	if (!isset($_SESSION)) {
+		session_start();
+	}
 	$userType = $_SESSION["userType"];
 
 ?>
@@ -24,7 +26,7 @@
 <body>
     <header>
         <nav>
-            <a href="/"><img src="/public/images/brand.svg" /></a>
+            <a href="<?php $userType == "/staff" ? "/staff" : "/admin"?>"><img src="/public/images/brand.svg" /></a>
         </nav>
         <nav class="admin-staff-menus">
             <?php if ($userType == "admin"): ?>

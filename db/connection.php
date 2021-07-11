@@ -8,10 +8,9 @@ $username = getenv("DB_USERNAME");
 $password = getenv("DB_PASSWORD");
 
 $dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};";
-$caPath = getenv("ENV") == "development" ? './config/amazon-rds-ca-cert.pem' : '/app/config/amazon-rds-ca-cert.pem';
 
 $pdo = new PDO($dsn, $username, $password, array(
-	PDO::MYSQL_ATTR_SSL_CA => $caPath,
+	PDO::MYSQL_ATTR_SSL_CA => getenv('CA_PATH'),
 ));
 
 // db functions
@@ -29,6 +28,12 @@ function exists(string $sql, array $args = []) {
 }
 
 function insert(string $sql, array $args = []) {
+	global $pdo;
+	$stmt = $pdo->prepare($sql);
+	return $stmt->execute($args);
+}
+
+function update(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
 	return $stmt->execute($args);

@@ -2,7 +2,9 @@
 
 	// add auth middlewares here
 
-	session_start();
+	if (!isset($_SESSION)) {
+		session_start();
+	}
 	$isLoggedIn = $_SESSION['username'] ?? false;
 ?>
 
@@ -133,7 +135,7 @@
                 <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
                     <a href="/customer/orders">Your Orders</a>
-                    <a href="/customer/details">Your Details</a>
+                    <a href="/customer/details.php">Your Details</a>
                     <a href="/auth/logout.php">Logout</a>
                 </div>
             </div>

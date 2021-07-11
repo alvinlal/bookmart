@@ -1,8 +1,8 @@
 <?php
-
+	include_once '../middlewares/isLoggedIn.php';
 	if (isset($_POST['submit'])) {
-		include "../classes/User.php";
-		include "../classes/Session.php";
+		include_once "../classes/User.php";
+		include_once "../classes/Session.php";
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 

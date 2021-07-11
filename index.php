@@ -1,5 +1,6 @@
+<?php include_once "./middlewares/redirectAdminAndStaff.php";?>
+<?php include_once "./db/connection.php";?>
 <?php include "./layouts/header.php";?>
-<?php include "./db/connection.php";?>
 
 
 <section class="home-main-section">

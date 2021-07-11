@@ -4,3 +4,6 @@
 4. Fix transition bug on my account and item dropdown
 5. Remove unneccessary display:flex's , try to use display:block and inline block etc
 6. Optimize css as much as possible
+7. Configure rds to allow ip from heroku and local only
+8. Index numeric id fields , add int id to tbl_login
+9. Add db connection and query error checking
