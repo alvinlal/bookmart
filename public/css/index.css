@@ -849,6 +849,7 @@ footer {
   font-size: 14px;
   padding-left: 10px;
   width: 200px;
+  padding-bottom: 10px;
 }
 
 .your-details-form .row2 {
@@ -864,6 +865,7 @@ footer {
   font-size: 14px;
   padding-left: 10px;
   width: 200px;
+  padding-bottom: 10px;
 }
 
 .your-details-form input[type="text"] {
@@ -892,4 +894,34 @@ footer {
   transform: scale(1.1);
   font-size: 16px;
   box-shadow: 7px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.form-textfield-with-label {
+  /* position: absolute; */
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #f1f4f8;
+  padding-left: 15px;
+}
+
+.floating-label {
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #6b727a;
+  transition: 0.2s ease all;
+  background-color: #f1f4f8;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+.form-textfield-with-label:focus ~ .floating-label,
+.form-textfield-with-label:not(:focus):valid ~ .floating-label {
+  top: 0px;
+  left: 10px;
+  font-size: 12px;
 }

@@ -55,17 +55,32 @@
             <?php endif?>
         </div>
         <div class="row1">
-            <input type="text" class="form-textfield" placeholder="Firstname" name="firstname" required value="<?=htmlspecialchars($firstname)?>" />
-            <input type="text" class="form-textfield" placeholder="Lastname" name="lastname" required value="<?=htmlspecialchars($lastname)?>" />
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="firstname" required value="<?=htmlspecialchars($firstname)?>" />
+                <span class="floating-label">First name</span>
+            </div>
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="lastname" required value="<?=htmlspecialchars($lastname)?>" />
+                <span class="floating-label">Last name</span>
+            </div>
         </div>
         <div class="row1">
             <p><?=$errors['firstname'] ?? ''?></p>
             <p><?=$errors['lastname'] ?? ''?></p>
         </div>
         <div class="row2">
-            <input type="text" class="form-textfield" placeholder="House name" name="housename" required value="<?=htmlspecialchars($housename)?>" />
-            <input type="text" class="form-textfield" placeholder="City" name="city" required value="<?=htmlspecialchars($city)?>" />
-            <input type="text" class="form-textfield" placeholder="District" name="district" required value="<?=htmlspecialchars($district)?>" />
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="housename" required value="<?=htmlspecialchars($housename)?>" />
+                <span class="floating-label">House name</span>
+            </div>
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="city" required value="<?=htmlspecialchars($city)?>" />
+                <span class="floating-label">City</span>
+            </div>
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="district" required value="<?=htmlspecialchars($district)?>" />
+                <span class="floating-label">District</span>
+            </div>
         </div>
         <div class="row2">
             <p><?=$errors['housename'] ?? ''?></p>
@@ -73,8 +88,14 @@
             <p><?=$errors['district'] ?? ''?></p>
         </div>
         <div class="row1">
-            <input type="text" class="form-textfield" placeholder="Pincode" name="pincode" required value="<?=htmlspecialchars($pincode)?>" />
-            <input type="text" class="form-textfield" placeholder="Phone number" name="phno" required value="<?=htmlspecialchars($phno)?>" />
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="pincode" required value="<?=htmlspecialchars($pincode)?>" />
+                <span class="floating-label">Pincode</span>
+            </div>
+            <div style="position:relative">
+                <input type="text" class="form-textfield-with-label" name="phno" required value="<?=htmlspecialchars($phno)?>" />
+                <span class="floating-label">Phone number</span>
+            </div>
         </div>
         <div class="row1">
             <p><?=$errors['pincode'] ?? ''?></p>
