@@ -8,16 +8,12 @@
 
 		$customer = new Customer(['email' => $email, 'password' => $password, 'confirmpassword' => $confirmPassword]);
 
-		// TODO: do error checking on validation db calls
 		$errors = $customer->validateSignUpInput();
 
 		if (!array_filter($errors)) {
-			if ($customer->signup()) {
-				$success = true;
-				header("refresh:2;url='/auth/login.php");
-			} else {
-				$failure = true;
-			}
+			$customer->signup();
+			$success = true;
+			header("refresh:2;url='/auth/login.php");
 		}
 	}
 
@@ -29,18 +25,16 @@
     <div class="success">
         <?php if (isset($success)): ?>
         <p class="green-text">Signup was successfull</p>
-        <?php elseif (isset($failure)): ?>
-        <p class="red-text">Something went wrong! Please try again later</p>
         <?php endif?>
     </div>
-    <div class="form-textfield">
+    <div class="auth-form-textfield">
         <img src="/public/images/email.svg" />
         <input type="email" placeholder="Email" name="email" value="<?=htmlspecialchars($_POST['email'] ?? '')?>" required />
     </div>
     <div class="error-div-email">
         <?=$errors['email'] ?? ''?>
     </div>
-    <div class="form-textfield">
+    <div class="auth-form-textfield">
         <img src="/public/images/lock.svg" />
         <input type="password" placeholder="password" name="password" value="<?=htmlspecialchars($_POST['password'] ?? '')?>" required />
     </div>
@@ -52,7 +46,7 @@
             <?php endif?>
         </ul>
     </div>
-    <div class="form-textfield">
+    <div class="auth-form-textfield">
         <img src="/public/images/lock.svg" />
         <input type="password" placeholder="confirm password" name="confirmpassword" value="<?=htmlspecialchars($_POST['confirmpassword'] ?? '')?>" />
     </div>
