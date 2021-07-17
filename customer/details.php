@@ -1,9 +1,8 @@
 <?php
 	include '../middlewares/isAuthenticated.php';
 	include '../middlewares/isCustomer.php';
-	include_once '../classes/Customer.php';
-	include_once '../db/connection.php';
-	require '../vendor/autoload.php';
+	include '../classes/Customer.php';
+
 	$details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);
 
 	$firstname = $details ? $details['C_fname'] : '';
@@ -37,70 +36,55 @@
 		}
 
 	}
-
-	// dump($details);
-
 ?>
 
 <?php include '../layouts/header.php';?>
 
-<section class="your-details-main">
-    <form class="your-details-form" action="<?=$_SERVER['PHP_SELF']?>" method="post">
-        <div class="head">
-            <h1>Your Details</h1>
-            <?php if (isset($success)): ?>
-            <p class="green-text">Updated successfully</p>
-            <?php elseif (isset($failure)): ?>
-            <p class="red-text">Something went wrong, please try again later</p>
-            <?php endif?>
+<div class="your-details-main">
+    <form class="form your-details-form" action="<?=$_SERVER['PHP_SELF']?>" method="post">
+        <?php if (isset($success)): ?>
+        <div class="toast success">
+            🚀 Updated successfully
         </div>
-        <div class="row1">
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="firstname" required value="<?=htmlspecialchars($firstname)?>" />
+        <?php endif?>
+        <h1>Your Details</h1>
+        <div class="fields-wrapper">
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="firstname" required value="<?=htmlspecialchars($firstname)?>" />
                 <span class="floating-label">First name</span>
+                <p><?=$errors['firstname'] ?? ''?></p>
             </div>
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="lastname" required value="<?=htmlspecialchars($lastname)?>" />
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="lastname" required value="<?=htmlspecialchars($lastname)?>" />
                 <span class="floating-label">Last name</span>
+                <p><?=$errors['lastname'] ?? ''?></p>
             </div>
-        </div>
-        <div class="row1">
-            <p><?=$errors['firstname'] ?? ''?></p>
-            <p><?=$errors['lastname'] ?? ''?></p>
-        </div>
-        <div class="row2">
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="housename" required value="<?=htmlspecialchars($housename)?>" />
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="housename" required value="<?=htmlspecialchars($housename)?>" />
                 <span class="floating-label">House name</span>
+                <p><?=$errors['housename'] ?? ''?></p>
             </div>
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="city" required value="<?=htmlspecialchars($city)?>" />
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="city" required value="<?=htmlspecialchars($city)?>" />
                 <span class="floating-label">City</span>
+                <p><?=$errors['city'] ?? ''?></p>
             </div>
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="district" required value="<?=htmlspecialchars($district)?>" />
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="district" required value="<?=htmlspecialchars($district)?>" />
                 <span class="floating-label">District</span>
+                <p><?=$errors['district'] ?? ''?></p>
             </div>
-        </div>
-        <div class="row2">
-            <p><?=$errors['housename'] ?? ''?></p>
-            <p><?=$errors['city'] ?? ''?></p>
-            <p><?=$errors['district'] ?? ''?></p>
-        </div>
-        <div class="row1">
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="pincode" required value="<?=htmlspecialchars($pincode)?>" />
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="pincode" required value="<?=htmlspecialchars($pincode)?>" />
                 <span class="floating-label">Pincode</span>
+                <p><?=$errors['pincode'] ?? ''?></p>
             </div>
-            <div style="position:relative">
-                <input type="text" class="form-textfield-with-label" name="phno" required value="<?=htmlspecialchars($phno)?>" />
-                <span class="floating-label">Phone number</span>
+            <div class="input-textfield">
+                <input type="text" class="form-textfield" name="phno" required value="<?=htmlspecialchars($phno)?>" />
+                <span class="floating-label">Phone</span>
+                <p><?=$errors['phno'] ?? ''?></p>
             </div>
-        </div>
-        <div class="row1">
-            <p><?=$errors['pincode'] ?? ''?></p>
-            <p><?=$errors['phno'] ?? ''?></p>
         </div>
         <button type="submit" name="submit">UPDATE</button>
     </form>
-</section>
+</div>
