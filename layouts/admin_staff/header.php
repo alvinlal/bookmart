@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <header>
+    <header class="has-shadow">
         <nav>
             <a href="<?php $userType == "/staff" ? "/staff" : "/admin"?>"><img src="/public/images/brand.svg" /></a>
         </nav>
@@ -64,7 +64,7 @@
         document.getElementById("staffs-link").classList.add('highlighted');
     } else if (currentPage === "/customers.php") {
         document.getElementById("customers-link").classList.add('highlighted');
-    } else if (currentPage === "/vendors/") {
+    } else if (currentPage === "/vendors/" || currentPage === "/vendors/add_vendor.php") {
         document.getElementById("vendors-link").classList.add('highlighted');
     } else if (currentPage === "/purchases/") {
         document.getElementById("purchase-link").classList.add('highlighted');

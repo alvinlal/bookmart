@@ -2,8 +2,13 @@
 2. Try to replace the cart image in header with a ::before pseudo selector.
 3. checkout data- attribute on elements and selecting it on javascript(on header and dropdowns).
 4. Fix transition bug on my account and item dropdown
-5. Remove unneccessary display:flex's , try to use display:block and inline block etc
+5. Remove unneccessary display:flex's , learn try to use display:block and inline block etc
 6. Optimize css as much as possible
 7. Configure rds to allow ip from heroku and local only
 8. Index numeric id fields , add int id to tbl_login
 9. Add db connection and query error checking
+10. Add forgot password with twilio sendgrid
+11. Add phpmvc
+12. Add type safety
+13. make svg's inline
+14. either execute all pdo statements with bound variable or positional values
