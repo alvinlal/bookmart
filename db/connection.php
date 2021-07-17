@@ -1,6 +1,23 @@
 <?php
 
-// TODO: add error checking
+// global exception handler
+function exceptionHandler($exception) {
+	if (getenv("ENV") == "development") {
+		ob_clean();
+		echo $exception->getMessage() . "</br>";
+		echo "on line " . $exception->getLine() . "</br>";
+		echo "at file " . $exception->getFile();
+		echo "</br></br> stack trace </br>";
+		echo "<pre>" . $exception->getTraceAsString() . "</pre>";
+		exit();
+	} else {
+		header("Location:/error.html");
+		exit();
+	}
+}
+
+set_exception_handler("exceptionHandler");
+
 $dbhost = getenv("DB_HOST");
 $dbport = getenv("DB_PORT");
 $dbname = getenv("DB_NAME");
@@ -13,9 +30,6 @@ $pdo = new PDO($dsn, $username, $password, array(
 	PDO::MYSQL_ATTR_SSL_CA => getenv('CA_PATH'),
 ));
 
-// db functions
-// TODO: add error checking
-
 function exists(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
@@ -25,6 +39,7 @@ function exists(string $sql, array $args = []) {
 		return false;
 	}
 	return true;
+
 }
 
 function insert(string $sql, array $args = []) {
@@ -37,6 +52,7 @@ function update(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
 	return $stmt->execute($args);
+
 }
 
 function selectOne(string $sql, array $args = []) {
