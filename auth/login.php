@@ -26,17 +26,17 @@
 	}
 ?>
 <?php include "../layouts/header.php";?>
-<form class="auth-form" action="<?=$_SERVER['PHP_SELF']?>" method="post">
+<form class="auth-form login" action="<?=$_SERVER['PHP_SELF']?>" method="post">
     <h1>Login</h1>
-    <div class="success"></div>
-    <div class="form-textfield">
+    <div class="empty-space"></div>
+    <div class="auth-form-textfield">
         <img src="/public/images/email.svg" />
         <input type="email" placeholder="Email" name="email" value="<?=htmlspecialchars($_POST['email'] ?? '')?>" />
     </div>
     <div class="error-div-email">
         <?=$errors['email'] ?? ''?>
     </div>
-    <div class="form-textfield">
+    <div class="auth-form-textfield">
         <img src="/public/images/lock.svg" />
         <input type="password" placeholder="password" name="password" value="<?=htmlspecialchars($_POST['password'] ?? '')?>" />
     </div>
