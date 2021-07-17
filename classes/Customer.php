@@ -44,11 +44,14 @@ class Customer {
 		if (empty($this->password)) {
 			array_push($errors['password'], "Password is required");
 		} else {
-			if (!preg_match('/^[a-zA-Z0-9]+$/', $this->password)) {
-				array_push($errors['password'], "Password must contain only letters and numbers");
+			if (!preg_match('/^[a-zA-Z0-9!@#$%^&*]+$/', $this->password)) {
+				array_push($errors['password'], "Password must contain only letters, numbers and special characters");
 			}
 			if (strlen($this->password) < 6) {
 				array_push($errors['password'], "Password must contain atleast six characters");
+			}
+			if (strlen($this->password) > 60) {
+				array_push($errors['password'], "Password must contain atmost 60 characters");
 			}
 		}
 		// check if password and confirmpassword is same
@@ -88,19 +91,19 @@ class Customer {
 			'phno' => '',
 		];
 
-		if (!preg_match('/^[a-zA-Z ]{1,25}$/', trim($this->firstname))) {
+		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->firstname))) {
 			$errors['firstname'] = "Invalid firstname";
 		}
-		if (!preg_match('/^[a-zA-Z ]{1,25}$/', trim($this->lastname))) {
+		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->lastname))) {
 			$errors['lastname'] = "Invalid lastname";
 		}
-		if (!preg_match('/^[a-zA-Z0-9 ]{1,20}$/', trim($this->housename))) {
+		if (!preg_match('/^[a-zA-Z0-9 ]{1,30}$/', trim($this->housename))) {
 			$errors['housename'] = "Invalid housename";
 		}
-		if (!preg_match('/^[a-zA-Z]{1,20}$/', trim($this->city))) {
+		if (!preg_match('/^[a-zA-Z]{1,30}$/', trim($this->city))) {
 			$errors['city'] = "Invalid city";
 		}
-		if (!preg_match('/^[a-zA-Z]{1,20}$/', trim($this->district))) {
+		if (!preg_match('/^[a-zA-Z]{1,30}$/', trim($this->district))) {
 			$errors['district'] = "Invalid district";
 		}
 		if (!preg_match('/^[0-9]{6,6}$/', trim($this->pincode))) {
@@ -114,15 +117,30 @@ class Customer {
 	}
 
 	public function updateDetails($alreadyExists) {
-		if ($alreadyExists) {
-			return update("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
-				trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
+		try {
+			if ($alreadyExists) {
+				update("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
+					trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
+				]);
+				return true;
+			}
+			insert('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno) VALUES (?,?,?,?,?,?,?,?)', [
+				$_SESSION['username'], trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
 			]);
+			return true;
+		} catch (PDOException $e) {
+			return false;
 		}
-		return insert('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno)
-		VALUES (?,?,?,?,?,?,?,?)', [
-			$_SESSION['username'], trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
-		]);
+	}
+
+	public static function currentDetails() {
+		try {
+			$details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);
+			return $details;
+
+		} catch (PDOException $e) {
+			// set $this->error here
+		}
 	}
 
 	public function getUserType() {
