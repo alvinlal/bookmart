@@ -73,7 +73,7 @@ class Customer {
 	}
 
 	public function signup() {
-		return insert('INSERT INTO tbl_Login (Username,User_type,Password) VALUES(:Username,:User_type,:Password)', [
+		return query('INSERT INTO tbl_Login (Username,User_type,Password) VALUES(:Username,:User_type,:Password)', [
 			'Username' => trim($this->email),
 			'User_type' => "customer",
 			'Password' => password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10]),
@@ -119,12 +119,12 @@ class Customer {
 	public function updateDetails($alreadyExists) {
 		try {
 			if ($alreadyExists) {
-				update("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
+				query("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
 					trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
 				]);
 				return true;
 			}
-			insert('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno) VALUES (?,?,?,?,?,?,?,?)', [
+			query('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno) VALUES (?,?,?,?,?,?,?,?)', [
 				$_SESSION['username'], trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
 			]);
 			return true;

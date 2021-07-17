@@ -53,7 +53,7 @@ class Vendor {
 	}
 
 	public function add() {
-		insert('INSERT INTO tbl_Vendor(V_added_by,V_phno,V_email,V_name,V_city,V_district,V_pincode) VALUES(?,?,?,?,?,?,?)',
+		query('INSERT INTO tbl_Vendor(V_added_by,V_phno,V_email,V_name,V_city,V_district,V_pincode) VALUES(?,?,?,?,?,?,?)',
 			[$_SESSION['username'], $this->phno, $this->email, $this->name, $this->city, $this->district, $this->pincode]
 		);
 	}

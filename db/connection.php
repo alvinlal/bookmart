@@ -42,17 +42,10 @@ function exists(string $sql, array $args = []) {
 
 }
 
-function insert(string $sql, array $args = []) {
+function query(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
 	return $stmt->execute($args);
-}
-
-function update(string $sql, array $args = []) {
-	global $pdo;
-	$stmt = $pdo->prepare($sql);
-	return $stmt->execute($args);
-
 }
 
 function selectOne(string $sql, array $args = []) {
