@@ -34,7 +34,7 @@ function exists(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($args);
-	$row = $stmt->fetch(\PDO::FETCH_ASSOC);
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 	if (!$row) {
 		return false;
 	}
@@ -48,11 +48,18 @@ function query(string $sql, array $args = []) {
 	return $stmt->execute($args);
 }
 
+function select(string $sql, array $args = []) {
+	global $pdo;
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute($args);
+	return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function selectOne(string $sql, array $args = []) {
 	global $pdo;
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute($args);
-	return $stmt->fetch(\PDO::FETCH_ASSOC);
+	return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 ?>

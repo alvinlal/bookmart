@@ -1,7 +1,6 @@
 <?php
 
-	// add auth middlewares here
-
+	// TODO: set error handlers here
 	if (!isset($_SESSION)) {
 		session_start();
 	}
@@ -59,26 +58,26 @@
     const currentPage = window.location.pathname;
     const itemDropdown = document.querySelector(".dropdown-item-content");
     const itemDropdownArrow = document.getElementById("dropdownArrow");;
-    console.log(currentPage);
-    if (currentPage === "/admin/staffs.php") {
-        document.getElementById("staffs-link").classList.add('highlighted');
-    } else if (currentPage === "/customers.php") {
-        document.getElementById("customers-link").classList.add('highlighted');
-    } else if (currentPage === "/vendors/" || currentPage === "/vendors/add_vendor.php") {
-        document.getElementById("vendors-link").classList.add('highlighted');
-    } else if (currentPage === "/purchases/") {
-        document.getElementById("purchase-link").classList.add('highlighted');
-    } else if (currentPage === "/orders/") {
-        document.getElementById("orders-link").classList.add('highlighted');
-    } else if (currentPage === "/report/") {
-        document.getElementById("report-link").classList.add('highlighted');
-    } else if (currentPage === "/reviews/") {
-        document.getElementById("reviews-link").classList.add('highlighted');
-    } else if (currentPage === "/admin/details.php" || currentPage == "/staff/details.php") {
-        document.getElementById("my-details-link").classList.add('highlighted');
-    } else if (currentPage === "/categories/" || currentPage === "/subcategories/" || currentPage === "/authors/" || currentPage === "/publishers/" || currentPage === "/items/") {
-        document.getElementById("items-link").classList.add('highlighted-span');
-    }
+    // console.log(currentPage);
+    // if (currentPage === "/admin/staffs.php") {
+    //     document.getElementById("staffs-link").classList.add('highlighted');
+    // } else if (currentPage === "/customers.php") {
+    //     document.getElementById("customers-link").classList.add('highlighted');
+    // } else if (currentPage === "/vendors/" || currentPage === "/vendors/add_vendor.php") {
+    //     document.getElementById("vendors-link").classList.add('highlighted');
+    // } else if (currentPage === "/purchases/") {
+    //     document.getElementById("purchase-link").classList.add('highlighted');
+    // } else if (currentPage === "/orders/") {
+    //     document.getElementById("orders-link").classList.add('highlighted');
+    // } else if (currentPage === "/report/") {
+    //     document.getElementById("report-link").classList.add('highlighted');
+    // } else if (currentPage === "/reviews/") {
+    //     document.getElementById("reviews-link").classList.add('highlighted');
+    // } else if (currentPage === "/admin/details.php" || currentPage == "/staff/details.php") {
+    //     document.getElementById("my-details-link").classList.add('highlighted');
+    // } else if (currentPage === "/categories/" || currentPage === "/subcategories/" || currentPage === "/authors/" || currentPage === "/publishers/" || currentPage === "/items/") {
+    //     document.getElementById("items-link").classList.add('highlighted-span');
+    // }
 
     // To keep the dropdown arrows in hovered state
     itemDropdown.addEventListener("mouseenter", () => {

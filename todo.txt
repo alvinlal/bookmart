@@ -12,3 +12,4 @@
 12. Add type safety
 13. make svg's inline
 14. either execute all pdo statements with bound variable or positional values
+15. add event logger

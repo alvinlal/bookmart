@@ -53,9 +53,14 @@ class Vendor {
 	}
 
 	public function add() {
-		query('INSERT INTO tbl_Vendor(V_added_by,V_phno,V_email,V_name,V_city,V_district,V_pincode) VALUES(?,?,?,?,?,?,?)',
-			[$_SESSION['username'], $this->phno, $this->email, $this->name, $this->city, $this->district, $this->pincode]
+		query('INSERT INTO tbl_Vendor(V_added_by,V_phno,V_email,V_name,V_city,V_district,V_pincode,V_status) VALUES(?,?,?,?,?,?,?,?)',
+			[$_SESSION['username'], $this->phno, $this->email, $this->name, $this->city, $this->district, $this->pincode, "active"]
 		);
+	}
+
+	public function update($id) {
+		query('UPDATE tbl_Vendor SET V_name=?,V_city=?,V_district=?,V_pincode=?,V_email=?,V_phno=? WHERE V_id=?',
+			[$this->name, $this->city, $this->district, $this->pincode, $this->email, $this->phno, $id]);
 	}
 }
 

@@ -1,11 +1,11 @@
 <?php
 
-	// add auth middlewares here
-
+	// TODO: set error handlers here
 	if (!isset($_SESSION)) {
 		session_start();
 	}
 	$isLoggedIn = $_SESSION['username'] ?? false;
+
 ?>
 
 <!DOCTYPE html>

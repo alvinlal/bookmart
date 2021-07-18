@@ -20,6 +20,10 @@ input:focus {
   outline: none;
 }
 
+select:focus {
+  outline: none;
+}
+
 header {
   position: sticky;
   top: 0;
@@ -307,9 +311,7 @@ header {
   height: auto;
   width: 250px;
   background-color: white;
-  /* box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2); */
   box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
-
   border-radius: 5px;
   padding: 0px 10px 10px 10px;
 }
@@ -845,6 +847,26 @@ footer {
   margin-bottom: 32px;
 }
 
+.vendor-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.vendor-search button[type="submit"] {
+  background-color: var(--primary-color);
+  height: 40px;
+  width: 50px;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.vendor-search button[type="submit"]:hover {
+  transform: scale(1.1);
+}
+
 .panel-header-actions {
   display: flex;
   justify-content: space-between;
@@ -920,9 +942,9 @@ footer {
 }
 
 .table-actions {
-  width: 70px;
+  width: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   transition: 0.5s ease all;
 }
@@ -1042,6 +1064,69 @@ footer {
   cursor: pointer;
   transform: scale(1.1);
   font-size: 16px;
+}
+
+.dropdown-status {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-status span {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
+  color: var(--primary-color);
+  /* margin: 40px 0px 0px 20px; */
+  padding: 10px 0px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.dropdown-status span img {
+  margin-left: 5px;
+}
+.dropdown-status span:hover {
+  cursor: pointer;
+}
+
+.dropdown-status span:hover img {
+  transform: rotate(180deg);
+}
+
+.dropdown-status .dropdown-status-content {
+  display: none;
+  position: absolute;
+  left: -80%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  z-index: 1;
+  height: auto;
+  width: auto;
+  background-color: white;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.dropdown-status-content a {
+  color: var(--primary-color);
+  width: 150px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.dropdown-status-content a:hover {
+  background-color: var(--accent-color);
+}
+
+.dropdown-status:hover .dropdown-status-content {
+  display: flex;
 }
 
 .add-vendor-form {

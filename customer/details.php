@@ -88,3 +88,5 @@
         <button type="submit" name="submit">UPDATE</button>
     </form>
 </div>
+
+<?php include "../layouts/footer.php"?>
