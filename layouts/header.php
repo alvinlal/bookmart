@@ -134,8 +134,8 @@
             <div class="dropdown-item">
                 <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
-                    <a href="/customer/orders">Your Orders</a>
-                    <a href="/customer/details.php">Your Details</a>
+                    <a href="/customers/orders">Your Orders</a>
+                    <a href="/customers/details.php">Your Details</a>
                     <a href="/auth/logout.php">Logout</a>
                 </div>
             </div>
