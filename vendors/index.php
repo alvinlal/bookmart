@@ -2,10 +2,27 @@
 	include "../middlewares/isAuthenticated.php";
 	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
-	include "../layouts/admin_staff/header.php";
+
+	if (isset($_POST['submit'])) {
+		if (empty($_POST['value'])) {
+			$error = "Invalid query";
+		} else {
+			$columnMap = [
+				'Name' => 'V_name',
+				'City' => 'V_city',
+				'District' => 'V_district',
+				'Pincode' => 'V_pincode',
+				'Phone' => 'V_phno',
+				'Email' => 'V_email',
+				'Added By' => 'S_fname',
+				'Status' => 'V_status',
+			];
+		}
+	}
 
 ?>
 
+<?php include "../layouts/admin_staff/header.php";?>
 <div class="panel-main">
     <div class="panel-header">
         <div class="panel-header-actions">
@@ -13,17 +30,36 @@
             <a href="/vendors/add_vendor.php"> <img src="/public/images/add.svg" /></a>
             <img src="/public/images/exportcsv.svg" />
         </div>
-        <!-- <p id="panel-header-search-results"></p>
-        <div class="vendor-search">
-            <div class="search-bar" style="width:250px">
-                <form action="/vendors/search.php" method="POST" id="vendor-search">
-                    <input type="text" placeholder="key=value" name="query" />
-                </form>
+        <?php if (isset($error)): ?>
+        <p id="panel-header-search-results" style="color:red"><?=$error?></p>
+        <?php elseif (isset($_POST['submit'])): ?>
+        <p id="panel-header-search-results">Showing results for vendors whose <?=trim($_POST['key'])?> is <?=htmlspecialchars(trim($_POST['value']))?></p>
+        <?php endif?>
+        <form class="filter" action="<?=$_SERVER['PHP_SELF']?>" method="POST">
+            <div class="filter-input column-field">
+                <input type="text" name="key" readonly value="<?=isset($_POST['key']) ? $_POST['key'] : "City"?>" id="column-field">
+                <img src="/public/images/dropdownArrowBlue.svg" />
+                <div class="dropdown-filter">
+                    <div class="filter-item">Name</div>
+                    <div class="filter-item">City</div>
+                    <div class="filter-item">District</div>
+                    <div class="filter-item">Pincode</div>
+                    <div class="filter-item">Phone</div>
+                    <div class="filter-item">Email</div>
+                    <div class="filter-item">Added By</div>
+                    <div class="filter-item">Status</div>
+                </div>
             </div>
-            <button type="submit" form="vendor-search" name="submit">
-                <img src="/public/images/searchWhite.svg" class="search-icon" />
+            <div class="filter-input" style="font-size:25px">
+                <p>=</p>
+            </div>
+            <div class="filter-input">
+                <input type="text" name="value" id="operator-field" value="<?=isset($_POST['value']) ? htmlspecialchars($_POST['value']) : ""?>">
+            </div>
+            <button type="submit" name="submit">
+                <img src="/public/images/searchWhite.svg" />
             </button>
-        </div> -->
+        </form>
     </div>
     <div class="table">
         <div class="row header">
@@ -39,7 +75,12 @@
             <div class="cell">Actions</div>
         </div>
         <?php
-        	$stmt = $pdo->query("SELECT V_id,V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by;");
+        	if (isset($_POST['submit']) && !isset($error)) {
+        		$stmt = $pdo->prepare("SELECT V_id,V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by WHERE {$columnMap[$_POST['key']]}=?;");
+        		$stmt->execute([trim($_POST['value'])]);
+        	} else {
+        		$stmt = $pdo->query("SELECT V_id,V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by;");
+        	}
         	$i = 0;
         	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
         ?>
@@ -68,7 +109,15 @@
         </div>
         <?php endwhile?>
     </div>
-
 </div>
+
+<script>
+document.querySelectorAll(".filter-item").forEach((item) => {
+    item.addEventListener("click", () => {
+        document.getElementById("column-field").value = item.innerHTML;
+    })
+});
+</script>
+
 
 <?php include "../layouts/admin_staff/footer.php";?>

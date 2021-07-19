@@ -3,15 +3,39 @@
 	include '../middlewares/isCustomer.php';
 	include '../classes/Customer.php';
 
-	$details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);
+	// $details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);
 
-	$firstname = $details ? $details['C_fname'] : '';
-	$lastname = $details ? $details['C_lname'] : '';
-	$housename = $details ? $details['C_housename'] : '';
-	$city = $details ? $details['C_city'] : '';
-	$district = $details ? $details['C_district'] : '';
-	$pincode = $details ? $details['C_pin'] : '';
-	$phno = $details ? $details['C_phno'] : '';
+	// $firstname = $details ? $details['C_fname'] : '';
+	// $lastname = $details ? $details['C_lname'] : '';
+	// $housename = $details ? $details['C_housename'] : '';
+	// $city = $details ? $details['C_city'] : '';
+	// $district = $details ? $details['C_district'] : '';
+	// $pincode = $details ? $details['C_pin'] : '';
+	// $phno = $details ? $details['C_phno'] : '';
+
+	// if (isset($_POST['submit'])) {
+	// 	$firstname = $_POST['firstname'];
+	// 	$lastname = $_POST['lastname'];
+	// 	$housename = $_POST['housename'];
+	// 	$city = $_POST['city'];
+	// 	$district = $_POST['district'];
+	// 	$pincode = $_POST['pincode'];
+	// 	$phno = $_POST['phno'];
+
+	// 	$customer = new Customer(['firstname' => $firstname, 'lastname' => $lastname, 'housename' => $housename, 'city' => $city, 'district' => $district, 'pincode' => $pincode, 'phno' => $phno]);
+
+	// 	$errors = $customer->validateDetails();
+
+	// 	if (!array_filter($errors)) {
+	// 		$alreadyExists = $details ? $details : false;
+	// 		if ($customer->updateDetails($alreadyExists)) {
+	// 			$success = true;
+	// 		} else {
+	// 			$failure = true;
+	// 		}
+	// 	}
+
+	// }
 
 	if (isset($_POST['submit'])) {
 		$firstname = $_POST['firstname'];
@@ -23,18 +47,24 @@
 		$phno = $_POST['phno'];
 
 		$customer = new Customer(['firstname' => $firstname, 'lastname' => $lastname, 'housename' => $housename, 'city' => $city, 'district' => $district, 'pincode' => $pincode, 'phno' => $phno]);
-
 		$errors = $customer->validateDetails();
 
 		if (!array_filter($errors)) {
+			$details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);
 			$alreadyExists = $details ? $details : false;
-			if ($customer->updateDetails($alreadyExists)) {
-				$success = true;
-			} else {
-				$failure = true;
-			}
+			$customer->updateDetails($alreadyExists);
+			$success = true;
 		}
+	} else {
+		$details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);
 
+		$firstname = $details ? $details['C_fname'] : '';
+		$lastname = $details ? $details['C_lname'] : '';
+		$housename = $details ? $details['C_housename'] : '';
+		$city = $details ? $details['C_city'] : '';
+		$district = $details ? $details['C_district'] : '';
+		$pincode = $details ? $details['C_pin'] : '';
+		$phno = $details ? $details['C_phno'] : '';
 	}
 ?>
 
@@ -89,4 +119,4 @@
     </form>
 </div>
 
-<?php include "../layouts/footer.php"?>
+<?php include "../layouts/admin_staff/footer.php"?>

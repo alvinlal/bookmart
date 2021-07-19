@@ -13,3 +13,6 @@
 13. make svg's inline
 14. either execute all pdo statements with bound variable or positional values
 15. add event logger
+16. add pagination
+17. add color to svg's using css instead of using different colored svg files.
+18. find more suitable table column names
