@@ -4,20 +4,16 @@
 	include_once "../db/connection.php";
 
 	if (isset($_POST['submit'])) {
-		if (empty($_POST['value'])) {
-			$error = "Invalid query";
-		} else {
-			$columnMap = [
-				'Name' => 'V_name',
-				'City' => 'V_city',
-				'District' => 'V_district',
-				'Pincode' => 'V_pincode',
-				'Phone' => 'V_phno',
-				'Email' => 'V_email',
-				'Added By' => 'S_fname',
-				'Status' => 'V_status',
-			];
-		}
+		$columnMap = [
+			'Name' => 'V_name',
+			'City' => 'V_city',
+			'District' => 'V_district',
+			'Pincode' => 'V_pincode',
+			'Phone' => 'V_phno',
+			'Email' => 'V_email',
+			'Added By' => 'S_fname',
+			'Status' => 'V_status',
+		];
 	}
 
 ?>
@@ -30,9 +26,7 @@
             <a href="/vendors/add_vendor.php"> <img src="/public/images/add.svg" /></a>
             <img src="/public/images/exportcsv.svg" />
         </div>
-        <?php if (isset($error)): ?>
-        <p id="panel-header-search-results" style="color:red"><?=$error?></p>
-        <?php elseif (isset($_POST['submit'])): ?>
+        <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for vendors whose <?=trim($_POST['key'])?> is <?=htmlspecialchars(trim($_POST['value']))?></p>
         <?php endif?>
         <form class="filter" action="<?=$_SERVER['PHP_SELF']?>" method="POST">
@@ -54,7 +48,7 @@
                 <p>=</p>
             </div>
             <div class="filter-input">
-                <input type="text" name="value" id="operator-field" value="<?=isset($_POST['value']) ? htmlspecialchars($_POST['value']) : ""?>">
+                <input type="text" name="value" id="operator-field" value="<?=isset($_POST['value']) ? htmlspecialchars($_POST['value']) : ""?>" required>
             </div>
             <button type="submit" name="submit">
                 <img src="/public/images/searchWhite.svg" />
@@ -75,7 +69,7 @@
             <div class="cell">Actions</div>
         </div>
         <?php
-        	if (isset($_POST['submit']) && !isset($error)) {
+        	if (isset($_POST['submit'])) {
         		$stmt = $pdo->prepare("SELECT V_id,V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by WHERE {$columnMap[$_POST['key']]}=?;");
         		$stmt->execute([trim($_POST['value'])]);
         	} else {
