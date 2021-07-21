@@ -24,7 +24,8 @@
 <body>
     <header id="header">
         <nav class="left-action">
-            <a href="/"><img src="/public/images/brand.svg" /></a>
+            <a href="/"><img src="/public/images/logo.svg" class="header-logo" /></a>
+            <a href="/"><img src="/public/images/brand.svg" class="header-brand" /></a>
             <div class="dropdown-buy">
                 <span>BUY <img id="dropdownArrowBuy" src="/public/images/dropdownArrowYellow.svg" /></span>
                 <div class="dropdown-buy-content">
@@ -129,6 +130,7 @@
             <div class="dropdown-search">
             </div>
         </div>
+
         <?php if ($isLoggedIn): ?>
         <nav class="right-action">
             <div class="dropdown-item">
@@ -147,6 +149,26 @@
             <a href="/auth/signup.php" class="auth-header-btn yellow">SIGNUP</a>
         </nav>
         <?php endif?>
+
+        <div class="hamburgermenu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <nav class="sidenav">
+            <div class="close-btn">
+                &times;
+            </div>
+            <?php if ($isLoggedIn): ?>
+            <a href="/customers/orders">Your Orders</a>
+            <a href="/customers/details.php">Your Details</a>
+            <a href="/auth/logout.php">Logout</a>
+            <?php else: ?>
+            <a href="/auth/login.php">Login</a>
+            <a href="/auth/signup.php">Signup</a>
+            <a href="/all-categories.php">All categories</a>
+            <?php endif?>
+        </nav>
         <script lang="javascript">
         const currentPage = window.location.pathname;
         const buyDropdown = document.querySelector(".dropdown-buy-content");
@@ -186,7 +208,14 @@
         myAccountDropdown.addEventListener("mouseleave", () => {
             myAccountDropdownArrow.classList.remove("dropdowned");
         });
-
         <?php endif?>
+
+        // opening sidenav on click
+        document.querySelector(".hamburgermenu").addEventListener("click", () => {
+            document.querySelector(".sidenav").style.width = "60%";
+        });
+        document.querySelector(".close-btn").addEventListener("click", () => {
+            document.querySelector(".sidenav").style.width = "0px";
+        });
         </script>
     </header>

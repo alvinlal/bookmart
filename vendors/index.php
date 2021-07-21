@@ -47,12 +47,14 @@
             <div class="filter-input" style="font-size:25px">
                 <p>=</p>
             </div>
-            <div class="filter-input">
-                <input type="text" name="value" id="operator-field" value="<?=isset($_POST['value']) ? htmlspecialchars($_POST['value']) : ""?>" required>
+            <div class="search-value">
+                <div class="filter-input">
+                    <input type="text" name="value" id="operator-field" value="<?=isset($_POST['value']) ? htmlspecialchars($_POST['value']) : ""?>" required>
+                </div>
+                <button type="submit" name="submit">
+                    <img src="/public/images/searchWhite.svg" />
+                </button>
             </div>
-            <button type="submit" name="submit">
-                <img src="/public/images/searchWhite.svg" />
-            </button>
         </form>
     </div>
     <div class="table">

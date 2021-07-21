@@ -16,3 +16,4 @@
 16. add pagination
 17. add color to svg's using css instead of using different colored svg files.
 18. find more suitable table column names
+19. add build steps using gulp

@@ -15,14 +15,15 @@
     <div class="illustration-wrapper">
         <img src="public/images/bookIllustration.svg" />
     </div>
+    <div class="home-page-circle-1"></div>
+    <div class="home-page-circle-2"></div>
+    <div class="home-page-circle-3"></div>
 </section>
 
-<div class="home-page-circle-1"></div>
-<div class="home-page-circle-2"></div>
-<div class="home-page-circle-3"></div>
+
 
 <section class="home-items-section">
-    <a href="" class="book-preview">
+    <a href="#" class="book-preview">
         <img class="book-preview-coverimage" src="/public/images/covers/azk.jpg" />
         <div class="book-preview-title-author">
             <h1>Harry Potter And the Prisoner of Azkaban</h1>
