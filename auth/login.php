@@ -14,10 +14,11 @@
 		if (!array_filter($errors)) {
 			Session::setSession("username", $email);
 			Session::setSession("userType", $user->getUserType());
+			$user->addSessionToDb();
 			if ($user->getUserType() == "customer") {
 				header("location:/");
 			} else if ($user->getUserType() == "staff") {
-				header("location:/staff");
+				header("location:/orders");
 			} else {
 				header("location:/admin");
 			}

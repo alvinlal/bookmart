@@ -3,7 +3,6 @@
 // global exception handler
 function exceptionHandler($exception) {
 	if (getenv("ENV") == "development") {
-		ob_clean();
 		echo $exception->getMessage() . "</br>";
 		echo "on line " . $exception->getLine() . "</br>";
 		echo "at file " . $exception->getFile();

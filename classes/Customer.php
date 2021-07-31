@@ -30,17 +30,23 @@ class Customer {
 	}
 
 	public function validateSignUpInput(): array{
-		// errors array
 		$errors = [
 			'email' => '',
 			'password' => [],
 			'confirmPassword' => '',
 		];
-		// check for valid email
 		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
 			$errors['email'] = 'Please enter a valid email';
 		}
-		// check for valid password
+
+		if (!$errors['email']) {
+			$emailExists = exists('SELECT Username FROM tbl_Login WHERE Username = ?', [$this->email]);
+			if ($emailExists) {
+				$errors['email'] = 'Account already exists please login';
+				return $errors;
+			}
+		}
+
 		if (empty($this->password)) {
 			array_push($errors['password'], "Password is required");
 		} else {
@@ -54,19 +60,9 @@ class Customer {
 				array_push($errors['password'], "Password must contain atmost 60 characters");
 			}
 		}
-		// check if password and confirmpassword is same
+
 		if (sizeof($errors['password']) == 0 && $this->password != $this->confirmPassword) {
 			$errors['confirmPassword'] = "Passwords don't match";
-		}
-		// check if account already exists
-		if (!$errors['email']) {
-			$emailExists = exists('SELECT Username FROM tbl_Login WHERE Username = ?', [$this->email]);
-			if ($emailExists) {
-				$errors['email'] = 'Account already exists please login';
-				foreach ($errors as $key => $value) {
-					$key != 'email' && $errors[$key] = '';
-				}
-			}
 		}
 
 		return $errors;

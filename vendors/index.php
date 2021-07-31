@@ -8,7 +8,7 @@
 			'Name' => 'V_name',
 			'City' => 'V_city',
 			'District' => 'V_district',
-			'Pincode' => 'V_pincode',
+			'Pincode' => 'V_pin',
 			'Phone' => 'V_phno',
 			'Email' => 'V_email',
 			'Added By' => 'S_fname',
@@ -34,14 +34,14 @@
                 <input type="text" name="key" readonly value="<?=isset($_POST['key']) ? $_POST['key'] : "City"?>" id="column-field">
                 <img src="/public/images/dropdownArrowBlue.svg" />
                 <div class="dropdown-filter">
-                    <div class="filter-item">Name</div>
-                    <div class="filter-item">City</div>
-                    <div class="filter-item">District</div>
-                    <div class="filter-item">Pincode</div>
-                    <div class="filter-item">Phone</div>
-                    <div class="filter-item">Email</div>
-                    <div class="filter-item">Added By</div>
-                    <div class="filter-item">Status</div>
+                    <div class="filter-item" id="column-item">Name</div>
+                    <div class="filter-item" id="column-item">City</div>
+                    <div class="filter-item" id="column-item">District</div>
+                    <div class="filter-item" id="column-item">Pincode</div>
+                    <div class="filter-item" id="column-item">Phone</div>
+                    <div class="filter-item" id="column-item">Email</div>
+                    <div class="filter-item" id="column-item">Added By</div>
+                    <div class="filter-item" id="column-item">Status</div>
                 </div>
             </div>
             <div class="filter-input" style="font-size:25px">
@@ -72,10 +72,10 @@
         </div>
         <?php
         	if (isset($_POST['submit'])) {
-        		$stmt = $pdo->prepare("SELECT V_id,V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by WHERE {$columnMap[$_POST['key']]}=?;");
+        		$stmt = $pdo->prepare("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by WHERE {$columnMap[$_POST['key']]}=?;");
         		$stmt->execute([trim($_POST['value'])]);
         	} else {
-        		$stmt = $pdo->query("SELECT V_id,V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by;");
+        		$stmt = $pdo->query("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by;");
         	}
         	$i = 0;
         	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
@@ -85,7 +85,7 @@
             <div class="cell" data-title="Name"><?=htmlspecialchars($row['V_name'])?></div>
             <div class="cell" data-title="City"><?=htmlspecialchars($row['V_city'])?></div>
             <div class="cell" data-title="District"><?=htmlspecialchars($row['V_district'])?></div>
-            <div class="cell" data-title="Pincode"><?=htmlspecialchars($row['V_pincode'])?></div>
+            <div class="cell" data-title="Pincode"><?=htmlspecialchars($row['V_pin'])?></div>
             <div class="cell" data-title="Phone number"><?=htmlspecialchars($row['V_phno'])?></div>
             <div class="cell" data-title="Email"><?=htmlspecialchars($row['V_email'])?></div>
             <div class="cell" data-title="Added By"><?php echo $row['User_type'] == "staff" ? htmlspecialchars($row['S_fname']) : "admin" ?></div>
@@ -108,7 +108,7 @@
 </div>
 
 <script>
-document.querySelectorAll(".filter-item").forEach((item) => {
+document.querySelectorAll("#column-item").forEach((item) => {
     item.addEventListener("click", () => {
         document.getElementById("column-field").value = item.innerHTML;
     })

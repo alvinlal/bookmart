@@ -524,8 +524,8 @@ header {
 }
 
 .auth-form-textfield input[type="text"],
-input[type="password"],
-input[type="email"] {
+.auth-form-textfield input[type="password"],
+.auth-form-textfield input[type="email"] {
   height: 16px;
   width: 100%;
   background-color: #f1f4f8;
@@ -1061,6 +1061,14 @@ footer {
   margin-left: 10px;
 }
 
+#operator-field {
+  color: var(--primary-color);
+}
+
+.operator:hover .dropdown-filter {
+  display: flex;
+}
+
 .column-field:hover .dropdown-filter {
   display: flex;
 }
@@ -1156,7 +1164,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 240px;
+  width: auto;
   height: 40px;
   transition: 0.5s ease all;
 }
@@ -1167,6 +1175,7 @@ footer {
 }
 .panel-header-actions img {
   vertical-align: middle;
+  margin-left: 10px;
 }
 
 .panel-header-actions img {
@@ -1338,6 +1347,30 @@ footer {
   height: 80px;
 }
 
+@media screen and (max-width: 720px) {
+  .responsive-password {
+    height: auto;
+    width: 200px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .responsive-password {
+    height: 110px;
+  }
+  .responsive-error-div {
+    position: absolute;
+    display: flex;
+    height: auto;
+    width: 300px;
+    left: -20%;
+    margin-bottom: 10px;
+  }
+  .responsive-password .floating-label {
+    top: 18%;
+  }
+}
 .input-textfield p {
   color: red;
   font-size: 14px;
@@ -1350,7 +1383,7 @@ footer {
   height: 40px;
   border-radius: 5px;
   background-color: #f1f4f8;
-  padding-left: 15px;
+  padding: 0px 15px;
 }
 
 .floating-label {
@@ -1464,6 +1497,20 @@ footer {
 
 .dropdown-status:hover .dropdown-status-content {
   display: flex;
+}
+
+.default-form {
+  width: 80%;
+  min-height: 450px;
+  height: auto;
+  max-width: 600px;
+}
+
+.add-staff-form {
+  width: 80%;
+  min-height: 450px;
+  height: auto;
+  max-width: 800px;
 }
 
 .add-vendor-form {

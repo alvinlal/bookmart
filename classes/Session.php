@@ -3,6 +3,7 @@
 class Session {
 
 	public static function setSession(string $key, $value) {
+		// make http only cookies
 		if (!isset($_SESSION)) {
 			session_start();
 		}
