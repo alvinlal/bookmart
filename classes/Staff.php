@@ -15,7 +15,7 @@ class Staff {
 	private $doj;
 	private $password;
 
-	public function __construct($fname, $lname, $housename, $city, $district, $pincode, $email, $phno, $doj) {
+	public function __construct($fname, $lname, $housename, $city, $district, $pincode, $phno, $doj, $email = "", ) {
 		$this->fname = $fname;
 		$this->lname = $lname;
 		$this->housename = $housename;
@@ -25,7 +25,6 @@ class Staff {
 		$this->email = $email;
 		$this->phno = $phno;
 		$this->doj = $doj;
-
 	}
 
 	public function validateInput() {
@@ -43,11 +42,11 @@ class Staff {
 			'doj' => '',
 		];
 
-		if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+		if ($this->email && !filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
 			$errors['email'] = 'Invalid email';
 		}
 
-		if (!$errors['email']) {
+		if ($this->email && !$errors['email']) {
 			$emailExists = exists('SELECT Username FROM tbl_Login WHERE Username = ?', [$this->email]);
 			if ($emailExists) {
 				$errors['email'] = 'Email already exists';
@@ -64,10 +63,10 @@ class Staff {
 		if (!preg_match('/^[a-zA-Z0-9 ]{1,30}$/', trim($this->housename))) {
 			$errors['housename'] = "Invalid housename";
 		}
-		if (!preg_match('/^[a-zA-Z]{1,30}$/', trim($this->city))) {
+		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->city))) {
 			$errors['city'] = "Invalid city";
 		}
-		if (!preg_match('/^[a-zA-Z]{1,30}$/', trim($this->district))) {
+		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->district))) {
 			$errors['district'] = "Invalid district";
 		}
 		if (!preg_match('/^[0-9]{6,6}$/', trim($this->pincode))) {
@@ -104,8 +103,7 @@ class Staff {
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_Vendor SET V_name=?,V_city=?,V_district=?,V_pin=?,V_email=?,V_phno=? WHERE V_id=?',
-			[$this->name, $this->city, $this->district, $this->pincode, $this->email, $this->phno, $id]);
+		query('UPDATE tbl_Staff SET S_fname=?,S_lname=?,S_housename=?,S_city=?,S_district=?,S_pin=?,S_phno=?,S_doj=? WHERE Staff_id=?', [$this->fname, $this->lname, $this->housename, $this->city, $this->district, $this->pincode, $this->phno, $this->doj, $id]);
 	}
 
 	public function getPassword() {

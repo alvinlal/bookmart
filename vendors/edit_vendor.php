@@ -24,7 +24,7 @@
 			$name = $details['V_name'];
 			$city = $details['V_city'];
 			$district = $details['V_district'];
-			$pincode = $details['V_pincode'];
+			$pincode = $details['V_pin'];
 			$email = $details['V_email'];
 			$phno = $details['V_phno'];
 		} else {

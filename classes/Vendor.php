@@ -33,10 +33,10 @@ class Vendor {
 		if (!preg_match('/^[a-zA-Z ]{1,60}$/', trim($this->name))) {
 			$errors['name'] = "Invalid name";
 		}
-		if (!preg_match('/^[a-zA-Z]{1,30}$/', trim($this->city))) {
+		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->city))) {
 			$errors['city'] = "Invalid city";
 		}
-		if (!preg_match('/^[a-zA-Z]{1,30}$/', trim($this->district))) {
+		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->district))) {
 			$errors['district'] = "Invalid district";
 		}
 		if (!preg_match('/^[0-9]{6,6}$/', trim($this->pincode))) {

@@ -1017,11 +1017,14 @@ footer {
   margin-bottom: 32px;
 }
 
+#panel-header-search-results {
+  text-transform: lowercase;
+}
 .filter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 450px;
+  width: auto;
 }
 
 @media screen and (max-width: 720px) {
@@ -1050,6 +1053,7 @@ footer {
   align-items: center;
   padding: 10px;
   position: relative;
+  margin-left: 5px;
 }
 
 .operator {
@@ -1062,6 +1066,8 @@ footer {
 }
 
 #operator-field {
+  width: 80px;
+  font-size: 25px;
   color: var(--primary-color);
 }
 
@@ -1086,7 +1092,7 @@ footer {
   cursor: pointer;
 }
 
-.filter-input input[type="text"] {
+.filter-input input {
   width: 130px;
 }
 
@@ -1186,6 +1192,23 @@ footer {
   transform: scale(1.1);
   cursor: pointer;
 }
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: var(--primary-color);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0px 5px;
+}
 
 .table {
   width: 100%;
@@ -1220,11 +1243,11 @@ footer {
 }
 
 .cell {
-  padding: 6px 12px;
+  padding: 6px 8px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
-  word-wrap: break-word;
+  white-space: nowrap;
 }
 
 .row > .cell:first-child {
@@ -1345,6 +1368,29 @@ footer {
   position: relative;
   width: auto;
   height: 80px;
+}
+
+.input-checkbox {
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin-right: 100%;
+  margin-left: 10px;
+}
+
+.input-checkbox input[type="checkbox"] {
+  float: left;
+  width: 20px;
+}
+.input-checkbox input[type="checkbox"] + label {
+  display: block;
+  width: 300px;
+}
+
+.input-checkbox label {
+  margin-left: 5px;
 }
 
 @media screen and (max-width: 720px) {
@@ -1513,6 +1559,13 @@ footer {
   max-width: 800px;
 }
 
+.edit-staff-form {
+  width: 80%;
+  min-height: 450px;
+  height: auto;
+  /* max-width: 600px; */
+}
+
 .add-vendor-form {
   width: 80%;
   min-height: 450px;
@@ -1571,4 +1624,46 @@ footer {
     width: 300px;
     text-align: center;
   }
+}
+
+#spinner {
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.spinning {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.endofresults {
+  color: var(--primary-color);
+  margin: auto;
+  margin-bottom: 10px;
+  font-weight: bold;
 }

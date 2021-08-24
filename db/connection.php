@@ -28,6 +28,7 @@ $dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};";
 $pdo = new PDO($dsn, $username, $password, array(
 	PDO::MYSQL_ATTR_SSL_CA => getenv('CA_PATH'),
 ));
+$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 function exists(string $sql, array $args = []) {
 	global $pdo;
