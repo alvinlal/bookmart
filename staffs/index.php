@@ -244,6 +244,13 @@ function observerCallback(entries, observer) {
                         offset = offset + 5;
                     }
                 })
+                .catch(() => {
+                    const toast = document.createElement("div");
+                    toast.classList.add("toast-failure");
+                    toast.textContent = "⚠️Something went wrong, try again later";
+                    spinner.classList.remove("spinning");
+                    document.querySelector(".panel-main").appendChild(toast);
+                })
         }
     });
 }

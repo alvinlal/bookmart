@@ -1122,7 +1122,7 @@ footer {
 .dropdown-filter {
   display: none;
   position: absolute;
-  top: 110%;
+  top: 105%;
   left: -1px;
   height: auto;
   width: 100%;
@@ -1164,6 +1164,10 @@ footer {
 
 .hide {
   display: none;
+}
+
+.flex {
+  display: flex;
 }
 
 .panel-header-actions {
@@ -1282,18 +1286,32 @@ footer {
   .header {
     display: none;
   }
+  .table-wrapper {
+    overflow-x: none;
+    overflow-y: none;
+    padding: 0px 3px;
+  }
+  .table {
+    table-layout: fixed;
+  }
   .cell {
     display: flex;
+    height: auto;
+    width: auto;
     justify-content: space-between;
     align-items: center;
     margin: 10px auto;
     text-align: left;
     padding-left: 20px;
+    white-space: normal;
+    word-break: break-all;
   }
   .cell::before {
     content: attr(data-title) ":";
+    margin-right: 5px;
     color: var(--primary-color);
     font-weight: bold;
+    word-break: keep-all;
   }
   .row {
     padding: 0px;
@@ -1573,7 +1591,7 @@ footer {
   max-width: 600px;
 }
 
-.toast {
+.toast-success {
   position: fixed;
   left: 35px;
   bottom: 35px;
@@ -1587,11 +1605,26 @@ footer {
   opacity: 1;
   animation: fadeOut 5s linear forwards;
   z-index: 300;
-}
-
-.success {
   background-color: #07bc0c;
 }
+
+.toast-failure {
+  position: fixed;
+  left: 35px;
+  bottom: 35px;
+  width: auto;
+  height: 50px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 500;
+  padding: 15px 20px 15px 15px;
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.05);
+  opacity: 1;
+  animation: fadeOut 5s linear forwards;
+  z-index: 300;
+  background-color: red;
+}
+
 @keyframes fadeOut {
   0% {
     opacity: 0;
@@ -1614,7 +1647,7 @@ footer {
 }
 
 @media screen and (max-width: 720px) {
-  .toast {
+  .toast-success {
     position: absolute;
     left: 0;
     right: 0;
@@ -1623,6 +1656,10 @@ footer {
     margin-right: auto;
     width: 300px;
     text-align: center;
+  }
+
+  .toast-failure {
+    font-size: 12px;
   }
 }
 
@@ -1664,6 +1701,6 @@ footer {
 .endofresults {
   color: var(--primary-color);
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-weight: bold;
 }

@@ -4,9 +4,8 @@
 	include_once "../db/connection.php";
 
 	//TODO:
-	// remove value field for status
+	// try to remove value field for status
 	// add download as csv using javascript
-	// add network connection check to pagination
 
 	$columnMap = [
 		'Name' => 'V_name',
@@ -15,15 +14,15 @@
 		'Pincode' => 'V_pin',
 		'Phone' => 'V_phno',
 		'Email' => 'V_email',
-		'Added By' => 'S_fname',
+		'Added By' => 'Added_by',
 		'Status' => 'V_status',
 	];
 
 	if (isset($_GET['offset'])) {
 		if ($_GET['filter'] == "false") {
-			$rows = select("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by LIMIT 5 OFFSET ?;", [$_GET['offset']]);
+			$rows = select("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,COALESCE(S_fname,'admin') AS Added_by FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by LIMIT 5 OFFSET ?;", [$_GET['offset']]);
 		} else {
-			$rows = select("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by WHERE {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
+			$rows = select("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,COALESCE(S_fname,'admin') AS Added_by FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by HAVING {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
 		}
 		if ($rows) {
 			echo json_encode(['data' => $rows, 'end' => false]);
@@ -41,7 +40,7 @@
         <div class="panel-header-actions">
             <h1>Vendors</h1>
             <a href="/vendors/add_vendor.php"> <img src="/public/images/add.svg" /></a>
-            <img src="/public/images/exportcsv.svg" />
+            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Vendor&filter=true&key={$columnMap[$_POST['key']]}&operator={$_POST['operator']}&value={$_POST['value']}" : "/exportcsv.php?table=tbl_Vendor&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
         </div>
         <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for vendors whose <?=trim($_POST['key'])?> <?=htmlspecialchars(trim($_POST['operator']))?> <?=htmlspecialchars(trim($_POST['value']))?></p>
@@ -50,7 +49,7 @@
             <div class="filter-input column-field">
                 <input type="text" name="key" readonly value="<?=isset($_POST['key']) ? $_POST['key'] : "Firstname"?>" id="column-field">
                 <img src="/public/images/dropdownArrowBlue.svg" />
-                <div class="dropdown-filter">
+                <div class="dropdown-filter" id="column-dropdown">
                     <div class="filter-item" id="column-item">Name</div>
                     <div class="filter-item" id="column-item">City</div>
                     <div class="filter-item" id="column-item">District</div>
@@ -93,10 +92,10 @@
             </div>
             <?php
             	if (isset($_POST['submit'])) {
-            		$stmt = $pdo->prepare("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by WHERE {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
+            		$stmt = $pdo->prepare("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,COALESCE(S_fname,'admin') AS Added_by FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by HAVING {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
             		$stmt->execute([trim($_POST['value'])]);
             	} else {
-            		$stmt = $pdo->query("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by LIMIT 5;");
+            		$stmt = $pdo->query("SELECT V_id,V_name,V_city,V_district,V_pin,V_phno,V_email,V_status,COALESCE(S_fname,'admin') AS Added_by FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by LIMIT 5;");
             	}
             	$i = 0;
             	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
@@ -109,7 +108,7 @@
                 <div class="cell" data-title="Pincode"><?=htmlspecialchars($row['V_pin'])?></div>
                 <div class="cell" data-title="Phone number"><?=htmlspecialchars($row['V_phno'])?></div>
                 <div class="cell" data-title="Email"><?=htmlspecialchars($row['V_email'])?></div>
-                <div class="cell" data-title="Added By"><?php echo $row['User_type'] == "staff" ? htmlspecialchars($row['S_fname']) : "admin" ?></div>
+                <div class="cell" data-title="Added By"><?php echo $row['Added_by'] ?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
                         <span id="items-link" style='color:<?=$row['V_status'] == "active" ? "#002460" : "red"?>'><?=$row['V_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/public/images/<?=$row['V_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
@@ -127,8 +126,8 @@
             <?php endwhile?>
         </div>
         <div id="spinner"></div>
+        <!-- <p class="endofresults hide">That's All</p> -->
     </div>
-    <!-- <p class="endofresults hide">That's All</p> -->
 </div>
 
 <script>
@@ -173,9 +172,13 @@ const columnField = document.getElementById("column-field")
 const operatorDropdown = document.getElementById('operator-dropdown');
 const operatorField = document.getElementById('operator-field');
 const valueField = document.getElementById('value-field');
-const columnDropdown = document.querySelectorAll("#column-item");
+const columnItems = document.querySelectorAll("#column-item");
+const columnDropdown = document.getElementById('column-dropdown');
 
-columnDropdown.forEach((item) => {
+
+
+
+columnItems.forEach((item) => {
     item.addEventListener("click", () => {
         columnField.value = item.innerHTML;
         operatorDropdown.innerHTML = "";
@@ -192,20 +195,20 @@ columnDropdown.forEach((item) => {
                 operatorField.value = operator;
             });
         });
-
     })
 });
 
 <?php if (isset($_POST['submit'])): ?>
-columnDropdown[Object.keys(operatorMaps).indexOf('<?=$_POST['key']?>')].click();
+columnItems[Object.keys(operatorMaps).indexOf('<?=$_POST['key']?>')].click();
 document.getElementById('value-field').value = '<?=$_POST['value']?>';
 <?php else: ?>
-columnDropdown[0].click();
+columnItems[0].click();
 <?php endif?>
 
 
 
 const spinner = document.getElementById("spinner");
+const endOfResults = document.querySelector(".endofresults");
 const table = document.querySelector(".table");
 var offset = 5;
 var index = 5;
@@ -218,13 +221,13 @@ function observerCallback(entries, observer) {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             spinner.classList.add("spinning");
+
             fetch(<?=isset($_POST['submit']) ? "`/vendors?filter=true&key={$_POST['key']}&value={$_POST['value']}&operator={$_POST['operator']}&offset=" . '${offset}`' : "`/vendors?filter=false&offset=" . '${offset}`'?>)
                 .then(response => response.json())
                 .then(responseJson => {
                     spinner.classList.remove("spinning");
                     observer.unobserve(document.querySelector(".row:last-child"));
                     if (responseJson.end) {
-                        // document.querySelector(".endofresults").classList.remove("hide");
                         return;
                     } else {
                         responseJson.data.forEach((staff) => {
@@ -235,6 +238,14 @@ function observerCallback(entries, observer) {
                         offset = offset + 5;
                     }
                 })
+                .catch(() => {
+                    const toast = document.createElement("div");
+                    toast.classList.add("toast-failure");
+                    toast.textContent = "⚠️Something went wrong, try again later";
+                    spinner.classList.remove("spinning");
+                    document.querySelector(".panel-main").appendChild(toast);
+                });
+
         }
     });
 }
@@ -252,7 +263,7 @@ class Row {
             <div class="cell" data-title="Pincode">${data['V_pin']}</div>
             <div class="cell" data-title="Phone number">${data['V_phno']}</div>
             <div class="cell" data-title="Email">${data['V_email']}</div>
-            <div class="cell" data-title="status">${data['User_type']=="staff"?data[S_fname]:"admin"}</div>
+            <div class="cell" data-title="Added By">${data['Added_by']}</div>
             <div class="cell" data-title="Status">
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['V_status']=="active"?"#002460":"red"}'>${data['V_status']}<img id="dropdownArrow" src="/public/images/${data['V_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>

@@ -39,7 +39,7 @@
 
 <div class="form-main">
     <?php if (isset($success)): ?>
-    <div class="toast success">
+    <div class="toast-success">
         🚀 Vendor updated successfully
     </div>
     <?php endif?>

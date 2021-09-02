@@ -16,7 +16,7 @@
 <?php include "../layouts/admin_staff/header.php";?>
 <div class="form-main">
     <?php if (isset($success)): ?>
-    <div class="toast success">
+    <div class="toast-success">
         🚀 Vendor added successfully
     </div>
     <?php endif?>
