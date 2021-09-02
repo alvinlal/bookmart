@@ -1,11 +1,12 @@
 <?php
 	include "../middlewares/isAuthenticated.php";
-	include "../middlewares/isAdmin.php";
+	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
 
 	//TODO:
 	// remove value field for status
 	// add download as csv using javascript
+	// add network connection check to pagination
 
 	$columnMap = [
 		'Name' => 'V_name',
