@@ -22,3 +22,4 @@
 23. Remove table column maping (using alias's or something).
 24. Improve code reusability (on phpmvc framework).
 25. Try to implement single user table architecture.
+26. Allow phone numbers from any country.
