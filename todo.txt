@@ -20,3 +20,4 @@
 21. difference between client key, client certificate , authority certificate in db ssl auth
 22. Add cache busting
 23. Remove table column maping (using alias's or something)
+24. Improve code reusability (on phpmvc framework)
