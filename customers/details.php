@@ -38,7 +38,7 @@
 
 <div class="your-details-main">
     <?php if (isset($success)): ?>
-    <div class="toast success">
+    <div class="toast-success">
         🚀 Updated successfully
     </div>
     <?php endif?>
