@@ -3,10 +3,6 @@
 	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
 
-	//TODO:
-	// try to remove value field for status
-	// add download as csv using javascript
-
 	$columnMap = [
 		'Name' => 'V_name',
 		'City' => 'V_city',
