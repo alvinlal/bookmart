@@ -130,3 +130,6 @@ FOREIGN KEY (Username) REFERENCES tbl_Login(Username)
 );
 
 INSERT INTO tbl_Staff (Username,S_fname,S_lname,S_housename,S_city,S_district,S_pin,S_phno,S_doj) VALUES("[staff@bookmart.com](mailto:staff@bookmart.com)","alex","hunter","aston villa","puthencruze","ernakulam",682310,9207248664,"18/01/2001");
+
+SELECT Cust_id,COALESCE(C_fname,'Not Provided') AS C_fname,COALESCE(C_lname,'Not Provided') AS C_lname,COALESCE(C_housename,'Not Provided') AS C_housename,COALESCE(C_city,'Not Provided') AS C_city,COALESCE(C_district,'Not Provided') AS C_district,COALESCE(C_pin,'Not Provided') AS C_pin,COALESCE(C_phno,'Not Provided') AS C_phno,tbl_Login.Username,User_status FROM tbl_Login LEFT JOIN tbl_Customer ON tbl_Login.Username=tbl_Customer.Username WHERE User_type='customer' ;
+
