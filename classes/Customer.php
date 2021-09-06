@@ -129,6 +129,11 @@ class Customer {
 		}
 	}
 
+	public function update($id) {
+		// try to combine updateDetails by user and update by admin into one
+		query('UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Cust_id=?', [$this->firstname, $this->lastname, $this->housename, $this->city, $this->district, $this->pincode, $this->phno, $id]);
+	}
+
 	public static function currentDetails() {
 		try {
 			$details = selectOne('SELECT * FROM tbl_Customer WHERE Username=?', [$_SESSION['username']]);

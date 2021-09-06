@@ -1581,7 +1581,12 @@ footer {
   width: 80%;
   min-height: 450px;
   height: auto;
-  /* max-width: 600px; */
+}
+
+.edit-customer-form {
+  width: 60%;
+  min-height: 450px;
+  height: auto;
 }
 
 .add-vendor-form {
