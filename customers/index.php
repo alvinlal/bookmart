@@ -1,6 +1,6 @@
 <?php
 	include "../middlewares/isAuthenticated.php";
-	include "../middlewares/isAdmin.php";
+	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
 
 	$columnMap = [
