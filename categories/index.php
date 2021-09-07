@@ -8,6 +8,20 @@
 		'Status' => 'Cat_status',
 	];
 
+	if (isset($_GET['q'])) {
+
+		$query = $_GET['q'] . '%';
+
+		$results = select("SELECT Cat_name,Cat_id FROM tbl_Category WHERE Cat_name LIKE :query", ['query' => $query]);
+
+		if ($results) {
+			echo json_encode(['data' => $results, 'results' => true]);
+		} else {
+			echo json_encode(['data' => [], 'results' => false]);
+		}
+		die();
+	}
+
 	if (isset($_GET['offset'])) {
 		if (!isset($_GET['filter']) || $_GET['filter'] == "false") {
 			$rows = select("SELECT Cat_id,Cat_name,Cat_status FROM tbl_Category LIMIT 5 OFFSET ?;", [$_GET['offset']]);

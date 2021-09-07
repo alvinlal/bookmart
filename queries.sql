@@ -13,12 +13,13 @@ Cat_status ENUM("active","deleted")  DEFAULT 'active',
 PRIMARY KEY (categoryId )
 );
 
-CREATE TABLE tbl_subCategory(
-subCategoryId INT NOT NULL AUTO_INCREMENT,
-subCategoryName VARCHAR(20),
-categoryId INT NOT NULL,
-PRIMARY KEY(subCategoryId),
-FOREIGN KEY (categoryId) REFERENCES tbl_category(categoryId)
+CREATE TABLE tbl_SubCategory(
+SubCat_Id INT NOT NULL AUTO_INCREMENT,
+SubCat_name VARCHAR(20),
+Cat_id INT NOT NULL,
+SubCat_status ENUM("active","deleted")  DEFAULT 'active',
+PRIMARY KEY(SubCat_Id),
+FOREIGN KEY (Cat_id) REFERENCES tbl_Category(Cat_id)
 );
 
 INSERT INTO tbl_Category(categoryName) VALUES
@@ -34,35 +35,92 @@ INSERT INTO tbl_Category(categoryName) VALUES
 ("Home & garden")
 ;
 
-INSERT INTO tbl_subCategory(subCategoryName,categoryId) VALUES
-("Television",1),
-("Laptops",1),
-("Cameras",1),
-("Printers",1),
-("Scanners",1),
-("HeadPhones",1),
-("HeadSets",1),
-("Speakers",1),
-("Keyboards",1),
-("Mouse",1),
-("SmartWatch",1),
-("Microphones",1)
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Art History",1),
+("Calligraphy",1),
+("Drawing",1),
+("Fashion",1),
+("Films",1)
 ;
 
-INSERT INTO tbl_subCategory(subCategoryName,categoryId) VALUES
-("Bed",2),
-("Computer table",2),
-("Bedside table",2),
-("Sofa's",2),
-("Chair's",2),
-("Dining table",2),
-("Shelf",2),
-("Drawers",2),
-("Vegetable cutter",2),
-("Portable tables",2),
-("Benches",2),
-("Study tables",2)
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Ethnic & Cultural",2),
+("Historical",2),
+("Leaders & Notable people",2),
+("Scientists",2),
+("Artists",2)
 ;
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("DC Comics",3),
+("Marvel Comics",3),
+("Fantasy",3),
+("Manga",3),
+("Sci-fi",3)
+;
+
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Question Banks",4),
+("Encyclopedia",4),
+("Study Guides",4),
+("Law Practise",4),
+("Textbooks",4)
+;
+
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Romance",5),
+("Humour",5),
+("Fictional",5),
+("Mystery",5),
+("Thrillers",5)
+;
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("African",6),
+("Ancient",6),
+("Asian",6),
+("World War",6),
+("Indian",6)
+;
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Meditation",7),
+("Yoga",7),
+("Mental Well Being",7),
+("Habits",7),
+("Anger Management",7)
+;
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Electronics",8),
+("Programming",8),
+("Databases",8),
+("Tech Industry",8),
+("Software Development",8)
+;
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Antiques & Crafts",9),
+("Clay",9),
+("Collecting",9),
+("Fashion",9),
+("Jewellery",9)
+;
+
+INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES
+("Architecture",10),
+("Flowers",10),
+("Fruits",10),
+("Home decorating",10),
+("Interior designing",10)
+;
+
+
+
+
+
 
 CREATE TABLE tbl_Login(
 Username VARCHAR(255),

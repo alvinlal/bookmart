@@ -27,3 +27,5 @@
 28. Make the column value's and variable names the same
 29. die or exit after every redirect using header().
 30. Add to table by plus sign on side of table and directly entering to bottom of table.
+31. Try to use graph database (neo4j) for managing categories and sub-categories.
+32. Add auto scroll to table row using link url param

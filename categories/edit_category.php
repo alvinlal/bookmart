@@ -8,7 +8,7 @@
 	if (isset($_POST['submit'])) {
 		$catname = $_POST['catname'];
 		$category = new Category($catname);
-		$errors = $category->validateInput();
+		$errors = $category->validateInput(true);
 		if (!array_filter($errors)) {
 			$category->update($id);
 			$success = true;

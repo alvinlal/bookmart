@@ -361,6 +361,49 @@ header {
   display: flex;
 }
 
+.dropdown-datalist {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-datalist .dropdown-datalist-content {
+  display: none;
+  position: absolute;
+  top: 50%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  z-index: 1;
+  height: auto;
+  max-height: 250px;
+  width: 200px;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 3px;
+  padding-bottom: 10px;
+  border: 1px solid #969191;
+  overflow-y: auto;
+}
+
+.dropdown-datalist-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #6b727a;
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+  padding-left: 15px;
+  border-radius: 5px;
+}
+
+.dropdown-datalist-item:hover {
+  cursor: pointer;
+  background-color: var(--accent-color);
+}
+
 .auth-header-btn {
   display: flex;
   flex-direction: row;
@@ -1388,6 +1431,25 @@ footer {
   height: 80px;
 }
 
+.input-datalist {
+  position: relative;
+  width: auto;
+  height: 80px;
+}
+
+.input-datalist p {
+  color: red;
+  font-size: 14px;
+  padding: 5px 15px;
+  margin-bottom: 25px;
+}
+
+@media screen and (max-width: 720px) {
+  .input-datalist {
+    margin-left: 0px !important;
+  }
+}
+
 .input-checkbox {
   display: block;
   display: flex;
@@ -1450,6 +1512,15 @@ footer {
   padding: 0px 15px;
 }
 
+.form-datalist {
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: white;
+  padding: 0px 15px;
+  border: 1px solid #969191;
+}
+
 .floating-label {
   position: absolute;
   pointer-events: none;
@@ -1464,8 +1535,29 @@ footer {
   border-radius: 5px;
 }
 
+.floating-label-datalist {
+  position: absolute;
+  pointer-events: none;
+  top: 25%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #6b727a;
+  transition: 0.2s ease all;
+  background-color: white;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
 .form-textfield:focus ~ .floating-label,
 .form-textfield:not(:focus):valid ~ .floating-label {
+  top: 0px;
+  left: 10px;
+  font-size: 12px;
+}
+
+.form-datalist:focus ~ .floating-label-datalist,
+.form-datalist:not(:focus):valid ~ .floating-label-datalist {
   top: 0px;
   left: 10px;
   font-size: 12px;
@@ -1577,18 +1669,6 @@ footer {
   max-width: 800px;
 }
 
-.edit-staff-form {
-  width: 80%;
-  min-height: 450px;
-  height: auto;
-}
-
-.edit-customer-form {
-  width: 60%;
-  min-height: 450px;
-  height: auto;
-}
-
 .add-vendor-form {
   width: 80%;
   min-height: 450px;
@@ -1601,6 +1681,24 @@ footer {
   min-height: 350px;
   height: auto;
   max-width: 400px;
+}
+
+.add-subcategory-form {
+  width: 80%;
+  min-height: 350px;
+  height: auto;
+  max-width: 800px;
+}
+.edit-staff-form {
+  width: 80%;
+  min-height: 450px;
+  height: auto;
+}
+
+.edit-customer-form {
+  width: 60%;
+  min-height: 450px;
+  height: auto;
 }
 
 .toast-success {
@@ -1687,8 +1785,25 @@ footer {
   width: 80px;
   height: 80px;
   margin: 0 auto;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
+  -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
+}
+
+#spinner-datalist {
+  position: absolute;
+}
+
+.spinning-datalist {
+  top: 13%;
+  left: 85%;
+  height: 20px;
+  width: 20px;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  margin: 0 auto;
+  animation: spin 2s linear infinite;
+  background-color: white;
 }
 
 /* Safari */

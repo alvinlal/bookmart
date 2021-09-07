@@ -10,8 +10,7 @@ class Category {
 		$this->catname = $catname;
 	}
 
-	public function validateInput() {
-		global $pdo;
+	public function validateInput($isEditing = false) {
 		$errors = [
 			'catname' => '',
 		];
@@ -20,7 +19,7 @@ class Category {
 			$errors['catname'] = "Invalid category name";
 		}
 
-		if (!$errors['catname']) {
+		if (!$errors['catname'] && !$isEditing) {
 			$categoryExists = exists('SELECT Cat_id FROM tbl_Category WHERE Cat_name=?', [$this->catname]);
 
 			if ($categoryExists) {
@@ -33,12 +32,12 @@ class Category {
 
 	public function add() {
 		query('INSERT INTO tbl_Category(Cat_name) VALUES(?)',
-			[$this->catname]
+			[strtolower($this->catname)]
 		);
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_Category SET Cat_name=?  WHERE Cat_id=?', [$this->catname, $id]);
+		query('UPDATE tbl_Category SET Cat_name=?  WHERE Cat_id=?', [strtolower($this->catname), $id]);
 	}
 
 }
