@@ -26,3 +26,4 @@
 27. Remove redundand code for editing and updateing customer by user and admin
 28. Make the column value's and variable names the same
 29. die or exit after every redirect using header().
+30. Add to table by plus sign on side of table and directly entering to bottom of table.

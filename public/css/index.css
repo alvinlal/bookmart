@@ -296,8 +296,8 @@ header {
   justify-content: center;
   align-items: center;
   color: var(--primary-color);
-  margin: 40px 0px 0px 20px;
-  padding-bottom: 40px;
+  margin: 40px 0px 35px 20px;
+  /* padding-bottom: 40px; */
   font-weight: bold;
   white-space: nowrap;
 }
@@ -1594,6 +1594,13 @@ footer {
   min-height: 450px;
   height: auto;
   max-width: 600px;
+}
+
+.add-category-form {
+  width: 80%;
+  min-height: 350px;
+  height: auto;
+  max-width: 400px;
 }
 
 .toast-success {

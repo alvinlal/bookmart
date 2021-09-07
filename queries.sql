@@ -4,9 +4,12 @@ SELECT * FROM tbl_Login;
 
 SELECT * FROM tbl_Staff WHERE S_fname !="alvin";
 
+ALTER TABLE tbl_Category RENAME COLUMN  Cat_Name TO Cat_name;
+
 CREATE TABLE tbl_category(
-categoryId INT NOT NULL AUTO_INCREMENT,
-categoryName VARCHAR(20),
+Cat_id INT NOT NULL AUTO_INCREMENT,
+Cat_Name VARCHAR(20),
+Cat_status ENUM("active","deleted")  DEFAULT 'active',
 PRIMARY KEY (categoryId )
 );
 
@@ -18,19 +21,17 @@ PRIMARY KEY(subCategoryId),
 FOREIGN KEY (categoryId) REFERENCES tbl_category(categoryId)
 );
 
-INSERT INTO tbl_category(categoryName) VALUES
-("Electronics"),
-("Furnitures"),
-("Groceries"),
-("Health care"),
-("Movies"),
-("Music"),
-("Software"),
-("Games"),
-("Toys"),
-("Office supply"),
-("Utensils"),
-("Stationary")
+INSERT INTO tbl_Category(categoryName) VALUES
+("Art & Music"),
+("Biographies"),
+("Comics"),
+("Education"),
+("Novels"),
+("History"),
+("Self-help"),
+("Technology"),
+("Hobbies & crafts"),
+("Home & garden")
 ;
 
 INSERT INTO tbl_subCategory(subCategoryName,categoryId) VALUES
