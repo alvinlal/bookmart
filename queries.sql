@@ -22,6 +22,16 @@ PRIMARY KEY(SubCat_Id),
 FOREIGN KEY (Cat_id) REFERENCES tbl_Category(Cat_id)
 );
 
+
+CREATE TABLE tbl_Author(
+    Author_id INT NOT NULL AUTO_INCREMENT,
+    A_name VARCHAR(30),
+    A_status ENUM("active","deleted")  DEFAULT 'active',
+    A_description VARCHAR(200) NOT NULL,
+PRIMARY KEY(Author_id),
+);
+
+
 INSERT INTO tbl_Category(categoryName) VALUES
 ("Art & Music"),
 ("Biographies"),
