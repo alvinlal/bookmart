@@ -32,6 +32,19 @@ PRIMARY KEY(Author_id),
 );
 
 
+CREATE table tbl_Publisher(
+Publisher_id INT NOT NULL AUTO_INCREMENT,
+P_phno NUMERIC(10) NOT NULL ,
+P_email VARCHAR(50) NOT NULL ,
+P_name VARCHAR(60) NOT NULL,
+P_city VARCHAR(30) NOT NULL,
+P_district VARCHAR(30) NOT NULL,
+P_pin VARCHAR(6) NOT NULL,
+P_status ENUM('active','deleted') DEFAULT 'active',
+PRIMARY KEY(Publisher_id)
+
+);
+
 INSERT INTO tbl_Category(categoryName) VALUES
 ("Art & Music"),
 ("Biographies"),
