@@ -30,7 +30,7 @@
         <div class="panel-header-actions">
             <h1>Authors</h1>
             <a href="/authors/add_author.php"> <img src="/public/images/add.svg" /></a>
-            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Author&filter=true&key={$columnMap[$_POST['key']]}&operator={$_POST['operator']}&value={$_POST['value']}" : "/exportcsv.php?table=tbl_Author&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
+            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Author&filter=true&key={$columnMap[$_POST['key']]}&operator={$_POST['operator']}&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Author&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
         </div>
         <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for authors whose <?=trim($_POST['key'])?> <?=htmlspecialchars(trim($_POST['operator']))?> <?=htmlspecialchars(trim($_POST['value']))?></p>
