@@ -21,7 +21,7 @@ $fh = fopen('php://output', 'w');
 if ($_GET['filter'] == "true") {
 	// use a query map to get the correct query for different tables
 	$stmt = $pdo->prepare("SELECT * FROM {$_GET['table']} WHERE {$_GET['key']}{$_GET['operator']}?");
-	$stmt->execute([$_GET['value']]);
+	$stmt->execute([urldecode($_GET['value'])]);
 } else {
 	$stmt = $pdo->prepare("SELECT * FROM {$_GET['table']}");
 	$stmt->execute([]);
