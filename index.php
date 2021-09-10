@@ -68,7 +68,7 @@
         </div>
     </a>
     <a class="book-preview">
-        <img class="book-preview-coverimage" src="/public/images/covers/sherlock.jpg" />
+        <img class="book-preview-coverimage" src="https://bookmart-site.s3.ap-south-1.amazonaws.com/covers/sherlock.jpg" />
         <div class="book-preview-title-author">
             <h1>Sherlock Holmes - A Study In Pink</h1>
             <p>By <span>Authur Conan Doyle</span></p>
