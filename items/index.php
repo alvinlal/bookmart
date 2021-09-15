@@ -14,14 +14,15 @@
 		'Stock' => 'I_stock',
 		'No of pages' => 'I_no_of_pages',
 		'Language' => 'I_language',
+		'Date Added' => 'I_date_added',
 		'Status' => 'I_status',
 	];
 
 	if (isset($_GET['offset'])) {
 		if ($_GET['filter'] == "false") {
-			$rows = select("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id LIMIT 5 OFFSET ?;", [$_GET['offset']]);
+			$rows = select("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_date_added,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id LIMIT 5 OFFSET ?;", [$_GET['offset']]);
 		} else {
-			$rows = select("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id WHERE {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
+			$rows = select("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_date_added,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id WHERE {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
 		}
 		if ($rows) {
 			echo json_encode(['data' => $rows, 'end' => false]);
@@ -58,6 +59,7 @@
                     <div class="filter-item" id="column-item">Stock</div>
                     <div class="filter-item" id="column-item">No of pages</div>
                     <div class="filter-item" id="column-item">ISBN</div>
+                    <div class="filter-item" id="column-item">Date Added</div>
                     <div class="filter-item" id="column-item">Language</div>
                     <div class="filter-item" id="column-item">Status</div>
                 </div>
@@ -93,16 +95,17 @@
                 <div class="cell">No of pages</div>
                 <div class="cell">Language</div>
                 <div class="cell">ISBN</div>
+                <div class="cell">Date Added</div>
                 <div class="cell">Description</div>
                 <div class="cell">Status</div>
                 <div class="cell">Actions</div>
             </div>
             <?php
             	if (isset($_POST['submit'])) {
-            		$stmt = $pdo->prepare("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id WHERE {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
+            		$stmt = $pdo->prepare("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_date_added,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id WHERE {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
             		$stmt->execute([trim($_POST['value'])]);
             	} else {
-            		$stmt = $pdo->query("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id LIMIT 5;");
+            		$stmt = $pdo->query("SELECT Item_id,I_title,A_name,P_name,Cat_name,SubCat_name,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_date_added,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id LIMIT 5;");
             	}
             	$i = 0;
             	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
@@ -120,6 +123,7 @@
                 <div class="cell" data-title="No of pages"><?=htmlspecialchars($row['I_no_of_pages'])?></div>
                 <div class="cell" data-title="Language"><?=htmlspecialchars($row['I_language'])?></div>
                 <div class="cell" data-title="ISBN"><?=htmlspecialchars($row['I_isbn'])?></div>
+                <div class="cell" data-title="Date Added"><?=htmlspecialchars($row['I_date_added'])?></div>
                 <div class="cell" data-title="Description">
                     <div class="dropdown-description">
                         <span>
@@ -195,6 +199,10 @@ const operatorMaps = {
         'operators': ['='],
         'inputType': 'text',
     },
+    'Date Added': {
+        'operators': ['=', '!=', '>', '<', '>=', '<='],
+        'inputType': 'date',
+    },
     'Status': {
         'operators': ['='],
         'inputType': 'text',
@@ -263,15 +271,15 @@ function observerCallback(entries, observer) {
                     if (responseJson.end) {
                         return;
                     } else {
-                        responseJson.data.forEach((staff) => {
-                            const row = new Row(staff);
+                        responseJson.data.forEach((item) => {
+                            const row = new Row(item);
                             table.appendChild(row);
                         });
                         observer.observe(document.querySelector(".row:last-child"))
                         offset = offset + 5;
                     }
                 })
-                .catch(() => {
+                .catch((err) => {
                     const toast = document.createElement("div");
                     toast.classList.add("toast-failure");
                     toast.textContent = "⚠️Something went wrong, try again later";
@@ -301,6 +309,7 @@ class Row {
             <div class="cell" data-title="No of pages">${data['I_no_of_pages']}</div>
             <div class="cell" data-title="Language">${data['I_language']}</div>
             <div class="cell" data-title="ISBN">${data['I_isbn']}</div>
+            <div class="cell" data-title="ISBN">${data['I_date_added']}</div>
             <div class="cell" data-title="Description">
                     <div class="dropdown-description">
                         <span>

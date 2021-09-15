@@ -30,7 +30,7 @@ class Publisher {
 			'phno' => '',
 		];
 
-		if (!preg_match('/^[a-zA-Z ]{1,60}$/', trim($this->name))) {
+		if (!preg_match('/^[a-zA-Z& ]{1,60}$/', trim($this->name))) {
 			$errors['name'] = "Invalid name";
 		}
 		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->city))) {

@@ -33,13 +33,13 @@ class SubCategory {
 
 	public function add() {
 		query('INSERT INTO tbl_SubCategory(SubCat_name,Cat_id) VALUES(?,?)',
-			[strtolower(trim($this->subcatname)), $this->categoryid],
+			[trim($this->subcatname), $this->categoryid],
 		);
 
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_SubCategory SET SubCat_name=?,Cat_id=?  WHERE SubCat_id=?', [strtolower(trim($this->subcatname)), $this->categoryid, $id]);
+		query('UPDATE tbl_SubCategory SET SubCat_name=?,Cat_id=?  WHERE SubCat_id=?', [trim($this->subcatname), $this->categoryid, $id]);
 	}
 
 }

@@ -126,6 +126,10 @@ const operatorMaps = {
         'operators': ['='],
         'inputType': 'text',
     },
+    'Category': {
+        'operators': ['='],
+        'inputType': 'text',
+    },
     'Status': {
         'operators': ['='],
         'inputType': 'text',

@@ -32,12 +32,12 @@ class Author {
 
 	public function add() {
 		query('INSERT INTO tbl_Author(A_name) VALUES(?)',
-			[strtolower(trim($this->authorname))]
+			[trim($this->authorname)]
 		);
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_Author SET A_name=?  WHERE Author_id=?', [strtolower(trim($this->authorname)), $id]);
+		query('UPDATE tbl_Author SET A_name=?  WHERE Author_id=?', [trim($this->authorname), $id]);
 	}
 
 }

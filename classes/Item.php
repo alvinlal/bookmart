@@ -111,7 +111,8 @@ class Item {
 
 			move_uploaded_file($this->coverimage['tmp_name'], getenv('ROOT_DIR') . '/public/images/covers/' . $uploadName);
 		}
-		query("INSERT INTO tbl_Item (I_title, Author_id,Publisher_id,SubCat_id, I_isbn, I_price, I_stock, I_no_of_pages, I_language, I_description, I_cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, $this->price, $this->stock, $this->noofpages, trim($this->language), trim($this->description), $uploadName]);
+		date_default_timezone_set("Asia/Kolkata");
+		query("INSERT INTO tbl_Item (I_title, Author_id,Publisher_id,SubCat_id, I_isbn, I_price, I_stock, I_no_of_pages, I_language, I_date_added, I_description, I_cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, $this->price, $this->stock, $this->noofpages, trim($this->language), date("Y/m/d"), trim($this->description), $uploadName]);
 	}
 
 	public function update($id) {

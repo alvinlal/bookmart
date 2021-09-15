@@ -32,12 +32,12 @@ class Category {
 
 	public function add() {
 		query('INSERT INTO tbl_Category(Cat_name) VALUES(?)',
-			[strtolower(trim($this->catname))]
+			[trim($this->catname)]
 		);
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_Category SET Cat_name=?  WHERE Cat_id=?', [strtolower(trim($this->catname)), $id]);
+		query('UPDATE tbl_Category SET Cat_name=?  WHERE Cat_id=?', [trim($this->catname), $id]);
 	}
 
 }
