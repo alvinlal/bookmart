@@ -54,13 +54,13 @@ class Publisher {
 
 	public function add() {
 		query('INSERT INTO tbl_Publisher(P_phno,P_email,P_name,P_city,P_district,P_pin) VALUES(?,?,?,?,?,?)',
-			[$this->phno, $this->email, $this->name, $this->city, $this->district, $this->pincode]
+			[$this->phno, trim($this->email), trim($this->name), trim($this->city), trim($this->district), $this->pincode]
 		);
 	}
 
 	public function update($id) {
 		query('UPDATE tbl_Publisher SET P_name=?,P_city=?,P_district=?,P_pin=?,P_email=?,P_phno=? WHERE Publisher_id=?',
-			[$this->name, $this->city, $this->district, $this->pincode, $this->email, $this->phno, $id]);
+			[trim($this->name), trim($this->city), trim($this->district), $this->pincode, trim($this->email), $this->phno, $id]);
 	}
 }
 

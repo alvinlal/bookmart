@@ -90,10 +90,10 @@ class Staff {
 		$this->generatePassword();
 		$pdo->beginTransaction();
 		try {
-			query('INSERT INTO tbl_Login(Username,User_type,password) VALUES(?,?,?)', [$this->email, "staff", password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10])]);
+			query('INSERT INTO tbl_Login(Username,User_type,password) VALUES(?,?,?)', [trim($this->email), "staff", password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10])]);
 
 			query('INSERT INTO tbl_Staff(Username,S_fname,S_lname,S_housename,S_city,S_district,S_pin,S_phno,S_doj) VALUES(?,?,?,?,?,?,?,?,?)',
-				[$this->email, $this->fname, $this->lname, $this->housename, $this->city, $this->district, $this->pincode, $this->phno, $this->doj]
+				[trim($this->email), trim($this->fname), trim($this->lname), trim($this->housename), trim($this->city), trim($this->district), trim($this->pincode), trim($this->phno), trim($this->doj)]
 			);
 			$pdo->commit();
 		} catch (PDOException $e) {
@@ -103,7 +103,7 @@ class Staff {
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_Staff SET S_fname=?,S_lname=?,S_housename=?,S_city=?,S_district=?,S_pin=?,S_phno=?,S_doj=? WHERE Staff_id=?', [$this->fname, $this->lname, $this->housename, $this->city, $this->district, $this->pincode, $this->phno, $this->doj, $id]);
+		query('UPDATE tbl_Staff SET S_fname=?,S_lname=?,S_housename=?,S_city=?,S_district=?,S_pin=?,S_phno=?,S_doj=? WHERE Staff_id=?', [trim($this->fname), trim($this->lname), trim($this->housename), trim($this->city), trim($this->district), trim($this->pincode), trim($this->phno), $this->doj, $id]);
 	}
 
 	public function getPassword() {

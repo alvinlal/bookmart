@@ -3,6 +3,20 @@
 	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
 
+	if (isset($_GET['q'])) {
+
+		$query = $_GET['q'] . '%';
+
+		$results = select("SELECT P_name AS result ,Publisher_id AS id FROM tbl_Publisher WHERE P_name LIKE :query AND P_status='active'", ['query' => $query]);
+
+		if ($results) {
+			echo json_encode(['data' => $results, 'results' => true]);
+		} else {
+			echo json_encode(['data' => [], 'results' => false]);
+		}
+		die();
+	}
+
 	$columnMap = [
 		'Name' => 'P_name',
 		'City' => 'P_city',
@@ -35,7 +49,7 @@
         <div class="panel-header-actions">
             <h1>Publishers</h1>
             <a href="/publishers/add_publisher.php"> <img src="/public/images/add.svg" /></a>
-            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Publisher&filter=true&key={$columnMap[$_POST['key']]}&operator={$_POST['operator']}&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Publisher&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
+            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Publisher&filter=true&key=" . urlencode($columnMap[$_POST['key']]) . "&operator=" . urlencode($_POST['operator']) . "&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Publisher&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
         </div>
         <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for publishers whose <?=trim($_POST['key'])?> <?=htmlspecialchars(trim($_POST['operator']))?> <?=htmlspecialchars(trim($_POST['value']))?></p>

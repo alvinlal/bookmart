@@ -36,7 +36,7 @@
     <div class="panel-header">
         <div class="panel-header-actions">
             <h1>Customers</h1>
-            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Customer&filter=true&key={$columnMap[$_POST['key']]}&operator={$_POST['operator']}&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Customer&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
+            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Customer&filter=true&key=" . urlencode($columnMap[$_POST['key']]) . "&operator=" . urlencode($_POST['operator']) . "&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Customer&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
         </div>
         <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for customers whose <?=trim($_POST['key'])?> <?=htmlspecialchars(trim($_POST['operator']))?> <?=htmlspecialchars(trim($_POST['value']))?></p>

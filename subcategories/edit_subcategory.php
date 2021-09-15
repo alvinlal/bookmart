@@ -8,7 +8,7 @@
 	if (isset($_POST['submit'])) {
 		$catname = $_POST['category'];
 		$subcatname = $_POST['subcatname'];
-		$catid = $_POST['catid'];
+		$catid = $_POST['id'];
 		$subcategory = new SubCategory($subcatname, $catid);
 		$errors = $subcategory->validateInput(true);
 		if (!array_filter($errors)) {
@@ -45,7 +45,7 @@
             <div class="dropdown-datalist">
                 <div class="input-datalist" style="margin-left:30px">
                     <input type="text" class="form-datalist" name="category" required value="<?=htmlspecialchars($catname)?>" />
-                    <input hidden type="text" name="catid" id="idfield" value="<?=htmlspecialchars($catid)?>" />
+                    <input hidden type="text" name="id" id="idfield" value="<?=htmlspecialchars($catid)?>" endpoint="categories" />
                     <span class="floating-label-datalist">Category
                     </span>
                     <div id="spinner-datalist"></div>
@@ -60,75 +60,4 @@
     </form>
 </div>
 
-<script>
-const datalists = document.querySelectorAll('.dropdown-datalist');
-var typingTimer;
-
-
-datalists.forEach(datalist => {
-    const input = datalist.querySelector('.form-datalist');
-    const dropdown = datalist.querySelector('.dropdown-datalist-content');
-    const idInput = datalist.querySelector('#idfield');
-    const spinner = datalist.querySelector('#spinner-datalist');
-    const error = datalist.querySelector('.error-holder');
-
-    input.addEventListener('keyup', (e) => {
-        spinner.classList.add('spinning-datalist');
-        submitBtn.disabled = true;
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(() => {
-            if (input.value) {
-                try {
-                    fetch(`/categories?q=${encodeURIComponent(input.value)}&table=${input.getAttribute('data-id')}`)
-                        .then(response => response.json())
-                        .then(list => {
-                            dropdown.style.display = 'flex';
-                            if (list.results) {
-                                if (error.innerHTML) {
-                                    input.style.border = "1px solid #969191";
-                                    error.innerHTML = "";
-                                }
-                                dropdown.innerHTML = '';
-                                for (let i = 0; i < list.data.length; i++) {
-                                    const div = document.createElement('div');
-                                    div.classList.add('dropdown-datalist-item');
-                                    div.innerHTML = list.data[i].Cat_name;
-                                    if (list.data[i].Cat_name.toLowerCase() == input.value.toLowerCase()) {
-                                        submitBtn.disabled = false;
-                                        dropdown.style.display = 'none';
-                                        idInput.value = list.data[i].Cat_id;
-                                        spinner.classList.remove('spinning-datalist');
-                                        break;
-                                    }
-                                    div.addEventListener('click', () => {
-                                        submitBtn.disabled = false;
-                                        input.value = list.data[i].Cat_name;
-                                        idInput.value = list.data[i].Cat_id;
-                                        console.log(idInput.value);
-                                        dropdown.style.display = 'none';
-                                    });
-                                    dropdown.appendChild(div);
-                                    spinner.classList.remove('spinning-datalist');
-                                }
-                            } else {
-                                submitBtn.disabled = true;
-                                input.style.border = "1px solid red";
-                                error.innerHTML = "No results found";
-                                dropdown.style.display = 'none';
-                                spinner.classList.remove('spinning-datalist');
-                            }
-                        });
-                } catch (error) {
-                    console.log(error);
-                }
-            } else {
-                submitBtn.disabled = true;
-                dropdown.style.display = 'none';
-                dropdown.innerHTML = '';
-                spinner.classList.remove('spinning-datalist');
-
-            }
-        }, 1000);
-    });
-});
-</script>
+<script src="/public/js/autoComplete.js" defer></script>

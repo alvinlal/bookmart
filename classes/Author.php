@@ -15,7 +15,7 @@ class Author {
 			'authorname' => '',
 		];
 
-		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->authorname))) {
+		if (!preg_match('/^[a-zA-Z ]{1,60}$/', trim($this->authorname))) {
 			$errors['authorname'] = "Invalid author name";
 		}
 
@@ -32,12 +32,12 @@ class Author {
 
 	public function add() {
 		query('INSERT INTO tbl_Author(A_name) VALUES(?)',
-			[strtolower($this->authorname)]
+			[strtolower(trim($this->authorname))]
 		);
 	}
 
 	public function update($id) {
-		query('UPDATE tbl_Author SET A_name=?  WHERE Author_id=?', [strtolower($this->authorname), $id]);
+		query('UPDATE tbl_Author SET A_name=?  WHERE Author_id=?', [strtolower(trim($this->authorname)), $id]);
 	}
 
 }

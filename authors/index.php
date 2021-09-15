@@ -8,6 +8,20 @@
 		'Status' => 'A_status',
 	];
 
+	if (isset($_GET['q'])) {
+
+		$query = $_GET['q'] . '%';
+
+		$results = select("SELECT A_name AS result,Author_id AS id FROM tbl_Author WHERE A_name LIKE :query AND A_status='active'", ['query' => $query]);
+
+		if ($results) {
+			echo json_encode(['data' => $results, 'results' => true]);
+		} else {
+			echo json_encode(['data' => [], 'results' => false]);
+		}
+		die();
+	}
+
 	if (isset($_GET['offset'])) {
 		if ($_GET['filter'] == "false") {
 			$rows = select("SELECT Author_id,A_name,A_status FROM tbl_Author LIMIT 5 OFFSET ?;", [$_GET['offset']]);
@@ -30,7 +44,7 @@
         <div class="panel-header-actions">
             <h1>Authors</h1>
             <a href="/authors/add_author.php"> <img src="/public/images/add.svg" /></a>
-            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Author&filter=true&key={$columnMap[$_POST['key']]}&operator={$_POST['operator']}&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Author&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
+            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Author&filter=true&key=" . urlencode($columnMap[$_POST['key']]) . "&operator=" . urlencode($_POST['operator']) . "&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Author&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
         </div>
         <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for authors whose <?=trim($_POST['key'])?> <?=htmlspecialchars(trim($_POST['operator']))?> <?=htmlspecialchars(trim($_POST['value']))?></p>
