@@ -18,19 +18,18 @@
 		$publisher = $_POST['publisher'];
 		$isbn = $_POST['isbn'];
 		$price = $_POST['price'];
-		$stock = $_POST['stock'];
 		$noofpages = $_POST['noofpages'];
 		$language = $_POST['language'];
 		$description = $_POST['description'];
 		$coverimage = $_FILES['coverimage'];
-		$item = new Item($title, $authorid, $subcategoryid, $publisherid, $isbn, $price, $stock, $noofpages, $language, $description, $coverimage);
+		$item = new Item($title, $authorid, $subcategoryid, $publisherid, $isbn, $price, $noofpages, $language, $description, $coverimage);
 		$errors = $item->validateInput(true);
 		if (!array_filter($errors)) {
 			$item->update($id);
 			$success = true;
 		}
 	} else {
-		$details = selectOne('SELECT Item_id,I_title,A_name,tbl_Item.Author_id,P_name,tbl_Item.Publisher_id,Cat_name,SubCat_name,tbl_Item.SubCat_id,I_cover_image,I_isbn,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id WHERE Item_id=?', [$id]);
+		$details = selectOne('SELECT Item_id,I_title,A_name,tbl_Item.Author_id,P_name,tbl_Item.Publisher_id,Cat_name,SubCat_name,tbl_Item.SubCat_id,I_cover_image,I_isbn,I_description,I_price,I_no_of_pages,I_language,I_status FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id = tbl_Category.Cat_id WHERE Item_id=?', [$id]);
 		if ($details) {
 			$title = $details['I_title'];
 			$authorid = $details['Author_id'];
@@ -41,7 +40,6 @@
 			$publisher = $details['P_name'];
 			$isbn = $details['I_isbn'];
 			$price = $details['I_price'];
-			$stock = $details['I_stock'];
 			$noofpages = $details['I_no_of_pages'];
 			$language = $details['I_language'];
 			$description = $details['I_description'];
@@ -116,11 +114,6 @@
                     <input type="text" class="form-textfield" name="price" required value="<?=htmlspecialchars($price)?>" />
                     <span class="floating-label">Price</span>
                     <p><?=$errors['price'] ?? ''?></p>
-                </div>
-                <div class="input-textfield">
-                    <input type="number" class="form-textfield" name="stock" required value="<?=htmlspecialchars($stock)?>" />
-                    <span class="floating-label">Stock</span>
-                    <p><?=$errors['stock'] ?? ''?></p>
                 </div>
                 <div class="input-textfield">
                     <input type="number" class="form-textfield" name="noofpages" required value="<?=htmlspecialchars($noofpages)?>" />

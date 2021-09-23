@@ -11,20 +11,18 @@ class Item {
 	private $publisherid;
 	private $isbn;
 	private $price;
-	private $stock;
 	private $noofpages;
 	private $language;
 	private $description;
 	private $coverimage;
 
-	public function __construct($title, $authorid, $subcategoryid, $publisherid, $isbn, $price, $stock, $noofpages, $language, $description, $coverimage) {
+	public function __construct($title, $authorid, $subcategoryid, $publisherid, $isbn, $price, $noofpages, $language, $description, $coverimage) {
 		$this->title = $title;
 		$this->authorid = $authorid;
 		$this->subcategoryid = $subcategoryid;
 		$this->publisherid = $publisherid;
 		$this->isbn = $isbn;
 		$this->price = $price;
-		$this->stock = $stock;
 		$this->noofpages = $noofpages;
 		$this->language = $language;
 		$this->description = $description;
@@ -37,7 +35,6 @@ class Item {
 			'title' => '',
 			'isbn' => '',
 			'price' => '',
-			'stock' => '',
 			'noofpages' => '',
 			'language' => '',
 			'description' => '',
@@ -61,9 +58,7 @@ class Item {
 		if (!preg_match('/^[0-9.]{1,11}$/', trim($this->price))) {
 			$errors['price'] = "Invalid price";
 		}
-		if (!preg_match('/^[0-9]+$/', trim($this->stock))) {
-			$errors['stock'] = "Invalid stock";
-		}
+
 		if (!preg_match('/^[0-9]+$/', trim($this->noofpages))) {
 			$errors['noofpages'] = "Invalid no of pages";
 		}
@@ -80,7 +75,7 @@ class Item {
 		$ext = pathinfo($this->coverimage['name'], PATHINFO_EXTENSION);
 
 		if (!$isEditing && !$errors['coverimage'] && $ext != 'jpg' && $ext != 'jpeg' && $ext != 'png' && $ext != 'webp') {
-			$errors['coverimage'] = "Image type must be jpg,png or webp";
+			$errors['coverimage'] = "Image type must be jpg,jpeg,png or webp";
 		}
 		if (!$isEditing && !$errors['coverimage'] && $this->coverimage['size'] > 5242880) {
 			$errors['coverimage'] = "File must be less than 5mb";
@@ -112,7 +107,7 @@ class Item {
 			move_uploaded_file($this->coverimage['tmp_name'], getenv('ROOT_DIR') . '/public/images/covers/' . $uploadName);
 		}
 		date_default_timezone_set("Asia/Kolkata");
-		query("INSERT INTO tbl_Item (I_title, Author_id,Publisher_id,SubCat_id, I_isbn, I_price, I_stock, I_no_of_pages, I_language, I_date_added, I_description, I_cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, $this->price, $this->stock, $this->noofpages, trim($this->language), date("Y/m/d"), trim($this->description), $uploadName]);
+		query("INSERT INTO tbl_Item (I_title, Author_id,Publisher_id,SubCat_id, I_isbn, I_price, I_no_of_pages, I_language, I_date_added, I_description, I_cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, $this->price, $this->noofpages, trim($this->language), date("Y/m/d"), trim($this->description), $uploadName]);
 	}
 
 	public function update($id) {
@@ -139,9 +134,9 @@ class Item {
 
 				move_uploaded_file($this->coverimage['tmp_name'], getenv('ROOT_DIR') . '/public/images/covers/' . $uploadName);
 			}
-			query("UPDATE tbl_Item SET I_title=?,Author_id=?,Publisher_id=?,SubCat_id=?,I_isbn=?,I_description=?,I_price=?,I_stock=?,I_no_of_pages=?,I_language=? WHERE Item_id=?", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, trim($this->description), $this->price, $this->stock, $this->noofpages, $this->language, $id]);
+			query("UPDATE tbl_Item SET I_title=?,Author_id=?,Publisher_id=?,SubCat_id=?,I_isbn=?,I_description=?,I_price=?,I_no_of_pages=?,I_language=? WHERE Item_id=?", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, trim($this->description), $this->price, $this->noofpages, $this->language, $id]);
 		} else {
-			query("UPDATE tbl_Item SET I_title=?,Author_id=?,Publisher_id=?,SubCat_id=?,I_isbn=?,I_description=?,I_price=?,I_stock=?,I_no_of_pages=?,I_language=? WHERE Item_id=?", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, trim($this->description), $this->price, $this->stock, $this->noofpages, $this->language, $id]);
+			query("UPDATE tbl_Item SET I_title=?,Author_id=?,Publisher_id=?,SubCat_id=?,I_isbn=?,I_description=?,I_price=?,I_no_of_pages=?,I_language=? WHERE Item_id=?", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, trim($this->description), $this->price, $this->noofpages, $this->language, $id]);
 		}
 
 	}
