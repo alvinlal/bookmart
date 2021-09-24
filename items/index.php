@@ -3,6 +3,20 @@
 	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
 
+	if (isset($_GET['q'])) {
+
+		$query = $_GET['q'] . '%';
+
+		$results = select("SELECT I_title AS result ,Item_id AS id FROM tbl_Item WHERE I_title LIKE :query AND I_status='active'", ['query' => $query]);
+
+		if ($results) {
+			echo json_encode(['data' => $results, 'results' => true]);
+		} else {
+			echo json_encode(['data' => [], 'results' => false]);
+		}
+		die();
+	}
+
 	$columnMap = [
 		'Title' => 'I_title',
 		'Author' => 'A_name',

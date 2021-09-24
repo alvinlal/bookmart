@@ -1,6 +1,6 @@
 const datalists = document.querySelectorAll(".dropdown-datalist");
 
-datalists.forEach(datalist => {
+function autoComplete(datalist) {
   var typingTimer;
   const input = datalist.querySelector(".form-datalist");
   const dropdown = datalist.querySelector(".dropdown-datalist-content");
@@ -68,7 +68,9 @@ datalists.forEach(datalist => {
       }
     }, 600);
   });
-});
+}
+
+datalists.forEach(datalist => autoComplete(datalist));
 
 function onSubmit() {
   const datalists = document.querySelectorAll(".dropdown-datalist");

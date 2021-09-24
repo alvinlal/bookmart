@@ -3,6 +3,20 @@
 	include "../middlewares/isAdminOrStaff.php";
 	include_once "../db/connection.php";
 
+	if (isset($_GET['q'])) {
+
+		$query = $_GET['q'] . '%';
+
+		$results = select("SELECT V_name AS result ,V_id AS id FROM tbl_Vendor WHERE V_name LIKE :query AND V_status='active'", ['query' => $query]);
+
+		if ($results) {
+			echo json_encode(['data' => $results, 'results' => true]);
+		} else {
+			echo json_encode(['data' => [], 'results' => false]);
+		}
+		die();
+	}
+
 	$columnMap = [
 		'Name' => 'V_name',
 		'City' => 'V_city',

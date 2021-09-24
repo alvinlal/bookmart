@@ -1447,6 +1447,7 @@ footer {
   .fields-wrapper {
     flex-direction: column;
     justify-content: center;
+    width: auto !important;
   }
 }
 
@@ -1544,6 +1545,11 @@ footer {
   background-color: white;
   padding: 0px 15px;
   border: 1px solid #969191;
+}
+
+.add-purchase-btn:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .floating-label {
@@ -1754,6 +1760,13 @@ footer {
   min-height: 450px;
   height: auto;
   max-width: 600px;
+}
+
+.add-purchase-form {
+  width: 90%;
+  min-height: 450px;
+  height: auto;
+  max-width: 1000px;
 }
 
 .add-category-form {

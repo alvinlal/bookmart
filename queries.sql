@@ -216,6 +216,34 @@ PRIMARY KEY (V_id),
 FOREIGN KEY (V_added_by) REFERENCES tbl_Login(Username)
 );
 
+
+
+CREATE table tbl_Purchase_master(
+Purchase_master_id INT NOT NULL AUTO_INCREMENT,
+Vendor_id INT NOT NULL ,
+Added_by VARCHAR(255) NOT NULL ,
+Total_amt DECIMAL(8,2) NOT NULL,
+Date date NOT NULL,
+PRIMARY KEY(Purchase_master_id),
+FOREIGN KEY(Vendor_id) REFERENCES tbl_Vendor(V_id),
+FOREIGN KEY(Added_by) REFERENCES tbl_Login(Username)
+);
+
+
+CREATE table tbl_Purchase_child(
+Purchase_child_id INT NOT NULL AUTO_INCREMENT,
+Purchase_master_id INT NOT NULL ,
+Item_id INT NOT NULL ,
+Purchase_price DECIMAL(8,2) NOT NULL,
+Quantity INT NOT NULL,
+Total_price DECIMAL(8,2) NOT NULL,
+Status ENUM("active","deleted") NOT NULL DEFAULT "active"
+PRIMARY KEY(Purchase_child_id),
+FOREIGN KEY(Purchase_master_id) REFERENCES tbl_Purchase_master(Purchase_master_id),
+FOREIGN KEY(Item_id) REFERENCES tbl_Item(Item_id)
+
+)
+
 SELECT V_name,V_city,V_district,V_pincode,V_phno,V_email,V_status,V_added_by,S_fname,S_lname,User_type FROM tbl_Vendor LEFT JOIN tbl_Staff ON V_added_by=Username JOIN tbl_Login ON tbl_Login.Username=V_added_by;
 
 SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,S_doj FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username;
