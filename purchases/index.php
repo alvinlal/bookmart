@@ -4,21 +4,19 @@
 	include_once "../db/connection.php";
 
 	$columnMap = [
-		'Item Name' => 'I_title',
-		'Vendor' => 'V_name',
-		'Purchase Price' => 'Purchase_price',
-		'Quantity' => 'Quantity',
-		'Total Price' => 'Total_price',
-		'Date' => 'Purchase_date',
+
 		'Purchased By' => 'Purchased_by',
+		'Total Amount' => 'Total_amt',
+		'Purchase Date' => 'Purchase_date',
+		'Vendor' => 'V_name',
 		'Status' => 'Status',
 	];
 
 	if (isset($_GET['offset'])) {
 		if ($_GET['filter'] == "false") {
-			$rows = select("SELECT Purchase_child_id,I_title,I_cover_image,V_name,Purchase_price,Quantity,Total_price,Date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username LIMIT 5 OFFSET ?;", [$_GET['offset']]);
+			$rows = select("SELECT Purchase_master_id,V_name,Purchase_date,COALESCE(S_fname,'admin') AS Purchased_by,Total_amt,Status FROM tbl_Purchase_master LEFT JOIN tbl_Staff ON Purchased_by = Username JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id = tbl_Vendor.V_id LIMIT 5 OFFSET ?;", [$_GET['offset']]);
 		} else {
-			$rows = select("SELECT Purchase_child_id,I_title,I_cover_image,V_name,Purchase_price,Quantity,Total_price,Date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username HAVING{$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
+			$rows = select("SELECT Purchase_master_id,V_name,Purchase_date,COALESCE(S_fname,'admin') AS Purchased_by,Total_amt,Status  FROM tbl_Purchase_master LEFT JOIN tbl_Staff ON Purchased_by = Username JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id = tbl_Vendor.V_id HAVING {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
 		}
 		if ($rows) {
 			echo json_encode(['data' => $rows, 'end' => false]);
@@ -34,7 +32,7 @@
 <div class="panel-main">
     <div class="panel-header">
         <div class="panel-header-actions">
-            <h1>Purchase</h1>
+            <h1>Purchases</h1>
             <a href="/purchases/add_purchase.php"> <img src="/public/images/add.svg" /></a>
             <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Purchase_master&filter=true&key=" . urlencode($columnMap[$_POST['key']]) . "&operator=" . urlencode($_POST['operator']) . "&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Purchase_master&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
         </div>
@@ -46,11 +44,8 @@
                 <input type="text" name="key" readonly value="<?=isset($_POST['key']) ? $_POST['key'] : "Date"?>" id="column-field">
                 <img src="/public/images/dropdownArrowBlue.svg" />
                 <div class="dropdown-filter" id="column-dropdown">
-                    <div class="filter-item" id="column-item">Item Name</div>
                     <div class="filter-item" id="column-item">Vendor</div>
-                    <div class="filter-item" id="column-item">Purchase Price</div>
-                    <div class="filter-item" id="column-item">Quantity</div>
-                    <div class="filter-item" id="column-item">Total Price</div>
+                    <div class="filter-item" id="column-item">Total Amount</div>
                     <div class="filter-item" id="column-item">Purchase Date</div>
                     <div class="filter-item" id="column-item">Purchased By</div>
                     <div class="filter-item" id="column-item">Status</div>
@@ -75,12 +70,9 @@
     <div class="table-wrapper">
         <div class="table">
             <div class="header row">
-                <div class="cell">Cover</div>
-                <div class="cell">Item Name</div>
+                <div class="cell">No</div>
                 <div class="cell">Vendor</div>
-                <div class="cell">Purchase Price</div>
-                <div class="cell">Quantity</div>
-                <div class="cell">Total Price</div>
+                <div class="cell">Total Amount</div>
                 <div class="cell">Purchase Date</div>
                 <div class="cell">Purchased By</div>
                 <div class="cell">Status</div>
@@ -88,35 +80,31 @@
             </div>
             <?php
             	if (isset($_POST['submit'])) {
-            		$stmt = $pdo->prepare("SELECT Purchase_child_id,I_title,I_cover_image,V_name,Purchase_price,Quantity,Total_price,Date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username HAVING {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
+            		$stmt = $pdo->prepare("SELECT Purchase_master_id,V_name,Purchase_date,COALESCE(S_fname,'admin') AS Purchased_by,Total_amt,Status  FROM tbl_Purchase_master LEFT JOIN tbl_Staff ON Purchased_by = Username JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id = tbl_Vendor.V_id HAVING {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
             		$stmt->execute([trim($_POST['value'])]);
             	} else {
-            		$stmt = $pdo->query("SELECT Purchase_child_id,I_title,I_cover_image,V_name,Purchase_price,Quantity,Total_price,Date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username LIMIT 5;");
+            		$stmt = $pdo->query("SELECT Purchase_master_id,V_name,Purchase_date,COALESCE(S_fname,'admin') AS Purchased_by,Total_amt,Status FROM tbl_Purchase_master LEFT JOIN tbl_Staff ON Purchased_by = Username JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id = tbl_Vendor.V_id LIMIT 5");
             	}
             	$i = 0;
             	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
             ?>
             <div class="row">
                 <div class="cell" data-title="No"><?=++$i?></div>
-                <div class="cell cover" data-title="Cover"><img src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $row['I_cover_image'] : getenv("LOCAL_FOLDER") . $row['I_cover_image']?>" /></div>
-                <div class="cell" data-title="Name"><?=htmlspecialchars($row['I_title'])?></div>
-                <div class="cell" data-title="City"><?=htmlspecialchars($row['V_name'])?></div>
-                <div class="cell" data-title="District"><?=htmlspecialchars($row['Purchase_price'])?></div>
-                <div class="cell" data-title="Pincode"><?=htmlspecialchars($row['Quantity'])?></div>
-                <div class="cell" data-title="Phone number"><?=htmlspecialchars($row['Total_price'])?></div>
-                <div class="cell" data-title="Email"><?=htmlspecialchars($row['Date'])?></div>
+                <div class="cell" data-title="Total Amount"><?=htmlspecialchars($row['V_name'])?></div>
+                <div class="cell" data-title="Email"><?=htmlspecialchars($row['Total_amt'])?></div>
+                <div class="cell" data-title="Email"><?=htmlspecialchars($row['Purchase_date'])?></div>
                 <div class="cell" data-title="Added By"><?php echo $row['Purchased_by'] ?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
                         <span id="items-link" style='color:<?=$row['Status'] == "active" ? "#002460" : "red"?>'><?=$row['Status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/public/images/<?=$row['Status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/purchases/change_status.php?id=<?=$row['Purchase_child_id']?>" style='color:<?=$row['Status'] == "active" ? "red" : "#002460"?>'><?php echo $row['Status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/purchases/change_status.php?id=<?=$row['Purchase_master_id']?>" style='color:<?=$row['Status'] == "active" ? "red" : "#002460"?>'><?php echo $row['Status'] == "active" ? "deleted" : "active" ?></a>
                         </div>
                     </div>
                 </div>
                 <div class="cell" data-title="Actions">
                     <div class="table-actions">
-                        <a href="/purchases/edit_purchase.php?id=<?=$row['Purchase_child_id']?>"><img src="/public/images/edit.svg" /></a>
+                        <a href="/purchases/edit_purchase.php?id=<?=$row['Purchase_master_id']?>"><img src="/public/images/edit.svg" /></a>
                     </div>
                 </div>
             </div>
@@ -129,23 +117,11 @@
 
 <script>
 const operatorMaps = {
-    'Item Name': {
+    'Vendor': {
         'operators': ['='],
         'inputType': 'text',
     },
-    'Vendor': {
-        'operators': ['=', '!='],
-        'inputType': 'text',
-    },
-    'Purchase Price': {
-        'operators': ['=', '!=', '<=', '>=', '<', '>'],
-        'inputType': 'number',
-    },
-    'Quantity': {
-        'operators': ['=', '!=', '<=', '>=', '<', '>'],
-        'inputType': 'number',
-    },
-    'Total Price': {
+    'Total Amount': {
         'operators': ['=', '!=', '<=', '>=', '<', '>'],
         'inputType': 'number',
     },
@@ -252,25 +228,21 @@ class Row {
         row.classList.add("row");
         const rowHtml = `
             <div class="cell" data-title="No">${++index}</div>
-            <div class="cell cover" data-title="Cover"><img src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . '${data["I_cover_image"]}' : getenv('LOCAL_FOLDER') . '${data["I_cover_image"]}'?>"/></div>
-            <div class="cell" data-title="Name">${data['I_title']}</div>
-            <div class="cell" data-title="City">${data['V_name']}</div>
-            <div class="cell" data-title="District">${data['Purchase_price']}</div>
-            <div class="cell" data-title="Pincode">${data['Quantity']}</div>
-            <div class="cell" data-title="Phone number">${data['Total_price']}</div>
-            <div class="cell" data-title="Email">${data['Date']}</div>
+            <div class="cell" data-title="Phone number">${data['V_name']}</div>
+            <div class="cell" data-title="Phone number">${data['Total_amt']}</div>
+            <div class="cell" data-title="Email">${data['Purchase_date']}</div>
             <div class="cell" data-title="Added By">${data['Purchased_by']}</div>
             <div class="cell" data-title="Status">
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['Status']=="active"?"#002460":"red"}'>${data['Status']}<img id="dropdownArrow" src="/public/images/${data['Status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/purchases/change_status.php?id=${data['Purchase_child_id']}" style='color:${data['Status']=="active"?"red":"#002460"}'>${data['Status']=="active"?"deleted":"active"}</a>
+                    <a href="/purchases/change_status.php?id=${data['Purchase_master_id']}" style='color:${data['Status']=="active"?"red":"#002460"}'>${data['Status']=="active"?"deleted":"active"}</a>
                     </div>
                 </div>
             </div>
             <div class="cell" data-title="Actions">
                 <div class="table-actions">
-                    <a href="/purchases/edit_purchase.php?id=${data['Status']}"><img src="/public/images/edit.svg" /></a>
+                    <a href="/purchases/edit_purchase.php?id=${data['Purchase_master_id']}"><img src="/public/images/edit.svg" /></a>
                 </div>
             </div>
         `

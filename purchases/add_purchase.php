@@ -3,22 +3,17 @@
 	include "../middlewares/isAdminOrStaff.php";
 	include "../classes/Purchase.php";
 
-	$purchaseMaster = json_decode(file_get_contents("php://input"));
-	if ($purchaseMaster) {
-		$purchase = new Purchase($purchaseMaster->purchaseChild, $purchaseMaster->vendorid, $purchaseMaster->date, );
+	$purchases = json_decode(file_get_contents("php://input"));
+	if ($purchases) {
+		$purchase = new Purchase($purchases->items, $purchases->vendorid, $purchases->date, );
 		$purchase->add();
-		die(json_encode($data));
+		die(json_encode(['success' => true]));
 	}
 ?>
 
 <?php include "../layouts/admin_staff/header.php";?>
 <div class="form-main">
-    <?php if (isset($success)): ?>
-    <div class="toast-success">
-        🚀 Purchase added successfully
-    </div>
-    <?php endif?>
-    <form class="form add-purchase-form" action="<?=$_SERVER['PHP_SELF']?>" method="post">
+    <form class="form add-purchase-form">
         <h1>Add Purchase</h1>
         <div class="fields-wrapper" style="width:500px">
             <div class="dropdown-datalist">
@@ -55,11 +50,11 @@ class PurchaseTable {
 
     constructor() {
         this.id = 0;
-        this.purchaseMaster = {
-            purchaseChild: {},
+        this.purchase = {
+            items: {},
             setChild: function(id, props) {
-                this.purchaseChild[id] = {
-                    ...this.purchaseChild[id],
+                this.items[id] = {
+                    ...this.items[id],
                     ...props
                 };
             }
@@ -74,12 +69,16 @@ class PurchaseTable {
 
         Object.defineProperty(vendorIdField, 'value', {
             set: function(value) {
-                self.purchaseMaster.vendorid = value;
+                self.purchase.vendorid = value;
                 return descriptor.set.apply(this, arguments);
             },
             get: function() {
                 return descriptor.get.apply(this);
             }
+        });
+
+        document.querySelector("input[type='date']").addEventListener('change', e => {
+            this.purchase.date = e.target.value;
         });
 
     }
@@ -126,12 +125,6 @@ class PurchaseTable {
 
         autoComplete(div.querySelector('.dropdown-datalist'));
 
-
-        document.querySelector("input[name='Purchase_date']").addEventListener('input', (e) => {
-            this.purchaseMaster.date = e.target.value;
-        })
-
-
         const itemIdField = div.querySelector("input[name='itemid'");
 
         const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(itemIdField), 'value');
@@ -140,7 +133,7 @@ class PurchaseTable {
 
         Object.defineProperty(itemIdField, 'value', {
             set: function(value) {
-                self.purchaseMaster.setChild(div.dataset.id, {
+                self.purchase.setChild(div.dataset.id, {
                     itemId: {
                         value,
                         hasError: false,
@@ -153,19 +146,16 @@ class PurchaseTable {
             }
         });
 
-
-
-
         div.querySelectorAll('.form-textfield').forEach(field => {
             field.addEventListener('input', e => {
                 const input = e.target.value;
                 const fieldName = e.target.name;
                 const errorP = fieldName === 'Purchase_price' ? div.querySelector('#purchase-price-error-div') : div.querySelector('#quantity-error-div');
-                const regex = fieldName === 'Purchase_price' ? /^[0-9.]{1,11}$/ : /^[1-9]{1,5}$/;
+                const regex = fieldName === 'Purchase_price' ? /^[0-9.]{1,11}$/ : /^[0-9]{1,5}$/;
                 const errorMessage = fieldName === 'Purchase_price' ? 'Invalid purchase price' : 'Invalid quantity';
                 if (!regex.test(input)) {
                     errorP.innerHTML = errorMessage;
-                    this.purchaseMaster.setChild(div.dataset.id, {
+                    this.purchase.setChild(div.dataset.id, {
                         [fieldName]: {
                             hasError: true,
                             value: input
@@ -173,7 +163,7 @@ class PurchaseTable {
                     })
                 } else {
                     errorP.innerHTML = '';
-                    this.purchaseMaster.setChild(div.dataset.id, {
+                    this.purchase.setChild(div.dataset.id, {
                         [fieldName]: {
                             hasError: false,
                             value: input
@@ -195,7 +185,7 @@ class PurchaseTable {
 
             } else {
                 div.remove();
-                delete this.purchaseMaster.purchaseChild[div.getAttribute('data-id')];
+                delete this.purchase.items[div.getAttribute('data-id')];
             }
         });
     }
@@ -204,7 +194,7 @@ class PurchaseTable {
 
     validateAndSubmit(e) {
         e.preventDefault();
-        const hasErrors = Object.values(this.purchaseMaster.purchaseChild).some(child => {
+        const hasErrors = Object.values(this.purchase.items).some(child => {
             return Object.values(child).some(field => {
                 return field.hasError;
             })
@@ -221,13 +211,27 @@ class PurchaseTable {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.purchaseMaster)
+                body: JSON.stringify(this.purchase)
             })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                if (res.success) {
+                    const div = document.createElement('div');
+                    div.classList.add('toast-success');
+                    div.innerHTML = '🚀 Purchase added successfully';
+                    document.querySelector('.add-purchase-form').appendChild(div);
+                    this.cleanForm();
+                }
+            })
+    }
 
-
-
+    cleanForm() {
+        document.querySelectorAll('input').forEach(input => {
+            input.value = '';
+        })
+        this.purchase.vendorid = null;
+        this.purchase.date = null;
+        this.purchase.items = {};
     }
 
 }

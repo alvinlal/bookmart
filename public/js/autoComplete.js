@@ -14,7 +14,6 @@ function autoComplete(datalist) {
     idInput.setAttribute("hasError", "true");
     error.innerHTML = "";
     input.style.border = "1px solid #969191";
-
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
       if (input.value) {
@@ -33,7 +32,7 @@ function autoComplete(datalist) {
                   const div = document.createElement("div");
                   div.classList.add("dropdown-datalist-item");
                   div.innerHTML = list.data[i].result;
-                  if (list.data[i].result == input.value.toLowerCase()) {
+                  if (list.data[i].result.toLowerCase() == input.value.toLowerCase()) {
                     idInput.setAttribute("hasError", "false");
                     dropdown.style.display = "none";
                     idInput.value = list.data[i].id;
