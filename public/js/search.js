@@ -55,7 +55,6 @@ class Search {
         try {
           var url;
           if (query.match(/^[0-9]{10,13}$/)) {
-            console.log("reached");
             url = `/search.php?q=${query}&searching=true&filter=isbn`;
           } else {
             url = `/search.php?q=${query}&searching=true`;
@@ -66,7 +65,6 @@ class Search {
               if (data.length) {
                 this.showResults(data);
                 this.spinDown();
-                console.log(data);
               } else {
                 this.spinDown();
                 this.showError();
