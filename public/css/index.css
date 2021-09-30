@@ -168,7 +168,6 @@ header {
   align-items: center;
   height: 40px;
   width: auto;
-  /* min-width: 520px; */
   position: relative;
   border: 2px solid var(--accent-color);
   padding: 10px;
@@ -191,10 +190,9 @@ header {
   height: auto;
   width: 100%;
   position: absolute;
-  display: none;
   top: 45px;
   left: 0px;
-  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   background-color: white;
 }
@@ -204,23 +202,40 @@ header {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: 40px;
+  height: 50px;
   width: 100%;
   border-radius: 0px;
-  padding: 10px 10px 10px 20px;
   background-color: white;
   margin: 0px;
+  cursor: pointer;
 }
 
 .search-bar .dropdown-search .dropdown-search-item a {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   text-decoration: none;
   color: black;
+  width: 100%;
+  min-height: 50px;
+  height: auto;
+  padding: 20px 15px;
+  vertical-align: middle;
 }
 
-.search-bar .dropdown-search .dropdown-search-item a:hover {
+.search-bar .dropdown-search .dropdown-search-item:hover {
   background-color: var(--accent-color);
+}
+
+.search-bar .dropdown-search .dropdown-search-item:hover a {
+  color: var(--primary-color);
+}
+
+.search-bar-error {
+  margin-left: 20px;
+  color: red;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .right-action {
@@ -473,7 +488,7 @@ header {
     cursor: pointer;
   }
   header {
-    padding: 5px 20px;
+    padding: 5px 10px;
   }
   .header-brand {
     display: none;
@@ -485,10 +500,11 @@ header {
     display: none;
   }
   header .left-action {
-    width: auto;
+    /* width: auto; */
+    display: none;
   }
   header .search-bar {
-    margin: 0px 20px;
+    margin-right: 5px;
   }
   .header-logo {
     display: block;
@@ -1968,6 +1984,13 @@ footer {
   margin: 0 auto;
   animation: spin 2s linear infinite;
   background-color: white;
+}
+
+@media screen and (max-width: 720px) {
+  .spinning-datalist {
+    height: 15px;
+    width: 15px;
+  }
 }
 
 /* Safari */

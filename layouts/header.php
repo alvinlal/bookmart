@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/index.css">
+    <script defer src="/public/js/search.js"></script>
 </head>
 
 <body>
@@ -126,9 +127,7 @@
         </nav>
         <div class="search-bar">
             <img src="/public/images/search.svg" class="search-icon" />
-            <input type="text" placeholder="Search" />
-            <div class="dropdown-search">
-            </div>
+            <input type="text" name="search" placeholder="Search by title, author or isbn" />
         </div>
 
         <?php if ($isLoggedIn): ?>

@@ -52,7 +52,7 @@ $queryMap = [
 		'clause' => " WHERE ",
 	],
 	'tbl_Purchase_master' => [
-		'query' => "SELECT Purchase_child_id,I_title,V_name,Purchase_price,Quantity,Total_price,Date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username",
+		'query' => "SELECT Purchase_child_id,I_title,V_name,Purchase_price,Quantity,Total_price,Purchase_date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username",
 		'clause' => " HAVING ",
 	],
 ];
