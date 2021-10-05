@@ -28,10 +28,11 @@
                 <p class="item-description"><?=$item[0]['I_description']?>
                 </p>
                 <div class="price-cart-section">
+                    <?php if ($item[0]['I_stock'] > 0): ?>
                     <div class="item-price">
                         <h1>₹<?=$item[0]['I_price']?></h1>
                         <?php if ($item[0]['I_stock'] <= 3): ?>
-                        <p>! Hurry, only 3 left</p>
+                        <p>! Hurry, only <?=$item[0]['I_stock']?> left</p>
                         <?php endif?>
                     </div>
                     <a href="#" class="add-to-cart-button">
@@ -39,35 +40,42 @@
                         ADD TO CART
                     </a>
                 </div>
+                <?php else: ?>
+                <div class="item-price">
+                    <h1>! Out of stock</h1>
+                </div>
+
             </div>
-            <div class="item-specification">
-                <div class="specification">
-                    <p>Genre</p>&nbsp;&nbsp;
-                    <p><?=$item[0]['SubCat_name'] . " in " . $item[0]['Cat_name']?></p>
-                </div>
-                <div class="specification">
-                    <p>Author</p>&nbsp;&nbsp;
-                    <p><?=$item[0]['A_name']?></p>
-                </div>
-                <div class="specification">
-                    <p>Publisher</p>&nbsp;&nbsp;
-                    <p><?=$item[0]['P_name']?></p>
-                </div>
-                <div class="specification">
-                    <p>Language</p>&nbsp;&nbsp;
-                    <p><?=$item[0]['I_language']?></p>
-                </div>
-                <div class="specification">
-                    <p>No of pages</p>&nbsp;&nbsp;
-                    <p><?=$item[0]['I_no_of_pages']?></p>
-                </div>
-                <div class="specification">
-                    <p>ISBN</p>&nbsp;&nbsp;
-                    <p><?=$item[0]['I_isbn']?></p>
-                </div>
+            <?php endif?>
+        </div>
+        <div class="item-specification">
+            <div class="specification">
+                <p>Genre</p>&nbsp;&nbsp;
+                <p><?=$item[0]['SubCat_name'] . " in " . $item[0]['Cat_name']?></p>
+            </div>
+            <div class="specification">
+                <p>Author</p>&nbsp;&nbsp;
+                <p><?=$item[0]['A_name']?></p>
+            </div>
+            <div class="specification">
+                <p>Publisher</p>&nbsp;&nbsp;
+                <p><?=$item[0]['P_name']?></p>
+            </div>
+            <div class="specification">
+                <p>Language</p>&nbsp;&nbsp;
+                <p><?=$item[0]['I_language']?></p>
+            </div>
+            <div class="specification">
+                <p>No of pages</p>&nbsp;&nbsp;
+                <p><?=$item[0]['I_no_of_pages']?></p>
+            </div>
+            <div class="specification">
+                <p>ISBN</p>&nbsp;&nbsp;
+                <p><?=$item[0]['I_isbn']?></p>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <?php if ($genreItems): ?>
