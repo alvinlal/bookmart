@@ -81,7 +81,7 @@
     </div>
     <div class="more-like-this-books">
         <?php foreach ($genreItems as $key => $item): ?>
-        <a class="book-preview">
+        <a href="/item.php?id=<?=$item['Item_id']?>" class="book-preview">
             <img class="book-preview-coverimage" src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $item['I_cover_image'] : getenv("LOCAL_FOLDER") . $item['I_cover_image']?>" />
             <div class="book-preview-title-author">
                 <h1><?=$item['I_title']?></h1>
@@ -132,7 +132,7 @@
         <h2>More From JK Rowling</h2>
         <div class="more-from-author-books">
             <?php foreach ($authorItems as $key => $item): ?>
-            <a class="book-preview">
+            <a href="/item.php?id=<?=$item['Item_id']?>" class="book-preview">
                 <img class="book-preview-coverimage" src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $item['I_cover_image'] : getenv("LOCAL_FOLDER") . $item['I_cover_image']?>" />
                 <div class="book-preview-title-author">
                     <h1><?=$item['I_title']?></h1>
