@@ -1,5 +1,6 @@
 <?php
 	include_once '../middlewares/isLoggedIn.php';
+
 	if (isset($_POST['submit'])) {
 		include_once "../classes/User.php";
 		include_once "../classes/Session.php";
@@ -16,14 +17,17 @@
 			Session::setSession("userType", $user->getUserType());
 			$user->addSessionToDb();
 			if ($user->getUserType() == "customer") {
+				Session::setSession('cartid', $user->getCartId());
 				header("location:/");
+				exit;
 			} else if ($user->getUserType() == "staff") {
 				header("location:/orders");
+				exit;
 			} else {
 				header("location:/admin");
+				exit;
 			}
 		}
-
 	}
 ?>
 <?php include "../layouts/header.php";?>

@@ -45,6 +45,11 @@ class User {
 		return $errors;
 	}
 
+	public function getCartId() {
+		$cartId = selectOne('SELECT Cart_master_id FROM tbl_Cart_master WHERE Username=? AND Cart_status="created"', [$this->email]);
+		return $cartId['Cart_master_id'];
+	}
+
 	public function getUserType() {
 		return $this->userType;
 	}

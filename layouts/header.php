@@ -5,11 +5,16 @@
 	if (!isset($_SESSION)) {
 		session_start();
 	}
+
 	$isLoggedIn = $_SESSION['username'] ?? false;
 
 	$stmt1 = $pdo->query("SELECT i.Cat_id,Cat_name,SubCat_id,SubCat_name FROM (SELECT * FROM tbl_Category LIMIT 10) as i LEFT JOIN LATERAL (SELECT * FROM tbl_SubCategory WHERE Cat_id = i.Cat_id LIMIT 5) as si ON i.Cat_id = si.Cat_id;");
 
 	$catAndSubcat = $stmt1->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+
+	if ($isLoggedIn) {
+		$noOfItems = selectOne("SELECT COUNT(Cart_child_id) AS noOfItems FROM tbl_Cart_master JOIN tbl_Cart_child ON tbl_Cart_master.Cart_master_id = tbl_Cart_child.Cart_master_id WHERE Username=? AND Cart_status='created';", [$_SESSION['username']])['noOfItems'];
+	}
 
 ?>
 
@@ -25,6 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/css/index.css">
     <script defer src="/public/js/search.js"></script>
+    <script defer src="/public/js/cart.js"></script>
 </head>
 
 <body>
@@ -64,7 +70,9 @@
                     <a href="/auth/logout.php">Logout</a>
                 </div>
             </div>
-            <a href="/cart" class="cart-icon"><img src="/public/images/cart.svg" />12</a>
+            <a href="/cart" class="cart-icon"><img src="/public/images/cart.svg" />
+                <p class="cart-no-of-items"><?=$noOfItems?></p>
+            </a>
         </nav>
         <?php else: ?>
         <nav class="right-action">
@@ -83,8 +91,10 @@
                 &times;
             </div>
             <?php if ($isLoggedIn): ?>
+            <a href="/">Home</a>
             <a href="/customers/orders">Your Orders</a>
             <a href="/customers/details.php">Your Details</a>
+            <a href="/cart">cart</a>
             <a href="/auth/logout.php">Logout</a>
             <?php else: ?>
             <a href="/auth/login.php">Login</a>

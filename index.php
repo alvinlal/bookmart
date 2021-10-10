@@ -40,7 +40,6 @@
         </div>
         <div class="book-preview-price-addtocart">
             <p>₹<?=$item['I_price']?></p>
-            <img src="/public/images/addtocart.svg" title="add to cart" />
         </div>
     </a>
     <?php endforeach?>

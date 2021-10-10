@@ -11,7 +11,9 @@
 		$errors = $customer->validateSignUpInput();
 
 		if (!array_filter($errors)) {
-			$customer->signup();
+			if ($customer->signup()) {
+				$customer->createCart();
+			}
 			$success = true;
 			header("refresh:2;url='/auth/login.php");
 		}

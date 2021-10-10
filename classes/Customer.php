@@ -1,6 +1,7 @@
 <?php
 
-include "../db/connection.php";
+include_once "../db/connection.php";
+include_once "../classes/Session.php";
 
 class Customer {
 	private $email;
@@ -74,6 +75,10 @@ class Customer {
 			'User_type' => "customer",
 			'Password' => password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10]),
 		]);
+	}
+
+	public function createCart() {
+		query('INSERT INTO tbl_Cart_master (Username) VALUES(?)', [$this->email]);
 	}
 
 	public function validateDetails() {

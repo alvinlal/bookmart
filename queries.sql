@@ -66,6 +66,27 @@ CREATE table tbl_Item(
 
 );
 
+CREATE TABLE tbl_Cart_master(
+    Cart_master_id INT NOT NULL AUTO_INCREMENT,
+    Username VARCHAR(255),
+    Cart_status ENUM('created','ordered','payed','shipped','delivered') DEFAULT 'created',
+    Total_amt DECIMAL(8,2) NOT NULL DEFAULT 0,
+    PRIMARY KEY (Cart_master_id),
+    FOREIGN KEY (Username) REFERENCES tbl_Login(Username)
+);
+
+CREATE TABLE tbl_Cart_child(
+    Cart_child_id INT NOT NULL AUTO_INCREMENT,
+    Cart_master_id INT NOT NULL,
+    Item_id INT NOT NULL,
+    Quantity INT NOT NULL,
+    Total_price DECIMAL(8,2) NOT NULL,
+    Added_date date NOT NULL,
+    PRIMARY KEY(Cart_child_id),
+    FOREIGN KEY (Cart_master_id) REFERENCES tbl_Cart_master(Cart_master_id),
+    FOREIGN KEY (Item_id) REFERENCES tbl_Item(Item_id)
+);
+
 
 INSERT INTO tbl_Item(Author_id,Publisher_id,SubCat_id,I_cover_image,I_isbn,I_title,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status) VALUES(2,1,28,'1123456789.jpg','9788175994317','Harry Potter And The Prisoner Of Azhkabhan','Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J. K. Rowling and is the third in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemorts old allies',500,20,500,'English','active');
 

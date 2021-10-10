@@ -33,3 +33,4 @@
 34. Rename purchases to inventory.
 35. Add comments and TDD.
 36. change subcategory and category to genre.
+37. Disable cart-item preview on changing quantity and enable only after res.success is true
