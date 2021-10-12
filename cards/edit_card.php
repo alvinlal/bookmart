@@ -1,53 +1,61 @@
 <?php
-	include '../middlewares/isAuthenticated.php';
-	include '../middlewares/isCustomer.php';
-	include '../classes/Card.php';
+	include "../middlewares/isAuthenticated.php";
+	include "../classes/Card.php";
+
+	$id = isset($_GET['id']) ? $_GET['id'] : -1;
 
 	if (isset($_POST['submit'])) {
-		$cardno = $_POST['cardno'];
 		$cardname = $_POST['cardname'];
+		$cardno = $_POST['cardno'];
 		$cardcvv = $_POST['cardcvv'];
 		$expirydate = $_POST['expirydate'];
-
 		$card = new Card($cardno, $cardname, $cardcvv, $expirydate);
-
-		$errors = $card->validateDetails();
-
+		$errors = $card->validateDetails(true);
 		if (!array_filter($errors)) {
-			$details = selectOne('SELECT * FROM tbl_Card WHERE Username=?', [$_SESSION['username']]);
-			$alreadyExists = $details ? $details : false;
-			$card->updateDetails($alreadyExists);
+			$card->update($id);
 			$success = true;
 		}
 	} else {
-		$details = selectOne('SELECT * FROM tbl_Card WHERE Username=?', [$_SESSION['username']]);
-		$cardno = $details ? $details['Card_no'] : '';
-		$cardname = $details ? $details['Card_name'] : '';
-		$cardcvv = $details ? $details['Card_cvv'] : '';
-		$expirydate = $details ? $details['Expiry_date'] : '';
+		$details = selectOne('SELECT * FROM tbl_Card WHERE Card_id=?', [$id]);
+		if ($details) {
+			$cardname = $details['Card_name'];
+			$cardno = $details['Card_no'];
+			$cardcvv = $details['Card_cvv'];
+			$expirydate = $details['Expiry_date'];
+		} else {
+			$notFound = true;
+		}
 	}
+
 ?>
 
-<?php include '../layouts/header.php';?>
 
-<div class="your-details-main">
+<?php include "../layouts/header.php";?>
+
+<div class="form-main">
     <?php if (isset($success)): ?>
     <div class="toast-success">
-        🚀 Updated successfully
+        🚀 Card updated successfully
     </div>
     <?php endif?>
-    <form class="form your-details-form" action="<?=$_SERVER['PHP_SELF']?>" method="post">
+    <?php if (isset($notFound)): ?>
+    <h1 style="color:var(--primary-color);margin:auto">NOT FOUND</h1>
+    </body>
 
-        <h1>Card Details</h1>
+    </html>
+    <?php die()?>;
+    <?php endif?>
+    <form class="form add-card-form" action="<?=$_SERVER['PHP_SELF'] . "?id=" . $id?>" method="post">
+        <h1>Edit Card</h1>
         <div class="fields-wrapper">
             <div class="input-textfield">
-                <input type="number" class="form-textfield" name="cardno" required value="<?=htmlspecialchars($cardno)?>" />
+                <input type="text" class="form-textfield" name="cardno" required value="<?=htmlspecialchars($cardno)?>" />
                 <span class="floating-label">Card Number</span>
                 <p><?=$errors['cardno'] ?? ''?></p>
             </div>
             <div class="input-textfield">
                 <input type="text" class="form-textfield" name="cardname" required value="<?=htmlspecialchars($cardname)?>" />
-                <span class="floating-label">Name on card</span>
+                <span class="floating-label">Card Name</span>
                 <p><?=$errors['cardname'] ?? ''?></p>
             </div>
             <div class="input-textfield">
@@ -55,15 +63,15 @@
                 <span class="floating-label">CVV</span>
                 <p><?=$errors['cardcvv'] ?? ''?></p>
             </div>
-
             <div class="input-textfield">
-                <input type="date" class="form-textfield" name="expirydate" required value="<?=htmlspecialchars($expirydate)?>" />
+                <input type="text" class="form-textfield" name="expirydate" required value="<?=htmlspecialchars($expirydate)?>" />
                 <span class="floating-label">Expiry date</span>
                 <p><?=$errors['expirydate'] ?? ''?></p>
             </div>
         </div>
-        <button type="submit" name="submit">UPDATE</button>
+        <button type="submit" name="submit">SAVE</button>
     </form>
 </div>
+
 
 <?php include "../layouts/admin_staff/footer.php"?>

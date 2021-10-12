@@ -83,9 +83,10 @@
     <script lang="javascript">
     // This javascript highlights the link in header that the current page is on with an underline.
     const currentPage = window.location.pathname;
+
     const itemDropdown = document.querySelector(".dropdown-item-content");
-    const itemDropdownArrow = document.getElementById("dropdownArrow");;
-    const currentLink = currentPage.match(/^\/[a-z]+\/?/)[0].replaceAll("/", "");
+    const itemDropdownArrow = document.getElementById("dropdownArrow");
+    const currentLink = currentPage.match(/^\/[a-z]+\/[a-z]+\/?/)[0].split('/')[2];
     console.log(currentLink);
 
     if (currentPage === "/bookmart/admin/details.php" || currentPage == "/bookmart/staffs/details.php") {

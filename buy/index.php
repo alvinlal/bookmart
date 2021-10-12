@@ -27,12 +27,13 @@
 
 	$orderSummary = selectOne("SELECT Total_amt,SUM(Quantity) AS noOfBooks FROM tbl_Cart_master JOIN tbl_Cart_child ON tbl_Cart_master.Cart_master_id=tbl_Cart_child.Cart_master_id WHERE Username=? AND tbl_Cart_child.Cart_master_id=?", [Session::getSession('username'), Session::getSession('cartid')]);
 
-	$cardNumber = selectOne("SELECT Card_no FROM tbl_Card WHERE Username=?", [Session::getSession('username')]);
+	$cards = select("SELECT Card_id,Card_no FROM tbl_Card WHERE Username=? AND Card_status='active'", [Session::getSession('username')]);
+
 ?>
 
 <?php include '../layouts/header.php'?>
 
-<div class="confirmation">
+<form action="/bookmart/orders/process_order.php" method="post" class="confirmation">
     <h1>Confirmation</h1>
     <div class="confirmation-items">
         <?php foreach ($cartItems as $key => $item): ?>
@@ -72,8 +73,14 @@
         </div>
         <div class="item-payment">
             <h3>Payment Details</h3>
-            <p>&bull;Card ending in <?=substr($cardNumber['Card_no'], -4);?> </p>
-            <a class="edit-address-button" href="/bookmart/payment/details.php">EDIT</a>
+            <?php foreach ($cards as $key => $card): ?>
+            <?php if ($key == 0): ?>
+            <p><input type="radio" name="cardid" value=<?=$card['Card_id']?> checked />Card ending in <?=substr($card['Card_no'], -4);?> </p>
+            <?php else: ?>
+            <p><input type="radio" name="cardid" value=<?=$card['Card_id']?> />Card ending in <?=substr($card['Card_no'], -4);?> </p>
+            <?php endif?>
+            <?php endforeach?>
+            <a class="edit-address-button" href="/bookmart/cards/addCard.php">ADD CARD</a>
         </div>
         <div class="item-summary">
             <h3>Order summary</h3>
@@ -88,8 +95,5 @@
             </span>
         </div>
     </div>
-
-
-
-    <a class="checkout-button" href="/bookmart/payment/paymentprocessing.php"> CHECKOUT</a>
-</div>
+    <button type="submit" class="checkout-button">CHECKOUT</button>
+</form>

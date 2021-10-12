@@ -1,16 +1,11 @@
 <?php
 
 	include_once dirname(__FILE__, 2) . "/db/connection.php";
-
 	if (!isset($_SESSION)) {
 		session_start();
 	}
 
 	$isLoggedIn = $_SESSION['username'] ?? false;
-
-	// $stmt1 = $pdo->query("SELECT i.Cat_id,Cat_name,SubCat_id,SubCat_name FROM (SELECT * FROM tbl_Category LIMIT 10) as i LEFT JOIN LATERAL (SELECT * FROM tbl_SubCategory WHERE Cat_id = i.Cat_id LIMIT 5) as si ON i.Cat_id = si.Cat_id;");
-
-	// $catAndSubcat = $stmt1->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
 
 	if ($isLoggedIn) {
 		$noOfItems = selectOne("SELECT COUNT(Cart_child_id) AS noOfItems FROM tbl_Cart_master JOIN tbl_Cart_child ON tbl_Cart_master.Cart_master_id = tbl_Cart_child.Cart_master_id WHERE Username=? AND Cart_status='created';", [$_SESSION['username']])['noOfItems'];
@@ -41,23 +36,28 @@
             <div class="dropdown-buy">
                 <span>BUY <img id="dropdownArrowBuy" src="/bookmart/public/images/dropdownArrowYellow.svg" /></span>
                 <div class="dropdown-buy-content">
-                    <!--                                                                                                                                                                                                                                                 <?php foreach ($catAndSubcat as $key => $value): ?>
-                    <div class="dropdown-buy-entry">
-                        <a href="#"><?=$value[0]['Cat_name']?></a>
-                        <?php foreach ($value as $key => $value): ?>
-                        <a href="#"><?=$value['SubCat_name']?></a>
-                        <?php endforeach?>
-                        <a href="#">More..</a>
-                    </div>
-                    <?php endforeach?>
-                    <a href="all-categories.php" class="all-categories">All categories</a> -->
+
+                    <?php
+                    	$categories = select("SELECT Cat_id,Cat_name FROM tbl_Category LIMIT 10;");
+                    	foreach ($categories as $key => $category) {
+                    		echo "<div class='dropdown-buy-entry'>";
+                    		echo "<a href='#'>" . $category['Cat_name'] . "</a>";
+                    		$subCategories = select("SELECT SubCat_name,SubCat_id FROM tbl_SubCategory WHERE Cat_id=? LIMIT 5 ", [$category['Cat_id']]);
+                    		foreach ($subCategories as $key => $subCategory) {
+                    			echo "<a href='#'>" . $subCategory['SubCat_name'] . "</a>";
+                    		}
+                    		echo "<a href='#'>More...</a>";
+                    		echo "</div>";
+                    	}
+                    ?>
+                    <a href="all-categories.php" class="all-categories">All categories</a>
                 </div>
             </div>
 
         </nav>
         <div class="search-bar">
             <img src="/bookmart/public/images/search.svg" class="search-icon" />
-            <input type="text" name="search" placeholder="Search by title, author, genre or isbn" />
+            <input type="text" name="search" placeholder="Search by title, author or isbn" />
         </div>
 
         <?php if ($isLoggedIn): ?>
@@ -67,7 +67,7 @@
                 <div class="dropdown-item-content">
                     <a href="/bookmart/customers/orders">Your Orders</a>
                     <a href="/bookmart/customers/details.php">Your Details</a>
-                    <a href="/bookmart/payment/details.php">Payment Details</a>
+                    <a href="/bookmart/cards/details.php">Your Cards</a>
                     <a href="/bookmart/auth/logout.php">Logout</a>
                 </div>
             </div>
@@ -95,7 +95,7 @@
             <a href="/bookmart">Home</a>
             <a href="/bookmart/customers/orders">Your Orders</a>
             <a href="/bookmart/customers/details.php">Your Details</a>
-            <a href="/bookmart/payment/details.php">Payment Details</a>
+            <a href="/bookmart/cards/details.php">Your Cards</a>
             <a href="/bookmart/cart">cart</a>
             <a href="/bookmart/auth/logout.php">Logout</a>
             <?php else: ?>
