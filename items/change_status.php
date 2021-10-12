@@ -10,9 +10,9 @@ $details = selectOne('SELECT I_status FROM tbl_Item WHERE Item_id=?', [$id]);
 if ($details) {
 	$newStatus = $details['I_status'] == "active" ? "deleted" : "active";
 	query("UPDATE tbl_Item SET I_status='{$newStatus}' WHERE Item_id='{$id}'");
-	header("Location:/items");
+	header("Location:/bookmart/items");
 } else {
-	header("Location:/items");
+	header("Location:/bookmart/items");
 }
 
 ?>

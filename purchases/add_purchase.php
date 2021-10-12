@@ -42,7 +42,7 @@
     </form>
 </div>
 
-<script src="/public/js/autoComplete.js"></script>
+<script src="/bookmart/public/js/autoComplete.js"></script>
 
 
 <script>
@@ -115,7 +115,7 @@ class PurchaseTable {
         <p id="quantity-error-div"></p>
     </div>
     <div class="input-textfield">
-        <img class="add-purchase-btn" state="add" src="/public/images/add.svg" />
+        <img class="add-purchase-btn" state="add" src="/bookmart/public/images/add.svg" />
     </div>`;
 
 
@@ -180,7 +180,7 @@ class PurchaseTable {
         toggleBtn.addEventListener('click', () => {
             if (toggleBtn.getAttribute('state') == 'add') {
                 toggleBtn.setAttribute('state', 'remove');
-                toggleBtn.src = '/public/images/remove.svg';
+                toggleBtn.src = '/bookmart/public/images/remove.svg';
                 this.renderFields();
 
             } else {
@@ -205,7 +205,7 @@ class PurchaseTable {
             return;
         }
 
-        fetch('/purchases/add_purchase.php', {
+        fetch('/bookmart/purchases/add_purchase.php', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

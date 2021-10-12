@@ -18,13 +18,13 @@
 			$user->addSessionToDb();
 			if ($user->getUserType() == "customer") {
 				Session::setSession('cartid', $user->getCartId());
-				header("location:/");
+				header("location:/bookmart");
 				exit;
 			} else if ($user->getUserType() == "staff") {
-				header("location:/orders");
+				header("location:/bookmart/orders");
 				exit;
 			} else {
-				header("location:/admin");
+				header("location:/bookmart/admin");
 				exit;
 			}
 		}
@@ -35,14 +35,14 @@
     <h1>Login</h1>
     <div class="empty-space"></div>
     <div class="auth-form-textfield">
-        <img src="/public/images/email.svg" />
+        <img src="/bookmart/public/images/email.svg" />
         <input type="email" placeholder="Email" name="email" value="<?=htmlspecialchars($_POST['email'] ?? '')?>" />
     </div>
     <div class="error-div-email">
         <?=$errors['email'] ?? ''?>
     </div>
     <div class="auth-form-textfield">
-        <img src="/public/images/lock.svg" />
+        <img src="/bookmart/public/images/lock.svg" />
         <input type="password" placeholder="password" name="password" value="<?=htmlspecialchars($_POST['password'] ?? '')?>" />
     </div>
     <div class="error-div-password">

@@ -1,5 +1,5 @@
 <?php
 
-header("location:/orders");
+header("location:/bookmart/orders");
 exit();
 ?>

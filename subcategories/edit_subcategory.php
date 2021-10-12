@@ -60,4 +60,4 @@
     </form>
 </div>
 
-<script src="/public/js/autoComplete.js" defer></script>
+<script src="/bookmart/public/js/autoComplete.js" defer></script>

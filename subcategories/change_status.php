@@ -10,9 +10,9 @@ $details = selectOne('SELECT SubCat_status FROM tbl_SubCategory WHERE SubCat_id=
 if ($details) {
 	$newStatus = $details['SubCat_status'] == "active" ? "deleted" : "active";
 	query("UPDATE tbl_SubCategory SET SubCat_status='{$newStatus}' WHERE SubCat_id='{$id}'");
-	header("Location:/subcategories");
+	header("Location:/bookmart/subcategories");
 } else {
-	header("Location:/subcategories");
+	header("Location:/bookmart/subcategories");
 }
 
 ?>

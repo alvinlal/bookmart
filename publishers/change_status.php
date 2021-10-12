@@ -10,9 +10,9 @@ $details = selectOne('SELECT P_status FROM tbl_Publisher WHERE Publisher_id=?', 
 if ($details) {
 	$newStatus = $details['P_status'] == "active" ? "deleted" : "active";
 	query("UPDATE tbl_Publisher SET P_status='{$newStatus}' WHERE Publisher_id='{$id}'");
-	header("Location:/publishers");
+	header("Location:/bookmart/publishers");
 } else {
-	header("Location:/publishers");
+	header("Location:/bookmart/publishers");
 }
 
 ?>

@@ -1,33 +1,23 @@
 <?php
 
 // global exception handler
-function exceptionHandler($exception) {
-	if (getenv("ENV") == "development") {
-		echo $exception->getMessage() . "</br>";
-		echo "on line " . $exception->getLine() . "</br>";
-		echo "at file " . $exception->getFile();
-		echo "</br></br> stack trace </br>";
-		echo "<pre>" . $exception->getTraceAsString() . "</pre>";
-		exit();
-	} else {
-		header("Location:/error.html");
-		exit();
-	}
-}
+// function exceptionHandler($exception) {
 
-set_exception_handler("exceptionHandler");
+// 	header("Location:/error.html");
 
-$dbhost = getenv("DB_HOST");
-$dbport = getenv("DB_PORT");
-$dbname = getenv("DB_NAME");
-$username = getenv("DB_USERNAME");
-$password = getenv("DB_PASSWORD");
+// }
+
+// set_exception_handler("exceptionHandler");
+
+$dbhost = "localhost";
+$dbport = 3306;
+$dbname = "bookmart";
+$username = "root";
+$password = "";
 
 $dsn = "mysql:host={$dbhost};port={$dbport};dbname={$dbname};";
 
-$pdo = new PDO($dsn, $username, $password, array(
-	PDO::MYSQL_ATTR_SSL_CA => getenv('CA_PATH'),
-));
+$pdo = new PDO($dsn, $username, $password);
 $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 function exists(string $sql, array $args = []) {

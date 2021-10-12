@@ -1,6 +1,6 @@
 <?php
 
-	include_once getenv('ROOT_DIR') . "/db/connection.php";
+	include_once dirname(__FILE__, 2) . "/db/connection.php";
 
 	if (!isset($_SESSION)) {
 		session_start();
@@ -8,9 +8,9 @@
 
 	$isLoggedIn = $_SESSION['username'] ?? false;
 
-	$stmt1 = $pdo->query("SELECT i.Cat_id,Cat_name,SubCat_id,SubCat_name FROM (SELECT * FROM tbl_Category LIMIT 10) as i LEFT JOIN LATERAL (SELECT * FROM tbl_SubCategory WHERE Cat_id = i.Cat_id LIMIT 5) as si ON i.Cat_id = si.Cat_id;");
+	// $stmt1 = $pdo->query("SELECT i.Cat_id,Cat_name,SubCat_id,SubCat_name FROM (SELECT * FROM tbl_Category LIMIT 10) as i LEFT JOIN LATERAL (SELECT * FROM tbl_SubCategory WHERE Cat_id = i.Cat_id LIMIT 5) as si ON i.Cat_id = si.Cat_id;");
 
-	$catAndSubcat = $stmt1->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
+	// $catAndSubcat = $stmt1->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_ASSOC);
 
 	if ($isLoggedIn) {
 		$noOfItems = selectOne("SELECT COUNT(Cart_child_id) AS noOfItems FROM tbl_Cart_master JOIN tbl_Cart_child ON tbl_Cart_master.Cart_master_id = tbl_Cart_child.Cart_master_id WHERE Username=? AND Cart_status='created';", [$_SESSION['username']])['noOfItems'];
@@ -28,20 +28,20 @@
     <title>Bookmart</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/index.css">
-    <script defer src="/public/js/search.js"></script>
-    <script defer src="/public/js/cart.js"></script>
+    <link rel="stylesheet" href="/bookmart/public/css/index.css">
+    <script defer src="/bookmart/public/js/search.js"></script>
+    <script defer src="/bookmart/public/js/cart.js"></script>
 </head>
 
 <body>
     <header id="header">
         <nav class="left-action">
-            <a href="/"><img src="/public/images/logo.svg" class="header-logo" /></a>
-            <a href="/"><img src="/public/images/brand.svg" class="header-brand" /></a>
+            <a href="/bookmart"><img src="/bookmart/public/images/logo.svg" class="header-logo" /></a>
+            <a href="/bookmart"><img src="/bookmart/public/images/brand.svg" class="header-brand" /></a>
             <div class="dropdown-buy">
-                <span>BUY <img id="dropdownArrowBuy" src="/public/images/dropdownArrowYellow.svg" /></span>
+                <span>BUY <img id="dropdownArrowBuy" src="/bookmart/public/images/dropdownArrowYellow.svg" /></span>
                 <div class="dropdown-buy-content">
-                    <?php foreach ($catAndSubcat as $key => $value): ?>
+                    <!--                                                                                                                                                                                                                                                 <?php foreach ($catAndSubcat as $key => $value): ?>
                     <div class="dropdown-buy-entry">
                         <a href="#"><?=$value[0]['Cat_name']?></a>
                         <?php foreach ($value as $key => $value): ?>
@@ -50,34 +50,35 @@
                         <a href="#">More..</a>
                     </div>
                     <?php endforeach?>
-                    <a href="all-categories.php" class="all-categories">All categories</a>
+                    <a href="all-categories.php" class="all-categories">All categories</a> -->
                 </div>
             </div>
 
         </nav>
         <div class="search-bar">
-            <img src="/public/images/search.svg" class="search-icon" />
+            <img src="/bookmart/public/images/search.svg" class="search-icon" />
             <input type="text" name="search" placeholder="Search by title, author, genre or isbn" />
         </div>
 
         <?php if ($isLoggedIn): ?>
         <nav class="right-action">
             <div class="dropdown-item">
-                <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/public/images/dropdownArrowBlue.svg" /></span>
+                <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
-                    <a href="/customers/orders">Your Orders</a>
-                    <a href="/customers/details.php">Your Details</a>
-                    <a href="/auth/logout.php">Logout</a>
+                    <a href="/bookmart/customers/orders">Your Orders</a>
+                    <a href="/bookmart/customers/details.php">Your Details</a>
+                    <a href="/bookmart/payment/details.php">Payment Details</a>
+                    <a href="/bookmart/auth/logout.php">Logout</a>
                 </div>
             </div>
-            <a href="/cart" class="cart-icon"><img src="/public/images/cart.svg" />
+            <a href="/bookmart/cart" class="cart-icon"><img src="/bookmart/public/images/cart.svg" />
                 <p class="cart-no-of-items"><?=$noOfItems?></p>
             </a>
         </nav>
         <?php else: ?>
         <nav class="right-action">
-            <a href="/auth/login.php" class="auth-header-btn">LOGIN</a>
-            <a href="/auth/signup.php" class="auth-header-btn yellow">SIGNUP</a>
+            <a href="/bookmart/auth/login.php" class="auth-header-btn">LOGIN</a>
+            <a href="/bookmart/auth/signup.php" class="auth-header-btn yellow">SIGNUP</a>
         </nav>
         <?php endif?>
 
@@ -91,15 +92,16 @@
                 &times;
             </div>
             <?php if ($isLoggedIn): ?>
-            <a href="/">Home</a>
-            <a href="/customers/orders">Your Orders</a>
-            <a href="/customers/details.php">Your Details</a>
-            <a href="/cart">cart</a>
-            <a href="/auth/logout.php">Logout</a>
+            <a href="/bookmart">Home</a>
+            <a href="/bookmart/customers/orders">Your Orders</a>
+            <a href="/bookmart/customers/details.php">Your Details</a>
+            <a href="/bookmart/payment/details.php">Payment Details</a>
+            <a href="/bookmart/cart">cart</a>
+            <a href="/bookmart/auth/logout.php">Logout</a>
             <?php else: ?>
-            <a href="/auth/login.php">Login</a>
-            <a href="/auth/signup.php">Signup</a>
-            <a href="/all-categories.php">All categories</a>
+            <a href="/bookmart/auth/login.php">Login</a>
+            <a href="/bookmart/auth/signup.php">Signup</a>
+            <a href="/bookmart/all-categories.php">All categories</a>
             <?php endif?>
         </nav>
         <script lang="javascript">

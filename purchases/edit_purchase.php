@@ -68,22 +68,22 @@
             	]?>
             <div class="fields-wrapper" data-id=<?=$row['Purchase_child_id']?> style="width:100%">
                 <div class="input-textfield">
-                    <input type="text" class="form-textfield" name="item" value="<?=$row['I_title']?>" />
+                    <input type="text" readonly class="form-textfield-readonly" name="item" value="<?=$row['I_title']?>" />
                     <span class="floating-label">Item</span>
                     <p id="purchase-price-error-div"></p>
                 </div>
                 <div class="input-textfield">
-                    <input type="number" class="form-textfield" name="Purchase_price" required value=<?=$row['Purchase_price']?> />
+                    <input type="number" readonly class="form-textfield-readonly" name="Purchase_price" required value=<?=$row['Purchase_price']?> />
                     <span class="floating-label">Purchase Price</span>
                     <p id="purchase-price-error-div"></p>
                 </div>
                 <div class="input-textfield">
-                    <input type="number" class="form-textfield" name="quantity" required value=<?=$row['Quantity']?> />
+                    <input type="number" readonly class="form-textfield-readonly" name="quantity" required value=<?=$row['Quantity']?> />
                     <span class="floating-label">Quantity</span>
                     <p id="quantity-error-div"></p>
                 </div>
                 <div class="input-textfield">
-                    <img class="add-purchase-btn" state="remove" src="/public/images/remove.svg" onclick="removeItem(<?=$row['Purchase_child_id']?>)" />
+                    <img class="add-purchase-btn" state="remove" src="/bookmart/public/images/remove.svg" onclick="removeItem(<?=$row['Purchase_child_id']?>)" />
                 </div>
             </div>
             <?php endwhile?>
@@ -93,7 +93,7 @@
     </form>
 </div>
 
-<script src="/public/js/autoComplete.js"></script>
+<script src="/bookmart/public/js/autoComplete.js"></script>
 
 
 <script>
@@ -206,7 +206,7 @@ class PurchaseTable {
         <p id="quantity-error-div"></p>
     </div>
     <div class="input-textfield">
-        <img class="add-purchase-btn" state="add" src="/public/images/add.svg" />
+        <img class="add-purchase-btn" state="add" src="/bookmart/public/images/add.svg" />
     </div>`;
 
 
@@ -293,7 +293,7 @@ class PurchaseTable {
         toggleBtn.addEventListener('click', () => {
             if (toggleBtn.getAttribute('state') == 'add') {
                 toggleBtn.setAttribute('state', 'remove');
-                toggleBtn.src = '/public/images/remove.svg';
+                toggleBtn.src = '/bookmart/public/images/remove.svg';
                 this.renderFields();
 
             } else {
@@ -323,7 +323,7 @@ class PurchaseTable {
             return;
         }
 
-        fetch('/purchases/edit_purchase.php?id=<?=$purchaseMasterDetails['Purchase_master_id']?>', {
+        fetch('/bookmart/purchases/edit_purchase.php?id=<?=$purchaseMasterDetails['Purchase_master_id']?>', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

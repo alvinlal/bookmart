@@ -10,9 +10,9 @@ $details = selectOne('SELECT V_status FROM tbl_Vendor WHERE V_id=?', [$id]);
 if ($details) {
 	$newStatus = $details['V_status'] == "active" ? "deleted" : "active";
 	query("UPDATE tbl_Vendor SET V_status='{$newStatus}' WHERE V_id='{$id}'");
-	header("Location:/vendors");
+	header("Location:/bookmart/vendors");
 } else {
-	header("Location:/vendors");
+	header("Location:/bookmart/vendors");
 }
 
 ?>

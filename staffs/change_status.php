@@ -18,9 +18,9 @@ if ($details) {
 		}
 		query("DELETE FROM tbl_Session WHERE Username='{$username}'");
 	}
-	header("Location:/staffs");
+	header("Location:/bookmart/staffs");
 } else {
-	header("Location:/staffs");
+	header("Location:/bookmart/staffs");
 }
 
 ?>

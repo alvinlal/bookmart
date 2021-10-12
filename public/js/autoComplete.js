@@ -18,7 +18,7 @@ function autoComplete(datalist) {
     typingTimer = setTimeout(() => {
       if (input.value) {
         try {
-          fetch(`/${endpoint}?q=${encodeURIComponent(input.value.trim())}`)
+          fetch(`/bookmart/${endpoint}?q=${encodeURIComponent(input.value.trim())}`)
             .then(response => response.json())
             .then(list => {
               dropdown.style.display = "flex";

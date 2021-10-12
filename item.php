@@ -20,7 +20,7 @@
 <?php include './layouts/header.php';?>
 
 <div class="item-main">
-    <img src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $item['I_cover_image'] : getenv("LOCAL_FOLDER") . $item['I_cover_image']?>" />
+    <img src=<?="/bookmart/public/images/covers/{$item['I_cover_image']}"?> />
     <div class="item-info">
         <h1 class="item-title"><?=$item['I_title']?></h1>
         <div class="item-sub-info">
@@ -36,7 +36,7 @@
                         <?php endif?>
                     </div>
                     <div onClick="addToCart(<?=$item["Item_id"]?>,'add')" class="add-to-cart-button">
-                        <img src="/public/images/cart-white.svg" />
+                        <img src="/bookmart/public/images/cart-white.svg" />
                         ADD TO CART
                     </div>
                 </div>
@@ -82,15 +82,15 @@
 <div class="more-like-this">
     <h2>More like this</h2>
     <div class="scroller scroller-left">
-        <img src="/public/images/right-arrow.svg" />
+        <img src="/bookmart/public/images/right-arrow.svg" />
     </div>
     <div class="scroller scroller-right">
-        <img src="/public/images/right-arrow.svg" />
+        <img src="/bookmart/public/images/right-arrow.svg" />
     </div>
     <div class="more-like-this-books">
         <?php foreach ($genreItems as $key => $item): ?>
-        <a href="/item.php?id=<?=$item['Item_id']?>" class="book-preview">
-            <img class="book-preview-coverimage" src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $item['I_cover_image'] : getenv("LOCAL_FOLDER") . $item['I_cover_image']?>" />
+        <a href="/bookmart/item.php?id=<?=$item['Item_id']?>" class="book-preview">
+            <img class="book-preview-coverimage" src=<?="/bookmart/public/images/covers/{$item['I_cover_image']}"?> />
             <div class="book-preview-title-author">
                 <h1><?=$item['I_title']?></h1>
                 <p>By <span><?=$item['A_name']?></span></p>
@@ -139,8 +139,8 @@
         <h2>More From JK Rowling</h2>
         <div class="more-from-author-books">
             <?php foreach ($authorItems as $key => $item): ?>
-            <a href="/item.php?id=<?=$item['Item_id']?>" class="book-preview">
-                <img class="book-preview-coverimage" src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $item['I_cover_image'] : getenv("LOCAL_FOLDER") . $item['I_cover_image']?>" />
+            <a href="/bookmart/item.php?id=<?=$item['Item_id']?>" class="book-preview">
+                <img class="book-preview-coverimage" src=<?="/bookmart/public/images/covers/{$item['I_cover_image']}"?> />
                 <div class="book-preview-title-author">
                     <h1><?=$item['I_title']?></h1>
                     <p>By <span><?=$item['A_name']?></span></p>

@@ -1,7 +1,7 @@
 <footer>
     <div class="contact-info">
         <div class="contact-info-title">
-            <img src="/public/images/logo.svg" />
+            <img src="public/images/logo.svg" />
             <h1>BOOKMART</h1>
         </div>
         <div class="contact-info-details">
@@ -18,9 +18,9 @@
         <div class="follow-us">
             <h1>follow us on</h1>
             <div class="social-media-icons">
-                <a href="#"> <img src="/public/images/instagram.svg" /></a>
-                <a href="#"> <img src="/public/images/facebook.svg" /></a>
-                <a href="#"> <img src="/public/images/twitter.svg" /></a>
+                <a href="#"> <img src="public/images/instagram.svg" /></a>
+                <a href="#"> <img src="public/images/facebook.svg" /></a>
+                <a href="#"> <img src="public/images/twitter.svg" /></a>
             </div>
         </div>
         <div class="other-links">
@@ -35,9 +35,9 @@
             <h1>100% Secure payments</h1>
             <p>All major debit and credit cards accepted</p>
             <div class="credit-card-icons">
-                <img src="/public/images/visa.svg" />
-                <img src="/public/images/mastercard.svg" />
-                <img src="/public/images/rupay.svg" />
+                <img src="public/images/visa.svg" />
+                <img src="public/images/mastercard.svg" />
+                <img src="public/images/rupay.svg" />
             </div>
         </div>
         <p>Copyright 2021 bookmart.com© All rights reserved.</p>

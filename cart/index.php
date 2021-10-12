@@ -2,10 +2,9 @@
 
 	include '../db/connection.php';
 	include '../classes/Session.php';
-	include '../vendor/autoload.php';
 
 	if (!Session::getSession('username')) {
-		header("location:/auth/login.php");
+		header("location:/bookmart/auth/login.php");
 		exit;
 	}
 
@@ -88,11 +87,23 @@
 <?php if (empty($cartItems)): ?>
 <?php echo "cart emtpy" ?>
 <?php else: ?>
+<?php
+	if (isset($_GET['required'])) {
+		if ($_GET['required'] == "customerdetails") {
+			echo "<div class='toast-warning'>Please add your address before continuing</div>";
+		} else if ($_GET['required'] == "paymentdetails") {
+			echo "<div class='toast-warning'>Please add your payment details before continuing</div>";
+		} else if ($_GET['required'] == "both") {
+			echo "<div class='toast-warning'>Please add your payment and address before continuing</div>";
+		}
+	}
+
+?>
 <div class="cart-main">
     <div class="cart-items">
         <?php foreach ($cartItems as $key => $item): ?>
         <div class="cart-item" data-item-id="<?=$item['Item_id']?>">
-            <img src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $item['I_cover_image'] : getenv("LOCAL_FOLDER") . $item['I_cover_image']?>" />
+            <img src="<?="/bookmart/public/images/covers/{$item['I_cover_image']}"?>" />
             <div class="cart-details">
                 <h1><?=$item['I_title']?></h1>
                 <span class="cart-details-entry">
@@ -112,7 +123,7 @@
                 </span>
                 <span class="cart-details-entry">
                     <button class="cart-delete-button" onclick="removeItem(<?=$item['Item_id']?>)">
-                        <img src="/public/images/delete.svg" />
+                        <img src="/bookmart/public/images/delete.svg" />
                     </button>
                 </span>
             </div>
@@ -129,10 +140,10 @@
             <p>Total</p>
             <p data-totalamt-id="totalamt">₹<?=$cartSummary['Total_amt']?></p>
         </span>
-        <button class="buy-now-button">BUY NOW</button>
+        <a class="buy-now-button" href="/bookmart/buy">BUY NOW</a>
     </div>
 </div>
 <?php endif?>
 
 
-<!--                                                                                                                                                                                                                                                                                          <?php include "../layouts/footer.php"?> -->
+<!--                                                                                                                                                                                                                                                                                                                                                      <?php include "../layouts/footer.php"?> -->

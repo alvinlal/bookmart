@@ -15,7 +15,7 @@
 				$customer->createCart();
 			}
 			$success = true;
-			header("refresh:2;url='/auth/login.php");
+			header("refresh:2;url='/bookmart/auth/login.php");
 		}
 	}
 
@@ -30,14 +30,14 @@
         <?php endif?>
     </div>
     <div class="auth-form-textfield">
-        <img src="/public/images/email.svg" />
+        <img src="/bookmart/public/images/email.svg" />
         <input type="email" placeholder="Email" name="email" value="<?=htmlspecialchars($_POST['email'] ?? '')?>" required />
     </div>
     <div class="error-div-email">
         <?=$errors['email'] ?? ''?>
     </div>
     <div class="auth-form-textfield">
-        <img src="/public/images/lock.svg" />
+        <img src="/bookmart/public/images/lock.svg" />
         <input type="password" placeholder="password" name="password" value="<?=htmlspecialchars($_POST['password'] ?? '')?>" required />
     </div>
     <div class="error-div-password">
@@ -49,7 +49,7 @@
         </ul>
     </div>
     <div class="auth-form-textfield">
-        <img src="/public/images/lock.svg" />
+        <img src="/bookmart/public/images/lock.svg" />
         <input type="password" placeholder="confirm password" name="confirmpassword" value="<?=htmlspecialchars($_POST['confirmpassword'] ?? '')?>" />
     </div>
     <div class="error-div-confirm-password">

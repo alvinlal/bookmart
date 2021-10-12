@@ -33,10 +33,10 @@ class Search {
       searchResultItemDiv.classList.add("dropdown-search-item");
       const a = document.createElement("a");
       if (result.type == "item") {
-        a.href = `/item.php?id=${result.id}`;
+        a.href = `/bookmart/item.php?id=${result.id}`;
         a.innerHTML = `${result.result} in <b>Books</b>`;
       } else if (result.type == "author") {
-        a.href = `/search.php?authorid=${result.id}`;
+        a.href = `/bookmart/search.php?authorid=${result.id}`;
         a.innerHTML = `${result.result} in <b>Authors</b>`;
       }
       searchResultItemDiv.appendChild(a);
@@ -55,9 +55,9 @@ class Search {
         try {
           var url;
           if (query.match(/^[0-9]{10,13}$/)) {
-            url = `/search.php?q=${query}&searching=true&filter=isbn`;
+            url = `/bookmart/search.php?q=${query}&searching=true&filter=isbn`;
           } else {
-            url = `/search.php?q=${query}&searching=true`;
+            url = `/bookmart/search.php?q=${query}&searching=true`;
           }
           fetch(url)
             .then(res => res.json())

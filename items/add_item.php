@@ -23,7 +23,7 @@
         <h1>Add Item</h1>
         <div class="imagenfields">
             <div class="upload-holder">
-                <img src="/public/images/imagePreview.png" id="imageholder" />
+                <img src="/bookmart/public/images/imagePreview.png" id="imageholder" />
                 <input type="file" name="coverimage" id="coverimage" accept="image/*" />
                 <p><?=$errors['coverimage'] ?? ''?></p>
             </div>
@@ -118,4 +118,4 @@ imgInpt.addEventListener('change', function() {
 document.getElementById('description').value = '<?php echo isset($success) || !isset($_POST['description']) ? "" : addslashes($_POST['description']) ?>';
 </script>
 
-<script src="/public/js/autoComplete.js" defer></script>
+<script src="/bookmart/public/js/autoComplete.js" defer></script>

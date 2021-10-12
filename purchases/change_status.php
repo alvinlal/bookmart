@@ -11,9 +11,9 @@ if ($details) {
 	$newStatus = $details['Status'] == "active" ? "deleted" : "active";
 	query("UPDATE tbl_Purchase_master SET Status='{$newStatus}' WHERE Purchase_master_id='{$id}'");
 	// reduce stocks
-	header("Location:/purchases");
+	header("Location:/bookmart/purchases");
 } else {
-	header("Location:/purchases");
+	header("Location:/bookmart/purchases");
 }
 
 ?>

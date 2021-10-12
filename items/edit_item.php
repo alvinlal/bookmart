@@ -6,7 +6,8 @@
 	$id = isset($_GET['id']) ? $_GET['id'] : -1;
 
 	$row = selectOne("SELECT I_cover_image FROM tbl_Item WHERE Item_id=?", [$id]);
-	$currentImage = getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $row['I_cover_image'] : getenv('LOCAL_FOLDER') . $row['I_cover_image'];
+
+	$currentImage = "/bookmart/public/images/covers/{$row['I_cover_image']}";
 
 	if (isset($_POST['submit'])) {
 		$title = $_POST['title'];
@@ -60,7 +61,7 @@
         <h1>Edit Item</h1>
         <div class="imagenfields">
             <div class="upload-holder">
-                <img src="<?=htmlspecialchars($currentImage)?>" />
+                <img src="<?=htmlspecialchars($currentImage)?>" id="imageholder" />
                 <input type="file" name="coverimage" id="coverimage" accept="image/*" />
                 <p><?=$errors['coverimage'] ?? ''?></p>
             </div>
@@ -155,4 +156,4 @@ imgInpt.addEventListener('change', function() {
 document.getElementById('description').value = '<?=addslashes($description)?>';
 </script>
 
-<script src="/public/js/autoComplete.js" defer></script>
+<script src="/bookmart/public/js/autoComplete.js" defer></script>

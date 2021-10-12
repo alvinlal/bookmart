@@ -53,8 +53,8 @@
     <div class="panel-header">
         <div class="panel-header-actions">
             <h1>Items</h1>
-            <a href="/items/add_item.php"> <img src="/public/images/add.svg" /></a>
-            <a href=<?=isset($_POST['submit']) ? "/exportcsv.php?table=tbl_Item&filter=true&key=" . urlencode($columnMap[$_POST['key']]) . "&operator=" . urlencode($_POST['operator']) . "&value=" . urlencode($_POST['value']) : "/exportcsv.php?table=tbl_Item&filter=false"?>><img src="/public/images/exportcsv.svg" /></a>
+            <a href="/bookmart/items/add_item.php"> <img src="/bookmart/public/images/add.svg" /></a>
+            <a href=<?=isset($_POST['submit']) ? "/bookmart/exportcsv.php?table=tbl_Item&filter=true&key=" . urlencode($columnMap[$_POST['key']]) . "&operator=" . urlencode($_POST['operator']) . "&value=" . urlencode($_POST['value']) : "/bookmart/exportcsv.php?table=tbl_Item&filter=false"?>><img src="/bookmart/public/images/exportcsv.svg" /></a>
         </div>
         <?php if (isset($_POST['submit'])): ?>
         <p id="panel-header-search-results">Showing results for items whose <?=trim($_POST['key'])?> <?=htmlspecialchars(trim($_POST['operator']))?> <?=htmlspecialchars(trim($_POST['value']))?></p>
@@ -62,7 +62,7 @@
         <form class="filter" action="<?=$_SERVER['PHP_SELF']?>" method="POST">
             <div class="filter-input column-field">
                 <input type="text" name="key" readonly value="<?=isset($_POST['key']) ? $_POST['key'] : "Firstname"?>" id="column-field">
-                <img src="/public/images/dropdownArrowBlue.svg" />
+                <img src="/bookmart/public/images/dropdownArrowBlue.svg" />
                 <div class="dropdown-filter" id="column-dropdown">
                     <div class="filter-item" id="column-item">Title</div>
                     <div class="filter-item" id="column-item">Author</div>
@@ -80,7 +80,7 @@
             </div>
             <div class="filter-input operator">
                 <input type="text" name="operator" value="<?=isset($_POST['operator']) ? htmlspecialchars($_POST['operator']) : "="?>" readonly id="operator-field" required />
-                <img src="/public/images/dropdownArrowBlue.svg" />
+                <img src="/bookmart/public/images/dropdownArrowBlue.svg" />
                 <div class="dropdown-filter" id="operator-dropdown">
                 </div>
             </div>
@@ -89,7 +89,7 @@
                     <input type="text" name="value" id="value-field" value="<?=isset($_POST['value']) ? htmlspecialchars($_POST['value']) : ""?>" required>
                 </div>
                 <button type="submit" name="submit">
-                    <img src="/public/images/searchWhite.svg" />
+                    <img src="/bookmart/public/images/searchWhite.svg" />
                 </button>
             </div>
         </form>
@@ -125,7 +125,7 @@
             	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
             ?>
             <div class="row">
-                <div class="cell cover" data-title="Cover"><img src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . $row['I_cover_image'] : getenv("LOCAL_FOLDER") . $row['I_cover_image']?>" /></div>
+                <div class="cell cover" data-title="Cover"><img src="<?="/bookmart/public/images/covers/{$row['I_cover_image']}"?>" /></div>
                 <div class="cell" data-title="No"><?=++$i?></div>
                 <div class="cell" data-title="Name"><?=htmlspecialchars($row['I_title'])?></div>
                 <div class="cell" data-title="Author"><?=htmlspecialchars($row['A_name'])?></div>
@@ -142,7 +142,7 @@
                     <div class="dropdown-description">
                         <span>
                             <?=substr($row['I_description'], 0, 15) . "..."?>
-                            <img src="/public/images/dropdownArrowBlue.svg" />
+                            <img src="/bookmart/public/images/dropdownArrowBlue.svg" />
                         </span>
                         <textarea rows="10" class="dropdown-description-content" disabled>
                             <?=$row['I_description']?>
@@ -151,15 +151,15 @@
                 </div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['I_status'] == "active" ? "#002460" : "red"?>'><?=$row['I_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/public/images/<?=$row['I_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:<?=$row['I_status'] == "active" ? "#002460" : "red"?>'><?=$row['I_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['I_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/items/change_status.php?id=<?=$row['Item_id']?>" style='color:<?=$row['I_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['I_status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/items/change_status.php?id=<?=$row['Item_id']?>" style='color:<?=$row['I_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['I_status'] == "active" ? "deleted" : "active" ?></a>
                         </div>
                     </div>
                 </div>
                 <div class="cell" data-title="Actions">
                     <div class="table-actions">
-                        <a href="/items/edit_item.php?id=<?=$row['Item_id']?>"><img src="/public/images/edit.svg" /></a>
+                        <a href="/bookmart/items/edit_item.php?id=<?=$row['Item_id']?>"><img src="/bookmart/public/images/edit.svg" /></a>
                     </div>
                 </div>
             </div>
@@ -277,7 +277,7 @@ function observerCallback(entries, observer) {
         if (entry.isIntersecting) {
             spinner.classList.add("spinning");
 
-            fetch(<?=isset($_POST['submit']) ? "`/items?filter=true&key={$_POST['key']}&value={$_POST['value']}&operator={$_POST['operator']}&offset=" . '${offset}`' : "`/items?filter=false&offset=" . '${offset}`'?>)
+            fetch(<?=isset($_POST['submit']) ? "`/bookmart/items?filter=true&key={$_POST['key']}&value={$_POST['value']}&operator={$_POST['operator']}&offset=" . '${offset}`' : "`/bookmart/items?filter=false&offset=" . '${offset}`'?>)
                 .then(response => response.json())
                 .then(responseJson => {
                     spinner.classList.remove("spinning");
@@ -311,7 +311,7 @@ class Row {
         const row = document.createElement("div");
         row.classList.add("row");
         const rowHtml = `
-    <div class="cell cover" data-title="Cover"><img src="<?=getenv("ENV") == "production" ? getenv('AWS_S3_FOLDER') . '${data["I_cover_image"]}' : getenv('LOCAL_FOLDER') . '${data["I_cover_image"]}'?>"/></div>
+    <div class="cell cover" data-title="Cover"><img src="/bookmart/public/images/covers/${data['I_cover_image']}"/></div>
             <div class="cell" data-title="No">${++index}</div>
             <div class="cell" data-title="Title">${data['I_title']}</div>
             <div class="cell" data-title="Author">${data['A_name']}</div>
@@ -328,7 +328,7 @@ class Row {
                     <div class="dropdown-description">
                         <span>
                         ${data['I_description'].substring(0,15)}...
-                            <img src="/public/images/dropdownArrowBlue.svg" />
+                            <img src="/bookmart/public/images/dropdownArrowBlue.svg" />
                         </span>
                         <textarea class="dropdown-description-content" disabled>
                         ${data['I_description']}
@@ -337,15 +337,15 @@ class Row {
                 </div>
             <div class="cell" data-title="Status">
                 <div class="dropdown-status">
-                    <span id="items-link" style='color:${data['I_status']=="active"?"#002460":"red"}'>${data['I_status']}<img id="dropdownArrow" src="/public/images/${data['I_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
+                    <span id="items-link" style='color:${data['I_status']=="active"?"#002460":"red"}'>${data['I_status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['I_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/items/change_status.php?id=${data['Item_id']}" style='color:${data['I_status']=="active"?"red":"#002460"}'>${data['I_status']=="active"?"deleted":"active"}</a>
+                    <a href="/bookmart/items/change_status.php?id=${data['Item_id']}" style='color:${data['I_status']=="active"?"red":"#002460"}'>${data['I_status']=="active"?"deleted":"active"}</a>
                     </div>
                 </div>
             </div>
             <div class="cell" data-title="Actions">
                 <div class="table-actions">
-                    <a href="/items/edit_item.php?id=${data['Item_id']}"><img src="/public/images/edit.svg" /></a>
+                    <a href="/bookmart/items/edit_item.php?id=${data['Item_id']}"><img src="/bookmart/public/images/edit.svg" /></a>
                 </div>
             </div>
         `

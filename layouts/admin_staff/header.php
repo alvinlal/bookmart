@@ -16,41 +16,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?=getenv("ENV") == "production" ? '  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">' : ""?>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/index.css">
+    <link rel="stylesheet" href="/bookmart/public/css/index.css">
 </head>
 
 <body>
     <header class="has-shadow">
         <nav>
-            <a href="<?php $userType == "staff" ? "/staffs" : "/admin"?>"><img src="/public/images/brand.svg" /></a>
+            <a href="<?php $userType == "staff" ? "/bookmart/staffs" : "/bookmart/admin"?>"><img src="/bookmart/public/images/brand.svg" /></a>
         </nav>
         <nav class="admin-staff-menus">
             <?php if ($userType == "admin"): ?>
-            <a href="/staffs" id="staffs-link">STAFFS</a>
+            <a href="/bookmart/staffs" id="staffs-link">STAFFS</a>
             <?php endif?>
-            <a href="/customers" id="customers-link">CUSTOMERS</a>
-            <a href="/vendors" id="vendors-link">VENDORS</a>
-            <a href="/purchases" id="purchase-link">PURCHASE</a>
-            <a href="/orders" id="orders-link">ORDERS</a>
-            <a href="/reviews" id="reviews-link">REVIEWS</a>
+            <a href="/bookmart/customers" id="customers-link">CUSTOMERS</a>
+            <a href="/bookmart/vendors" id="vendors-link">VENDORS</a>
+            <a href="/bookmart/purchases" id="purchase-link">PURCHASE</a>
+            <a href="/bookmart/orders" id="orders-link">ORDERS</a>
+            <a href="/bookmart/reviews" id="reviews-link">REVIEWS</a>
             <?php if ($userType == "admin"): ?>
-            <a href="/report" id="report-link">REPORT</a>
+            <a href="/bookmart/report" id="report-link">REPORT</a>
             <?php endif?>
-            <a href="/<?php echo $userType == "staff" ? "staffs" : "admin" ?>/details.php" id="my-details-link">MY DETAILS</a>
+            <a href="/bookmart<?php echo $userType == "staff" ? "staffs" : "admin" ?>/details.php" id="my-details-link">MY DETAILS</a>
             <div class="dropdown-item">
-                <span id="items-link">ITEM <img id="dropdownArrow" src="/public/images/dropdownArrowBlue.svg" /></span>
+                <span id="items-link">ITEM <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
-                    <a href="/categories">Manage Category</a>
-                    <a href="/subcategories">Manage Sub Category</a>
-                    <a href="/publishers">Manage Publisher</a>
-                    <a href="/authors">Manage Author</a>
-                    <a href="/items">Manage Item</a>
+                    <a href="/bookmart/categories">Manage Category</a>
+                    <a href="/bookmart/subcategories">Manage Sub Category</a>
+                    <a href="/bookmart/publishers">Manage Publisher</a>
+                    <a href="/bookmart/authors">Manage Author</a>
+                    <a href="/bookmart/items">Manage Item</a>
                 </div>
             </div>
-            <a href="/auth/logout.php" class="auth-header-btn">LOGOUT</a>
+            <a href="/bookmart/auth/logout.php" class="auth-header-btn">LOGOUT</a>
         </nav>
 
         <div class="hamburgermenu">
@@ -63,22 +62,22 @@
                 &times;
             </div>
             <?php if ($userType == "admin"): ?>
-            <a href="/staffs" id="staffs-link">Staffs</a>
+            <a href="/bookmart/staffs" id="staffs-link">Staffs</a>
             <?php endif?>
-            <a href="/customers" id="customers-link">Customers</a>
-            <a href="/vendors" id="vendors-link">Vendors</a>
-            <a href="/purchases" id="purchase-link">Purchases</a>
-            <a href="/orders" id="orders-link">Orders</a>
-            <a href="/reviews" id="reviews-link">Reviews</a>
+            <a href="/bookmart/customers" id="customers-link">Customers</a>
+            <a href="/bookmart/vendors" id="vendors-link">Vendors</a>
+            <a href="/bookmart/purchases" id="purchase-link">Purchases</a>
+            <a href="/bookmart/orders" id="orders-link">Orders</a>
+            <a href="/bookmart/reviews" id="reviews-link">Reviews</a>
             <?php if ($userType == "admin"): ?>
-            <a href="/report" id="report-link">Report</a>
+            <a href="/bookmart/report" id="report-link">Report</a>
             <?php endif?>
-            <a href="/categories">Manage Category</a>
-            <a href="/subcategories">Manage Sub Category</a>
-            <a href="/publishers">Manage Publisher</a>
-            <a href="/authors">Manage Author</a>
-            <a href="/items">Manage Item</a>
-            <a href="/auth/logout.php">Logout</a>
+            <a href="/bookmart/categories">Manage Category</a>
+            <a href="/bookmart/subcategories">Manage Sub Category</a>
+            <a href="/bookmart/publishers">Manage Publisher</a>
+            <a href="/bookmart/authors">Manage Author</a>
+            <a href="/bookmart/items">Manage Item</a>
+            <a href="/bookmart/auth/logout.php">Logout</a>
         </nav>
     </header>
     <script lang="javascript">
@@ -89,7 +88,7 @@
     const currentLink = currentPage.match(/^\/[a-z]+\/?/)[0].replaceAll("/", "");
     console.log(currentLink);
 
-    if (currentPage === "/admin/details.php" || currentPage == "/staffs/details.php") {
+    if (currentPage === "/bookmart/admin/details.php" || currentPage == "/bookmart/staffs/details.php") {
         var links = document.querySelectorAll("#my-details-link");
         links.forEach(link => link.classList.add("highlighted"));
         document.title = "my details";

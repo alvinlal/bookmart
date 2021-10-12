@@ -7,6 +7,6 @@ session_start();
 $sessionId = session_id();
 $pdo->query("DELETE FROM tbl_Session WHERE Session_id='{$sessionId}';");
 Session::removeSession();
-header("location:/");
+header("location:/bookmart");
 
 ?>
