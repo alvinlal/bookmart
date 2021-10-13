@@ -2,7 +2,6 @@
 	include '../middlewares/isAuthenticated.php';
 	include '../middlewares/isCustomer.php';
 	include '../classes/Card.php';
-	include '../vendor/autoload.php';
 
 	if (isset($_POST['submit'])) {
 		$card = new Card($_POST['cardno'], $_POST['cardname'], $_POST['cardcvv'], $_POST['expirydate']);
@@ -50,6 +49,7 @@
         <button type="submit" name="submit">ADD</button>
     </form>
 </div>
+<?php if ($cards): ?>
 <div class="your-cards">
     <h1>Your Cards</h1>
     <?php foreach ($cards as $key => $item): ?>
@@ -81,3 +81,4 @@
     </div>
     <?php endforeach?>
 </div>
+<?php endif?>

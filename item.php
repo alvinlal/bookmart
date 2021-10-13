@@ -1,6 +1,5 @@
 <?php
 	include './db/connection.php';
-	include './vendor/autoload.php';
 
 	$id = isset($_GET['id']) ? $_GET['id'] : -1;
 

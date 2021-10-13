@@ -104,6 +104,7 @@
                 </div>
                 <div class="cell" data-title="Actions">
                     <div class="table-actions">
+                        <a style="margin-right:15px;" href="/bookmart/purchases/view_purchase.php?id=<?=$row['Purchase_master_id']?>"><img src="/bookmart/public/images/view.svg" /></a>
                         <a href="/bookmart/purchases/edit_purchase.php?id=<?=$row['Purchase_master_id']?>"><img src="/bookmart/public/images/edit.svg" /></a>
                     </div>
                 </div>
@@ -242,6 +243,7 @@ class Row {
             </div>
             <div class="cell" data-title="Actions">
                 <div class="table-actions">
+                <a  style="margin:15px" href="/bookmart/purchases/view_purchase.php?id=${data['Purchase_master_id']}"><img src="/bookmart/public/images/view.svg" /></a>
                     <a href="/bookmart/purchases/edit_purchase.php?id=${data['Purchase_master_id']}"><img src="/bookmart/public/images/edit.svg" /></a>
                 </div>
             </div>

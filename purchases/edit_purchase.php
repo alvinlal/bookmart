@@ -2,7 +2,6 @@
 	include "../middlewares/isAuthenticated.php";
 	include "../middlewares/isAdminOrStaff.php";
 	include "../classes/Purchase.php";
-	include "../vendor/autoload.php";
 
 	$masterId = isset($_GET['id']) ? $_GET['id'] : -1;
 

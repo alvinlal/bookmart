@@ -1,7 +1,6 @@
 <?php include_once "./middlewares/redirectAdminAndStaff.php";
 	include_once "./db/connection.php";
 	include "./layouts/header.php";
-	include './vendor/autoload.php';
 
 	$stmt = $pdo->query("SELECT tbl_Item.Item_id,I_title,A_name,I_price,I_cover_image,I_stock,I_status,Status FROM tbl_Purchase_master JOIN tbl_Purchase_child ON tbl_Purchase_master.Purchase_master_id=tbl_Purchase_child.Purchase_master_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id GROUP BY Item_id HAVING (I_stock>0 AND I_status='active' AND Status='active') ORDER BY Purchase_date DESC  LIMIT 15;");
 

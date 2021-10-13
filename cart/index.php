@@ -85,7 +85,9 @@
 
 
 <?php if (empty($cartItems)): ?>
-<?php echo "cart emtpy" ?>
+<div class="cart-empty">
+    <h1>YOUR CART IS EMPTY</h1>
+</div>
 <?php else: ?>
 <?php
 	if (isset($_GET['required'])) {
@@ -146,4 +148,4 @@
 <?php endif?>
 
 
-<!--                                                                                                                                                                                                                                                                                                                                                      <?php include "../layouts/footer.php"?> -->
+<!--                                                                                                                                                                                                                                                                                                                                                                                  <?php include "../layouts/footer.php"?> -->
