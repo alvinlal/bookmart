@@ -36,7 +36,6 @@
             <div class="dropdown-buy">
                 <span>BUY <img id="dropdownArrowBuy" src="/bookmart/public/images/dropdownArrowYellow.svg" /></span>
                 <div class="dropdown-buy-content">
-
                     <?php
                     	$categories = select("SELECT Cat_id,Cat_name FROM tbl_Category LIMIT 10;");
                     	foreach ($categories as $key => $category) {
@@ -117,9 +116,9 @@
         buyDropdown.addEventListener("mouseleave", () => {
             buyDropdownArrow.classList.remove("dropdowned");
         });
-
         // To make header appear on scroll down
-        if (currentPage === '/') {
+        console.log(currentPage);
+        if (currentPage === '/bookmart/') {
             header.style.backgroundColor = "rgba(255, 255, 255, 0)";
             window.onscroll = () => {
                 if (window.scrollY == 0) {

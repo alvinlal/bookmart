@@ -13,7 +13,7 @@ function apiCall(action, id) {
   }).then(res => {
     if (res.ok) {
       if (res.redirected) {
-        // window.location.href = res.url;
+        window.location.href = res.url;
         console.log("redirected");
         console.log(res.url);
       } else {

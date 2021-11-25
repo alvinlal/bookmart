@@ -69,7 +69,7 @@ CREATE table tbl_Item(
 CREATE TABLE tbl_Cart_master(
     Cart_master_id INT NOT NULL AUTO_INCREMENT,
     Username VARCHAR(255),
-    Cart_status ENUM('created','ordered','payed','shipped','delivered') DEFAULT 'created',
+    Cart_status ENUM('created','ordered','payed') DEFAULT 'created',
     Total_amt DECIMAL(8,2) NOT NULL DEFAULT 0,
     PRIMARY KEY (Cart_master_id),
     FOREIGN KEY (Username) REFERENCES tbl_Login(Username)

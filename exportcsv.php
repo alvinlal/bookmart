@@ -55,6 +55,10 @@ $queryMap = [
 		'query' => "SELECT Purchase_child_id,I_title,V_name,Purchase_price,Quantity,Total_price,Purchase_date,COALESCE(S_fname,'admin') AS Purchased_by,Status  FROM tbl_Purchase_child JOIN tbl_Purchase_master ON tbl_Purchase_child.Purchase_master_id=tbl_Purchase_master.Purchase_master_id JOIN tbl_Vendor ON tbl_Purchase_master.Vendor_id=V_id JOIN tbl_Item ON tbl_Purchase_child.Item_id=tbl_Item.Item_id LEFT JOIN tbl_Staff ON  Purchased_by=Username",
 		'clause' => " HAVING ",
 	],
+	'tbl_Order' => [
+		'query' => "SELECT Order_id,O_date,O_status,total_amt,tbl_Order.Cart_master_id,COUNT(Item_id) as no_of_items FROM tbl_order LEFT JOIN tbl_cart_master ON tbl_Order.Cart_master_id=tbl_cart_master.Cart_master_id LEFT JOIN tbl_cart_child ON tbl_Order.Cart_master_id=tbl_cart_child.Cart_master_id GROUP BY Cart_master_id",
+		'clause' => " HAVING ",
+	],
 ];
 
 if ($_GET['filter'] == "true") {
