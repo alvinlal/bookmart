@@ -24,6 +24,8 @@
 		die();
 	}
 
+	$orderStatusEnum = ['ordered', 'shipped', 'delivered'];
+
 ?>
 
 <?php include "../layouts/admin_staff/header.php";?>
@@ -44,7 +46,7 @@
                     <div class="filter-item" id="column-item">Order Date</div>
                     <div class="filter-item" id="column-item">Total Amount</div>
                     <div class="filter-item" id="column-item">No of items</div>
-                    <!-- <div class="filter-item" id="column-item">Status</div> -->
+                    <div class="filter-item" id="column-item">Status</div>
                 </div>
             </div>
             <div class="filter-input operator">
@@ -70,7 +72,7 @@
                 <div class="cell">Total Amount</div>
                 <div class="cell">Order Date</div>
                 <div class="cell">No of items</div>
-                <!-- <div class="cell">Status</div> -->
+                <div class="cell">Status</div>
                 <div class="cell">Actions</div>
             </div>
             <?php
@@ -88,14 +90,18 @@
                 <div class="cell" data-title="Total Amount"><?=htmlspecialchars($row['total_amt'])?></div>
                 <div class="cell" data-title="Order date"><?=htmlspecialchars($row['O_date'])?></div>
                 <div class="cell" data-title="No of items"><?=htmlspecialchars($row['no_of_items'])?></div>
-                <!-- <div class="cell" data-title="Status">
+                <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['O_status'] == "active" ? "#002460" : "red"?>'><?=$row['O_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['O_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:#002460'><?=$row['O_status']?><img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/orders/change_status.php?id=<?=$row['Order_id']?>" style='color:<?=$row['Status'] == "active" ? "red" : "#002460"?>'><?php echo $row['O_status'] == "active" ? "deleted" : "active" ?></a>
+                            <?php foreach ($orderStatusEnum as $status): ?>
+                            <?php if ($status != $row['O_status']): ?>
+                            <a href="/bookmart/orders/change_status.php?id=<?=$row['Order_id']?>&newstatus=<?=$status?>" style='color:#002460'><?=$status?></a>
+                            <?php endif?>
+                            <?php endforeach?>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="cell" data-title="Actions">
                     <div class="table-actions">
                         <a style="margin-right:15px;" href="/bookmart/orders/view_order.php?id=<?=$row['Order_id']?>"><img src="/bookmart/public/images/view.svg" /></a>
@@ -124,11 +130,10 @@ const operatorMaps = {
         'operators': ['=', '!=', '<=', '>=', '<', '>'],
         'inputType': 'number',
     },
-
-    // 'Status': {
-    //     'operators': ['='],
-    //     'inputType': 'text',
-    // }
+    'Status': {
+        'operators': ['='],
+        'inputType': 'text',
+    }
 };
 
 const columnField = document.getElementById("column-field")
@@ -216,6 +221,13 @@ function observerCallback(entries, observer) {
 
 class Row {
     constructor(data) {
+        const orderStatusEnum = ['ordered', 'shipped', 'delivered'];
+        var orderStatusContent = '';
+        orderStatusEnum.forEach(status => {
+            if (status != data['O_status']) {
+                orderStatusContent += `<a href="/bookmart/orders/change_status.php?id=${data['Order_id']}&newstatus=${status}" style='color:#002460'>${status}</a>`
+            }
+        })
         const row = document.createElement("div");
         row.classList.add("row");
         const rowHtml = `
@@ -223,6 +235,14 @@ class Row {
             <div class="cell" data-title="Total Amount">${data['total_amt']}</div>
             <div class="cell" data-title="Order Date">${data['O_date']}</div>
             <div class="cell" data-title="No of items">${data['no_of_items']}</div>
+            <div class="cell" data-title="Status">
+                    <div class="dropdown-status">
+                        <span id="items-link" style='color:#002460'>${data['O_status']}<img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
+                        <div class="dropdown-status-content">
+                         ${orderStatusContent}
+                        </div>
+                    </div>
+                </div>
             <div class="cell" data-title="Actions">
                 <div class="table-actions">
                 <a  style="margin:15px" href="/bookmart/orders/view_order.php?id=${data['Order_id']}"><img src="/bookmart/public/images/view.svg" /></a>
