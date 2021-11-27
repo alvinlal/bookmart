@@ -59,6 +59,10 @@ $queryMap = [
 		'query' => "SELECT Order_id,O_date,O_status,total_amt,tbl_Order.Cart_master_id,COUNT(Item_id) as no_of_items FROM tbl_order LEFT JOIN tbl_cart_master ON tbl_Order.Cart_master_id=tbl_cart_master.Cart_master_id LEFT JOIN tbl_cart_child ON tbl_Order.Cart_master_id=tbl_cart_child.Cart_master_id GROUP BY Cart_master_id",
 		'clause' => " HAVING ",
 	],
+	'tbl_Review' => [
+		'query' => "SELECT Review_id,C_fname,C_lname,I_title,R_content,R_date,R_status FROM tbl_review JOIN tbl_Customer ON tbl_Review.Username=tbl_Customer.Username JOIN tbl_Item on tbl_review.Item_id=tbl_Item.Item_id ",
+		'clause' => " HAVING ",
+	],
 ];
 
 if ($_GET['filter'] == "true") {

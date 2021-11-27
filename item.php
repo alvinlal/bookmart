@@ -1,7 +1,24 @@
 <?php
+
+	include './vendor/autoload.php';
 	include './db/connection.php';
 
+	session_start();
+
 	$id = isset($_GET['id']) ? $_GET['id'] : -1;
+
+	if (isset($_POST['submit'])) {
+		include './middlewares/isAuthenticated.php';
+		include './classes/Review.php';
+
+		$review = new Review($_POST['content'], $_SESSION['username'], $id);
+		$errors = $review->validateInput();
+		if (!array_filter($errors)) {
+			$review->add();
+			$success = true;
+		}
+
+	}
 
 	$item = selectOne("SELECT Item_id,I_title,I_description,I_price,Cat_name,SubCat_name,tbl_Item.SubCat_id,A_name,P_name,I_language,I_no_of_pages,I_isbn,I_cover_image,I_stock,tbl_Author.Author_id  FROM tbl_Item JOIN tbl_SubCategory ON tbl_Item.SubCat_id = tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id=tbl_Category.Cat_id JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id WHERE Item_id=?;", [$id]);
 
@@ -13,6 +30,17 @@
 	$authorItems = select("SELECT Item_id,I_title,I_price,A_name,I_cover_image FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id = tbl_Author.Author_id WHERE tbl_Item.Author_id=? AND I_status='active' AND  Item_id!=?;", [$item['Author_id'], $id]);
 
 	$genreItems = select("SELECT Item_id,I_title,I_price,A_name,I_cover_image FROM tbl_Item JOIN tbl_Author ON tbl_Item.Author_id = tbl_Author.Author_id WHERE tbl_Item.SubCat_id=? AND Item_id!=?;", [$item['SubCat_id'], $id]);
+
+	$hasBought = false;
+
+	$hasCommented = false;
+	$isLoggedIn = $_SESSION['username'] ?? false;
+
+	if ($isLoggedIn) {
+		$hasBought = select("SELECT Order_id,Username FROM tbl_Order JOIN tbl_Cart_master ON tbl_Order.Cart_master_id=tbl_Cart_master.Cart_master_id JOIN tbl_cart_child ON tbl_cart_master.Cart_master_id=tbl_Cart_child.Cart_master_id JOIN tbl_Item ON tbl_Cart_child.Item_id=tbl_Item.Item_id WHERE O_status='delivered' AND tbl_Cart_master.Username=? AND tbl_Item.Item_id=?;", [$_SESSION['username'], $id]);
+
+		$hasCommented = selectOne("SELECT Review_id,R_content,R_date,R_status FROM tbl_Review WHERE Username=? AND Item_id=?", [$_SESSION['username'], $id]);
+	}
 
 ?>
 
@@ -104,33 +132,51 @@
 <?php endif?>
 
 <div class="item-bottom">
-    <div class="reviews">
+    <div class="reviews" id="review-div">
+        <?php if (isset($success)): ?>
+        <div class="toast-success">
+            🚀 Review added successfully
+        </div>
+        <?php endif?>
         <h1>Reviews</h1>
-        <form class="review">
-            <p>Alvin lal</p>
-            <textarea rows=5 placeholder="Write a review"></textarea>
-            <button type="submit">POST</button>
-        </form>
+        <?php
+        	if ($isLoggedIn && $hasBought) {
+        		if (is_array($hasCommented) && $hasCommented['R_status'] == "active") {
+        			echo "<div class='review'>
+                    <p>You on {$hasCommented['R_date']}<a href='/bookmart/reviews/delete_review.php?id={$hasCommented['Review_id']}&redirectid={$id}' ><img src='/bookmart/public/images/delete.svg'/></a></p>
+                    {$hasCommented['R_content']}</div>";
+        		} elseif (is_array($hasCommented) && $hasCommented['R_status'] == "inactive") {
+        			echo "<div class='review'><p><i>Your comment was removed by the admin</i></p></div>";
+        		} else {
+        			$errorContent = $errors['content'] ?? "";
+        			echo "<form class='review' method='POST' action='{$_SERVER['PHP_SELF']}?id={$id}'>
+
+        <textarea rows=5 placeholder='Write a review' name='content' id='review' required></textarea>
+        <p style='color:red !important;'>" . $errorContent . "</p>
+        <button type='submit' name='submit'>POST</button>
+        </form>";
+
+        		}
+        	}
+        ?>
+        <?php
+	if ($isLoggedIn) {
+		$stmt = $pdo->prepare("SELECT R_content,R_date,C_fname,C_lname FROM tbl_Review JOIN tbl_Customer ON tbl_Review.Username=tbl_Customer.Username WHERE Item_id=? AND tbl_Review.Username!=? AND R_status='active' ORDER BY R_date DESC");
+		$stmt->execute([$id, $_SESSION['username']]);
+	} else {
+		$stmt = $pdo->prepare("SELECT R_content,R_date,C_fname,C_lname FROM tbl_Review JOIN tbl_Customer ON tbl_Review.Username=tbl_Customer.Username WHERE Item_id=? AND R_status='active' ORDER BY R_date DESC");
+		$stmt->execute([$id]);
+	}
+
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
+?>
         <div class="review">
-            <p>Lorem ipsum on 25 Dec 2020</p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo molestias natus excepturi earum harum architecto ullam ducimus sint! Ratione, esse aperiam vero nulla sint aliquid et doloremque reprehenderit error molestias nam cumque corporis itaque atque amet. Possimus adipisci eligendi nam?
+            <p><?=$row['C_fname']?> <?=$row['C_lname']?> on <?=$row['R_date']?></p>
+            <?=$row['R_content']?>
         </div>
-        <div class="review">
-            <p>Lorem ipsum on 25 Dec 2020</p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo molestias natus excepturi earum harum architecto ullam ducimus sint! Ratione, esse aperiam vero nulla sint aliquid et doloremque reprehenderit error molestias nam cumque corporis itaque atque amet. Possimus adipisci eligendi nam?
-        </div>
-        <div class="review">
-            <p>Lorem ipsum on 25 Dec 2020</p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo molestias natus excepturi earum harum architecto ullam ducimus sint! Ratione, esse aperiam vero nulla sint aliquid et doloremque reprehenderit error molestias nam cumque corporis itaque atque amet. Possimus adipisci eligendi nam?
-        </div>
-        <div class="review">
-            <p>Lorem ipsum on 25 Dec 2020</p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo molestias natus excepturi earum harum architecto ullam ducimus sint! Ratione, esse aperiam vero nulla sint aliquid et doloremque reprehenderit error molestias nam cumque corporis itaque atque amet. Possimus adipisci eligendi nam?
-        </div>
-        <div class="review">
-            <p>Lorem ipsum on 25 Dec 2020</p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo molestias natus excepturi earum harum architecto ullam ducimus sint! Ratione, esse aperiam vero nulla sint aliquid et doloremque reprehenderit error molestias nam cumque corporis itaque atque amet. Possimus adipisci eligendi nam?
-        </div>
+        <?php endwhile?>
+
+
     </div>
 
     <?php if ($authorItems): ?>
@@ -185,6 +231,13 @@ if (scrollDiv) {
         rightScroller.style.display = "none";
     }
 }
+
+
+
+<?php if (isset($_POST['submit']) && !isset($success)): ?>
+document.getElementById('review').value = "<?=$_POST['content']?>";
+document.getElementById('review-div').scrollIntoView();
+<?php endif;?>
 </script>
 
 

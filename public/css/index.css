@@ -38,7 +38,7 @@ header {
   align-items: center;
   height: 80px;
   width: 100%;
-  padding: 5px 50px;
+  padding: 5px 30px;
   background-color: white;
   z-index: 100;
 }
@@ -334,7 +334,7 @@ header {
 .dropdown-item .dropdown-item-content {
   display: none;
   position: absolute;
-  left: -60%;
+  left: -80%;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -2384,10 +2384,19 @@ footer {
 }
 
 .review p {
+  width: 100%;
   font-size: 16px;
   font-weight: bold;
   color: var(--primary-color);
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* display: none; */
+}
+
+.review a:hover {
+  transform: scale(1.2);
 }
 
 .review textarea {
