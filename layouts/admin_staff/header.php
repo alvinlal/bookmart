@@ -35,10 +35,8 @@
             <a href="/bookmart/purchases" id="purchase-link">PURCHASE</a>
             <a href="/bookmart/orders" id="orders-link">ORDERS</a>
             <a href="/bookmart/reviews" id="reviews-link">REVIEWS</a>
-            <?php if ($userType == "admin"): ?>
             <a href="/bookmart/report" id="report-link">REPORT</a>
-            <?php endif?>
-            <a href="/bookmart<?php echo $userType == "staff" ? "staffs" : "admin" ?>/details.php" id="my-details-link">MY DETAILS</a>
+            <a href="/bookmart/<?php echo $userType == "staff" ? "staffs" : "admin" ?>/details.php" id="my-details-link">MY DETAILS</a>
             <div class="dropdown-item">
                 <span id="items-link">ITEM <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
