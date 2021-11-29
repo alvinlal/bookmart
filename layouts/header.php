@@ -64,7 +64,7 @@
             <div class="dropdown-item">
                 <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
-                    <a href="/bookmart/customers/orders">Your Orders</a>
+                    <a href="/bookmart/customers/orders.php">Your Orders</a>
                     <a href="/bookmart/customers/details.php">Your Details</a>
                     <a href="/bookmart/cards/details.php">Your Cards</a>
                     <a href="/bookmart/auth/logout.php">Logout</a>

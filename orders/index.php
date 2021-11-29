@@ -6,7 +6,7 @@
 	$columnMap = [
 		'Order Date' => 'O_date',
 		'Total Amount' => 'total_amt',
-		'no of items' => 'no_of_items',
+		'No of items' => 'no_of_items',
 		'Status' => 'O_status',
 	];
 
