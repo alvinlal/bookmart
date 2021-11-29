@@ -90,6 +90,8 @@ class Customer {
 			'district' => '',
 			'pincode' => '',
 			'phno' => '',
+			'password' => [],
+			'confirmpassword' => '',
 		];
 
 		if (!preg_match('/^[a-zA-Z ]{1,30}$/', trim($this->firstname))) {
@@ -114,20 +116,42 @@ class Customer {
 			$errors['phno'] = "Invalid Phone number";
 		}
 
+		if (strlen($this->password) > 0) {
+			if (sizeof($errors['password']) == 0 && $this->password != $this->confirmPassword) {
+				$errors['confirmpassword'] = "Passwords don't match";
+			}
+		}
+
 		return $errors;
 	}
 
 	public function updateDetails($alreadyExists) {
 		try {
 			if ($alreadyExists) {
-				query("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
-					trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
-				]);
+				if (strlen($this->password) > 0) {
+					query('UPDATE tbl_Login SET Password=? WHERE Username=?', [password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10]), $_SESSION['username']]);
+
+					query("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
+						trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
+					]);
+				} else {
+					query("UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Username='{$_SESSION['username']}';", [
+						trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
+					]);
+				}
 				return true;
 			}
-			query('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno) VALUES (?,?,?,?,?,?,?,?)', [
-				$_SESSION['username'], trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
-			]);
+			if (strlen($this->password) > 0) {
+				query('UPDATE tbl_Login SET Password=? WHERE Username=?', [password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10]), $_SESSION['username']]);
+
+				query('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno) VALUES (?,?,?,?,?,?,?,?)', [
+					$_SESSION['username'], trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
+				]);
+			} else {
+				query('INSERT INTO tbl_Customer(Username,C_fname,C_lname,C_housename,C_city,C_district,C_pin,C_phno) VALUES (?,?,?,?,?,?,?,?)', [
+					$_SESSION['username'], trim($this->firstname), trim($this->lastname), trim($this->housename), trim($this->city), trim($this->district), (int) (trim($this->pincode)), (int) trim($this->phno),
+				]);
+			}
 			return true;
 		} catch (PDOException $e) {
 			return false;
@@ -135,7 +159,7 @@ class Customer {
 	}
 
 	public function update($id) {
-		// try to combine updateDetails by user and update by admin into one
+
 		query('UPDATE tbl_Customer SET C_fname=?,C_lname=?,C_housename=?,C_city=?,C_district=?,C_pin=?,C_phno=? WHERE Cust_id=?', [$this->firstname, $this->lastname, $this->housename, $this->city, $this->district, $this->pincode, $this->phno, $id]);
 	}
 

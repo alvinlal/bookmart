@@ -11,8 +11,10 @@
 		$district = $_POST['district'];
 		$pincode = $_POST['pincode'];
 		$phno = $_POST['phno'];
+		$newpassword = $_POST['password'];
+		$confirmpassword = $_POST['confirmpassword'];
 
-		$customer = new Customer(['firstname' => $firstname, 'lastname' => $lastname, 'housename' => $housename, 'city' => $city, 'district' => $district, 'pincode' => $pincode, 'phno' => $phno]);
+		$customer = new Customer(['firstname' => $firstname, 'lastname' => $lastname, 'housename' => $housename, 'city' => $city, 'district' => $district, 'pincode' => $pincode, 'phno' => $phno, 'password' => $newpassword, 'confirmpassword' => $confirmpassword]);
 		$errors = $customer->validateDetails();
 
 		if (!array_filter($errors)) {
@@ -31,6 +33,8 @@
 		$district = $details ? $details['C_district'] : '';
 		$pincode = $details ? $details['C_pin'] : '';
 		$phno = $details ? $details['C_phno'] : '';
+		$newpassword = '';
+		$confirmpassword = '';
 	}
 ?>
 
@@ -80,6 +84,15 @@
                 <input type="text" class="form-textfield" name="phno" required value="<?=htmlspecialchars($phno)?>" />
                 <span class="floating-label">Phone</span>
                 <p><?=$errors['phno'] ?? ''?></p>
+            </div>
+            <div class="input-textfield">
+                <input type="password" class="form-textfield" pattern="^[a-zA-Z0-9!@#$%^&*]{6,60}$" title="Password must contain only letters, numbers and special characters.Password must contain atleast 6 characters" name="password" value="<?=htmlspecialchars($newpassword)?>" />
+                <span class="floating-label">New Password</span>
+            </div>
+            <div class="input-textfield">
+                <input type="password" class="form-textfield" name="confirmpassword" value="<?=htmlspecialchars($confirmpassword)?>" />
+                <span class="floating-label">Confirm Password</span>
+                <p><?=$errors['confirmpassword'] ?? ''?></p>
             </div>
         </div>
         <button type="submit" name="submit">UPDATE</button>
