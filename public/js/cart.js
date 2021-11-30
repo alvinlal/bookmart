@@ -33,6 +33,8 @@ function addToCart(id) {
         document.querySelector(".cart-no-of-items").innerHTML = currentNo + 1;
       }
       showToast("success", "✔️ added to cart");
+    } else {
+      console.log(res.error);
     }
   });
 }
@@ -77,6 +79,8 @@ function increaseQuantity(id) {
         document.querySelector("[data-totalamt-id='totalamt']").innerHTML = "₹" + (currentTotalAmt + currentPrice).toFixed(2);
         document.querySelector(`[data-total-id="${id}"]`).innerHTML = "₹" + (currentTotalPrice + currentPrice).toFixed(2);
         document.querySelector("[data-noofbooks-id='noofbooks']").innerHTML = currentNoOfBooks + 1;
+      } else if ((res.errorType = "maxlimit")) {
+        showToast("warning", "maximum quantity limit reached !");
       }
     })
     .catch(err => showToast("failure", "⚠️ Something went wrong, please try again later"));

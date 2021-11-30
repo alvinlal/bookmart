@@ -146,6 +146,3 @@
     </div>
 </div>
 <?php endif?>
-
-
-<!--                                                                                                                                                                                                                                                                                                                                                                                  <?php include "../layouts/footer.php"?> -->

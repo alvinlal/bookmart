@@ -41,6 +41,7 @@
 		$pdo->commit();
 
 	} catch (PDOException $e) {
+		$pdo->rollBack();
 		throw $e;
 	}
 

@@ -49,7 +49,7 @@
                     		echo "</div>";
                     	}
                     ?>
-                    <a href="all-categories.php" class="all-categories">All categories</a>
+                    <a href="/bookmart/all-categories.php" class="all-categories">All categories</a>
                 </div>
             </div>
 
