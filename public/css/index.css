@@ -3091,3 +3091,27 @@ footer {
   justify-content: space-between;
   align-items: flex-start;
 }
+
+.quantity-strike-through {
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+#reflects {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 30px;
+  color: #ff5e00;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.out-of-stock {
+  color: red !important;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 30px;
+}

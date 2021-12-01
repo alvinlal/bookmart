@@ -33,6 +33,8 @@ function addToCart(id) {
         document.querySelector(".cart-no-of-items").innerHTML = currentNo + 1;
       }
       showToast("success", "✔️ added to cart");
+    } else if (res.errorType == "maxlimit") {
+      showToast("warning", "Not enough stock available !");
     } else {
       console.log(res.error);
     }
@@ -62,7 +64,9 @@ function decreaseQuantity(id) {
         }
       }
     })
-    .catch(err => showToast("failure", "⚠️ Something went wrong, please try again later"));
+    .catch(err => {
+      showToast("failure", "⚠️ Something went wrong, please try again later");
+    });
 }
 
 function increaseQuantity(id) {
@@ -79,8 +83,8 @@ function increaseQuantity(id) {
         document.querySelector("[data-totalamt-id='totalamt']").innerHTML = "₹" + (currentTotalAmt + currentPrice).toFixed(2);
         document.querySelector(`[data-total-id="${id}"]`).innerHTML = "₹" + (currentTotalPrice + currentPrice).toFixed(2);
         document.querySelector("[data-noofbooks-id='noofbooks']").innerHTML = currentNoOfBooks + 1;
-      } else if ((res.errorType = "maxlimit")) {
-        showToast("warning", "maximum quantity limit reached !");
+      } else if (res.errorType == "maxlimit") {
+        showToast("warning", "Not enough stock available !");
       }
     })
     .catch(err => showToast("failure", "⚠️ Something went wrong, please try again later"));
@@ -99,9 +103,10 @@ function removeItem(id) {
         document.querySelector(`[data-item-id="${id}"]`).remove();
         const currentNo = parseInt(document.querySelector(".cart-no-of-items").innerHTML);
         document.querySelector(".cart-no-of-items").innerHTML = currentNo - 1;
-        if (document.querySelector("[data-totalamt-id='totalamt']").innerHTML == "₹0.00") {
-          window.location.reload();
-        }
+        // if (document.querySelector("[data-totalamt-id='totalamt']").innerHTML == "₹0.00") {
+        //   window.location.reload();
+        // }
+        window.location.reload();
       }
     })
     .catch(err => showToast("failure", "⚠️ Something went wrong, please try again later"));

@@ -37,11 +37,11 @@
                 <span>BUY <img id="dropdownArrowBuy" src="/bookmart/public/images/dropdownArrowYellow.svg" /></span>
                 <div class="dropdown-buy-content">
                     <?php
-                    	$categories = select("SELECT Cat_id,Cat_name FROM tbl_Category LIMIT 10;");
+                    	$categories = select("SELECT Cat_id,Cat_name FROM tbl_Category WHERE Cat_status='active' LIMIT 10;");
                     	foreach ($categories as $key => $category) {
                     		echo "<div class='dropdown-buy-entry'>";
                     		echo "<a href='/bookmart/viewByCategory.php?catid={$category['Cat_id']}'>" . $category['Cat_name'] . "</a>";
-                    		$subCategories = select("SELECT SubCat_name,SubCat_id FROM tbl_SubCategory WHERE Cat_id=? LIMIT 5 ", [$category['Cat_id']]);
+                    		$subCategories = select("SELECT SubCat_name,SubCat_id FROM tbl_SubCategory WHERE Cat_id=? AND SubCat_status='active' LIMIT 5 ", [$category['Cat_id']]);
                     		foreach ($subCategories as $key => $subCategory) {
                     			echo "<a href='/bookmart/viewBySubCategory.php?catid={$category['Cat_id']}&subcatid={$subCategory['SubCat_id']}'>" . $subCategory['SubCat_name'] . "</a>";
                     		}

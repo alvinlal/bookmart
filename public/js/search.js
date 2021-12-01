@@ -36,7 +36,7 @@ class Search {
         a.href = `/bookmart/item.php?id=${result.id}`;
         a.innerHTML = `${result.result} in <b>Books</b>`;
       } else if (result.type == "author") {
-        a.href = `/bookmart/search.php?authorid=${result.id}`;
+        a.href = `/bookmart/viewByAuthor.php?authorid=${result.id}`;
         a.innerHTML = `${result.result} in <b>Authors</b>`;
       }
       searchResultItemDiv.appendChild(a);

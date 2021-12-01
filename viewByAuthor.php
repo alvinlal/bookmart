@@ -2,31 +2,22 @@
 
 	include './layouts/header.php';
 
-	$catid = isset($_GET['catid']) ? $_GET['catid'] : -1;
-	$subcatid = isset($_GET['subcatid']) ? $_GET['subcatid'] : -1;
+	$authorid = isset($_GET['authorid']) ? $_GET['authorid'] : -1;
 
-	$catdetails = selectOne("SELECT Cat_name FROM tbl_Category WHERE Cat_id=?", [$catid]);
+	$authordetails = selectOne("SELECT A_name FROM tbl_Author WHERE Author_id=?", [$authorid]);
 
-	$subcatdetails = selectOne("SELECT SubCat_name FROM tbl_SubCategory WHERE SubCat_id=?", [$subcatid]);
-
-	// $item = selectOne("");
-	$stmt = $pdo->prepare("SELECT Item_id,I_title,A_name,I_price,I_cover_image FROM tbl_item JOIN tbl_author ON tbl_item.Author_id=tbl_author.Author_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id=tbl_Category.Cat_id WHERE I_status='active' AND tbl_Category.Cat_id=? AND tbl_Item.SubCat_id=?;");
-
-	$stmt->execute([$catid, $subcatid]);
-
-	$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$items = select("SELECT Item_id,I_title,A_name,I_price,I_cover_image FROM tbl_item JOIN tbl_author ON tbl_Item.Author_id=tbl_Author.Author_id WHERE tbl_Item.Author_id=?;", [$authorid]);
 ?>
 
 
 <div class="viewbycategories-container">
 
-    <h1 style="color:var(--primary-color);font-size:42px;"><?=$subcatdetails['SubCat_name']?> in <?=$catdetails['Cat_name']?></h1>
+    <h1 style="color:var(--primary-color);font-size:42px;">Books by <?=$authordetails['A_name']?></h1>
     <?php if (empty($items)): ?>
     <div style="display:flex;justify-content:center;align-items:center;height:500px">
-        <h1 style="color:var(--primary-color);">NO ITEMS</h1>
+        <h1 style="color:var(--primary-color);">NO BOOKS</h1>
     </div>
     <?php include './layouts/footer.php'?>
-
     <?php die()?>;
     <?php else: ?>
     <div class="items">

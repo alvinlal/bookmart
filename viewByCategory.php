@@ -7,7 +7,7 @@
 	$catdetails = selectOne("SELECT Cat_name FROM tbl_Category WHERE Cat_id=?", [$catid]);
 
 	// $item = selectOne("");
-	$stmt = $pdo->prepare("SELECT Item_id,I_title,A_name,I_price,I_cover_image FROM tbl_item JOIN tbl_author ON tbl_item.Author_id=tbl_author.Author_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id=tbl_Category.Cat_id WHERE I_stock>0 AND I_status='active' AND tbl_Category.Cat_id=?;");
+	$stmt = $pdo->prepare("SELECT Item_id,I_title,A_name,I_price,I_cover_image FROM tbl_item JOIN tbl_author ON tbl_item.Author_id=tbl_author.Author_id JOIN tbl_SubCategory ON tbl_Item.SubCat_id=tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id=tbl_Category.Cat_id WHERE I_status='active' AND tbl_Category.Cat_id=?;");
 
 	$stmt->execute([$catid]);
 
