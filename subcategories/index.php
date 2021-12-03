@@ -101,9 +101,9 @@
                 <div class="cell" data-title="Category"><?=htmlspecialchars($row['Cat_name'])?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['SubCat_status'] == "active" ? "#002460" : "red"?>'><?=$row['SubCat_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['SubCat_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:<?=$row['SubCat_status'] == "active" ? "#002460" : "red"?>'><?=$row['SubCat_status'] == "active" ? "active" : "inactive"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['SubCat_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/subcategories/change_status.php?id=<?=$row['SubCat_id']?>" style='color:<?=$row['SubCat_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['SubCat_status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/subcategories/change_status.php?id=<?=$row['SubCat_id']?>" style='color:<?=$row['SubCat_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['SubCat_status'] == "active" ? "inactive" : "active" ?></a>
                         </div>
                     </div>
                 </div>
@@ -231,7 +231,7 @@ class Row {
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['SubCat_status']=="active"?"#002460":"red"}'>${data['SubCat_status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['SubCat_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/bookmart/subcategories/change_status.php?id=${data['SubCat_id']}" style='color:${data['SubCat_status']=="active"?"red":"#002460"}'>${data['SubCat_status']=="active"?"deleted":"active"}</a>
+                    <a href="/bookmart/subcategories/change_status.php?id=${data['SubCat_id']}" style='color:${data['SubCat_status']=="active"?"red":"#002460"}'>${data['SubCat_status']=="active"?"inactive":"active"}</a>
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@
     <?php die()?>;
     <?php endif?>
     <form class="form edit-staff-form" action="<?=$_SERVER['PHP_SELF']?>" method="post" style="width:51% !important">
-        <h1>Details</h1>
+        <h1>MY DETAILS</h1>
         <div class="fields-wrapper">
             <div class="input-textfield">
                 <input type="text" class="form-textfield" name="name" required value="<?=htmlspecialchars($name)?>" />

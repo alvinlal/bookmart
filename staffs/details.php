@@ -55,7 +55,7 @@
     <?php die()?>;
     <?php endif?>
     <form class="form edit-staff-form" action="<?=$_SERVER['PHP_SELF']?>" method="post">
-        <h1>Details</h1>
+        <h1>MY DETAILS</h1>
         <div class="fields-wrapper">
             <div class="input-textfield">
                 <input type="text" class="form-textfield" name="fname" required value="<?=htmlspecialchars($fname)?>" />

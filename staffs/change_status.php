@@ -8,7 +8,7 @@ $username = isset($_GET['username']) ? $_GET['username'] : -1;
 $details = selectOne('SELECT User_status FROM tbl_Login WHERE Username=?', [$username]);
 
 if ($details) {
-	$newStatus = $details['User_status'] == "active" ? "deleted" : "active";
+	$newStatus = $details['User_status'] == "active" ? "inactive" : "active";
 	query("UPDATE tbl_Login SET User_status='{$newStatus}' WHERE Username='{$username}'");
 	if ($newStatus != "active") {
 		$sessions = select("SELECT Session_id from tbl_Session WHERE Username='{$username}'");

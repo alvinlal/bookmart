@@ -14,9 +14,9 @@
         <h1>Best Books, Best Prices.</h1>
         <p>At Bookmart, we are dedicated to keeping our prices low while providing the very best book shopping experience to you.</p>
         <div class="title-actions">
-            <a href="categories.php">EXPLORE</a>
+            <a href="/bookmart/all-categories.php">EXPLORE</a>
             <?php if (!$isLoggedIn): ?>
-            <a href="auth/signup.php" class="join-btn">JOIN NOW</a>
+            <a href="/bookmart/auth/signup.php" class="join-btn">JOIN NOW</a>
             <?php endif?>
         </div>
     </div>

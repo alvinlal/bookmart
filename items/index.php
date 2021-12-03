@@ -151,9 +151,9 @@
                 </div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['I_status'] == "active" ? "#002460" : "red"?>'><?=$row['I_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['I_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:<?=$row['I_status'] == "active" ? "#002460" : "red"?>'><?=$row['I_status'] == "active" ? "active" : "inactive"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['I_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/items/change_status.php?id=<?=$row['Item_id']?>" style='color:<?=$row['I_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['I_status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/items/change_status.php?id=<?=$row['Item_id']?>" style='color:<?=$row['I_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['I_status'] == "active" ? "inactive" : "active" ?></a>
                         </div>
                     </div>
                 </div>
@@ -339,7 +339,7 @@ class Row {
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['I_status']=="active"?"#002460":"red"}'>${data['I_status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['I_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/bookmart/items/change_status.php?id=${data['Item_id']}" style='color:${data['I_status']=="active"?"red":"#002460"}'>${data['I_status']=="active"?"deleted":"active"}</a>
+                    <a href="/bookmart/items/change_status.php?id=${data['Item_id']}" style='color:${data['I_status']=="active"?"red":"#002460"}'>${data['I_status']=="active"?"inactive":"active"}</a>
                     </div>
                 </div>
             </div>

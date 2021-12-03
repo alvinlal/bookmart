@@ -20,7 +20,9 @@
 
 	}
 
-	$item = selectOne("SELECT Item_id,I_title,I_description,I_price,Cat_name,SubCat_name,tbl_Item.SubCat_id,A_name,P_name,I_language,I_no_of_pages,I_isbn,I_cover_image,I_stock,tbl_Author.Author_id  FROM tbl_Item JOIN tbl_SubCategory ON tbl_Item.SubCat_id = tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id=tbl_Category.Cat_id JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id WHERE Item_id=?;", [$id]);
+	$item = selectOne("SELECT Item_id,I_title,I_description,I_price,Cat_name,SubCat_name,tbl_Item.SubCat_id,A_name,P_name,I_language,I_no_of_pages,I_isbn,I_cover_image,I_stock,tbl_Author.Author_id,tbl_Author.A_name  FROM tbl_Item JOIN tbl_SubCategory ON tbl_Item.SubCat_id = tbl_SubCategory.SubCat_id JOIN tbl_Category ON tbl_SubCategory.Cat_id=tbl_Category.Cat_id JOIN tbl_Author ON tbl_Item.Author_id=tbl_Author.Author_id JOIN tbl_Publisher ON tbl_Item.Publisher_id=tbl_Publisher.Publisher_id WHERE Item_id=?;", [$id]);
+
+	$authorname = $item['A_name'];
 
 	if (!$item) {
 		echo "404 not found";
@@ -167,21 +169,26 @@
 		$stmt = $pdo->prepare("SELECT R_content,R_date,C_fname,C_lname FROM tbl_Review JOIN tbl_Customer ON tbl_Review.Username=tbl_Customer.Username WHERE Item_id=? AND R_status='active' ORDER BY R_date DESC");
 		$stmt->execute([$id]);
 	}
+	$hasReview = false;
 
 	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
 ?>
+        <?php $hasReview = true?>
         <div class="review">
             <p><?=$row['C_fname']?> <?=$row['C_lname']?> on <?=$row['R_date']?></p>
             <?=$row['R_content']?>
         </div>
         <?php endwhile?>
 
-
+        <?php if (!$hasReview): ?>
+        <h3 style="color:var(--primary-color)">No reviews yet.</h3>
+        <?php endif?>
     </div>
+
 
     <?php if ($authorItems): ?>
     <div class="more-from-author">
-        <h2>More From JK Rowling</h2>
+        <h2>More from <?=$authorname?></h2>
         <div class="more-from-author-books">
             <?php foreach ($authorItems as $key => $item): ?>
             <a href="/bookmart/item.php?id=<?=$item['Item_id']?>" class="book-preview">

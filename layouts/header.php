@@ -6,9 +6,15 @@
 	}
 
 	$isLoggedIn = $_SESSION['username'] ?? false;
+	$welcomename = "user";
 
 	if ($isLoggedIn) {
 		$noOfItems = selectOne("SELECT COUNT(Cart_child_id) AS noOfItems FROM tbl_Cart_master JOIN tbl_Cart_child ON tbl_Cart_master.Cart_master_id = tbl_Cart_child.Cart_master_id WHERE Username=? AND Cart_status='created';", [$_SESSION['username']])['noOfItems'];
+		$user = selectOne("SELECT C_fname FROM tbl_Customer WHERE Username=?", [$_SESSION['username']]);
+
+		if ($user) {
+			$welcomename = $user['C_fname'];
+		}
 	}
 
 ?>
@@ -62,7 +68,7 @@
         <?php if ($isLoggedIn): ?>
         <nav class="right-action">
             <div class="dropdown-item">
-                <span id="item-link">My Account <img id="dropdownArrowMyaccount" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
+                <span id="item-link">Hello <?=$welcomename?> <img id="dropdownArrowMyaccount" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
                     <a href="/bookmart/customers/orders.php">Your Orders</a>
                     <a href="/bookmart/customers/details.php">Your Details</a>

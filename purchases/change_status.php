@@ -8,7 +8,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : -1;
 $details = selectOne('SELECT Status FROM tbl_Purchase_master WHERE Purchase_master_id=?', [$id]);
 
 if ($details) {
-	$newStatus = $details['Status'] == "active" ? "deleted" : "active";
+	$newStatus = $details['Status'] == "active" ? "inactive" : "active";
 	try {
 		$pdo->beginTransaction();
 		query("UPDATE tbl_Purchase_master SET Status='{$newStatus}' WHERE Purchase_master_id='{$id}'");
@@ -19,7 +19,7 @@ if ($details) {
 			foreach ($purchaseItems as $key => $purchase) {
 				query("UPDATE tbl_Item SET I_stock=I_stock+? WHERE Item_id=?;", [$purchase['Quantity'], $purchase['Item_id']]);
 			}
-		} else if ($newStatus == 'deleted') {
+		} else if ($newStatus == 'inactive') {
 			foreach ($purchaseItems as $key => $purchase) {
 				$currentStock = selectOne('SELECT I_stock FROM tbl_Item WHERE Item_id =?', [$purchase['Item_id']])['I_stock'];
 				$quantity = $purchase['Quantity'];

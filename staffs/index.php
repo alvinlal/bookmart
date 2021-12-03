@@ -117,7 +117,7 @@
                     <div class="dropdown-status">
                         <span id="items-link" style=' color:<?=$row['User_status'] == "active" ? "#002460" : "red"?>'><?=$row['User_status']?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['User_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/staffs/change_status.php?username=<?=$row['Username']?>" onclick="<?php echo $row['User_status'] == 'active' ? "return confirm('Are you sure ? " . $row['S_fname'] . " will be logged out of all current sessions')" : "return true;" ?>" style='color:<?=$row['User_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['User_status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/staffs/change_status.php?username=<?=$row['Username']?>" onclick="<?php echo $row['User_status'] == 'active' ? "return confirm('Are you sure ? " . $row['S_fname'] . " will be logged out of all current sessions')" : "return true;" ?>" style='color:<?=$row['User_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['User_status'] == "active" ? "inactive" : "active" ?></a>
                         </div>
                     </div>
                 </div>
@@ -275,7 +275,7 @@ class Row {
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['User_status']=="active"?"#002460":"red"}'>${data['User_status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['User_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                        <a href="/staffs/change_status.php?username=${data['Username']}" onclick="${data['User_status']=="active"?`return confirm('Are you sure ${data['S_fname']} will be logged out of all current sessions')`:"return true"}" style='color:${data['User_status']=="active"?"red":"#002460"}'>${data['User_status']=="active"?"deleted":"active"}</a>
+                        <a href="/bookmart/staffs/change_status.php?username=${data['Username']}" onclick="${data['User_status']=="active"?`return confirm('Are you sure ${data['S_fname']} will be logged out of all current sessions')`:"return true"}" style='color:${data['User_status']=="active"?"red":"#002460"}'>${data['User_status']=="active"?"inactive":"active"}</a>
                     </div>
                 </div>
             </div>

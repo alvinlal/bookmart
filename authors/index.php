@@ -97,9 +97,9 @@
                 <div class="cell" data-title="Name"><?=htmlspecialchars($row['A_name'])?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['A_status'] == "active" ? "#002460" : "red"?>'><?=$row['A_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['A_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:<?=$row['A_status'] == "active" ? "#002460" : "red"?>'><?=$row['A_status'] == "active" ? "active" : "inactive"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['A_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/authors/change_status.php?id=<?=$row['Author_id']?>" style='color:<?=$row['A_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['A_status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/authors/change_status.php?id=<?=$row['Author_id']?>" style='color:<?=$row['A_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['A_status'] == "active" ? "inactive" : "active" ?></a>
                         </div>
                     </div>
                 </div>
@@ -222,7 +222,7 @@ class Row {
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['A_status']=="active"?"#002460":"red"}'>${data['A_status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['A_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/bookmart/authors/change_status.php?id=${data['Author_id']}" style='color:${data['A_status']=="active"?"red":"#002460"}'>${data['A_status']=="active"?"deleted":"active"}</a>
+                    <a href="/bookmart/authors/change_status.php?id=${data['Author_id']}" style='color:${data['A_status']=="active"?"red":"#002460"}'>${data['A_status']=="active"?"inactive":"active"}</a>
                     </div>
                 </div>
             </div>

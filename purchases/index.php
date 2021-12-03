@@ -90,15 +90,15 @@
             ?>
             <div class="row">
                 <div class="cell" data-title="No"><?=++$i?></div>
-                <div class="cell" data-title="Total Amount"><?=htmlspecialchars($row['V_name'])?></div>
-                <div class="cell" data-title="Email"><?=htmlspecialchars($row['Total_amt'])?></div>
-                <div class="cell" data-title="Email"><?=htmlspecialchars($row['Purchase_date'])?></div>
-                <div class="cell" data-title="Added By"><?php echo $row['Purchased_by'] ?></div>
+                <div class="cell" data-title="vendor"><?=htmlspecialchars($row['V_name'])?></div>
+                <div class="cell" data-title="Total Amount"><?=htmlspecialchars($row['Total_amt'])?></div>
+                <div class="cell" data-title="Purchase Date"><?=htmlspecialchars($row['Purchase_date'])?></div>
+                <div class="cell" data-title="Purchased By"><?php echo $row['Purchased_by'] ?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['Status'] == "active" ? "#002460" : "red"?>'><?=$row['Status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['Status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:<?=$row['Status'] == "active" ? "#002460" : "red"?>'><?=$row['Status'] == "active" ? "active" : "inactive"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['Status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/purchases/change_status.php?id=<?=$row['Purchase_master_id']?>" style='color:<?=$row['Status'] == "active" ? "red" : "#002460"?>'><?php echo $row['Status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/purchases/change_status.php?id=<?=$row['Purchase_master_id']?>" style='color:<?=$row['Status'] == "active" ? "red" : "#002460"?>'><?php echo $row['Status'] == "active" ? "inactive" : "active" ?></a>
                         </div>
                     </div>
                 </div>
@@ -229,15 +229,15 @@ class Row {
         row.classList.add("row");
         const rowHtml = `
             <div class="cell" data-title="No">${++index}</div>
-            <div class="cell" data-title="Phone number">${data['V_name']}</div>
-            <div class="cell" data-title="Phone number">${data['Total_amt']}</div>
-            <div class="cell" data-title="Email">${data['Purchase_date']}</div>
-            <div class="cell" data-title="Added By">${data['Purchased_by']}</div>
+            <div class="cell" data-title="Vendor">${data['V_name']}</div>
+            <div class="cell" data-title="Total Amount">${data['Total_amt']}</div>
+            <div class="cell" data-title="Purchase Date">${data['Purchase_date']}</div>
+            <div class="cell" data-title="Purchased By">${data['Purchased_by']}</div>
             <div class="cell" data-title="Status">
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['Status']=="active"?"#002460":"red"}'>${data['Status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['Status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/bookmart/purchases/change_status.php?id=${data['Purchase_master_id']}" style='color:${data['Status']=="active"?"red":"#002460"}'>${data['Status']=="active"?"deleted":"active"}</a>
+                    <a href="/bookmart/purchases/change_status.php?id=${data['Purchase_master_id']}" style='color:${data['Status']=="active"?"red":"#002460"}'>${data['Status']=="active"?"inactive":"active"}</a>
                     </div>
                 </div>
             </div>

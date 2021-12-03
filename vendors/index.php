@@ -121,9 +121,9 @@
                 <div class="cell" data-title="Added By"><?php echo $row['Added_by'] ?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
-                        <span id="items-link" style='color:<?=$row['V_status'] == "active" ? "#002460" : "red"?>'><?=$row['V_status'] == "active" ? "active" : "deleted"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['V_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
+                        <span id="items-link" style='color:<?=$row['V_status'] == "active" ? "#002460" : "red"?>'><?=$row['V_status'] == "active" ? "active" : "inactive"?><img id="dropdownArrow" src="/bookmart/public/images/<?=$row['V_status'] == "active" ? "dropdownArrowBlue.svg" : "dropdownArrowRed.svg"?>" /></span>
                         <div class="dropdown-status-content">
-                            <a href="/bookmart/vendors/change_status.php?id=<?=$row['V_id']?>" style='color:<?=$row['V_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['V_status'] == "active" ? "deleted" : "active" ?></a>
+                            <a href="/bookmart/vendors/change_status.php?id=<?=$row['V_id']?>" style='color:<?=$row['V_status'] == "active" ? "red" : "#002460"?>'><?php echo $row['V_status'] == "active" ? "inactive" : "active" ?></a>
                         </div>
                     </div>
                 </div>
@@ -278,7 +278,7 @@ class Row {
                 <div class="dropdown-status">
                     <span id="items-link" style='color:${data['V_status']=="active"?"#002460":"red"}'>${data['V_status']}<img id="dropdownArrow" src="/bookmart/public/images/${data['V_status']=="active"?"dropdownArrowBlue.svg":"dropdownArrowRed.svg"}" /></span>
                     <div class="dropdown-status-content">
-                    <a href="/bookmart/vendors/change_status.php?id=${data['V_id']}" style='color:${data['V_status']=="active"?"red":"#002460"}'>${data['V_status']=="active"?"deleted":"active"}</a>
+                    <a href="/bookmart/vendors/change_status.php?id=${data['V_id']}" style='color:${data['V_status']=="active"?"red":"#002460"}'>${data['V_status']=="active"?"inactive":"active"}</a>
                     </div>
                 </div>
             </div>
