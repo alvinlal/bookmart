@@ -1,7 +1,7 @@
 <?php
 	include '../middlewares/isAuthenticated.php';
 	include '../db/connection.php';
-	include '../vendor/autoload.php';
+	// include '../vendor/autoload.php';
 
 	if (!isset($_POST['cardid'])) {
 		header("location:/");
