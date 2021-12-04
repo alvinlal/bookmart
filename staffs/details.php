@@ -14,7 +14,7 @@
 		$newpassword = $_POST['password'];
 		$confirmpassword = $_POST['confirmpassword'];
 
-		$staff = new Staff($fname, $lname, $housename, $city, $district, $pincode, $phno, $newpassword, $confirmpassword);
+		$staff = new Staff(['fname' => $_POST['fname'], 'lname' => $_POST['lname'], 'housename' => $_POST['housename'], 'city' => $_POST['city'], 'district' => $_POST['district'], 'pincode' => $_POST['pincode'], 'phno' => $_POST['phno'], 'password' => $_POST['password'], 'confirmpassword' => $_POST['confirmpassword']]);
 		$errors = $staff->validateInputWithPassword();
 		if (!array_filter($errors)) {
 			$staff->updateWithPassword();

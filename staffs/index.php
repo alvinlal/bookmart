@@ -12,15 +12,15 @@
 		'Pincode' => 'S_pin',
 		'Phone' => 'S_phno',
 		'Email' => 'tbl_Staff.Username',
-		'Date of joining' => 'S_doj',
+		'Date of joining' => 'added_date',
 		'Status' => 'User_status',
 	];
 
 	if (isset($_GET['offset'])) {
 		if ($_GET['filter'] == "false") {
-			$rows = select("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,S_doj FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username LIMIT 5 OFFSET ?;", [$_GET['offset']]);
+			$rows = select("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,added_date FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username LIMIT 5 OFFSET ?;", [$_GET['offset']]);
 		} else {
-			$rows = select("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,S_doj FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username WHERE {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
+			$rows = select("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,added_date FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username WHERE {$columnMap[$_GET['key']]}{$_GET['operator']}? LIMIT 5 OFFSET ?;", [$_GET['value'], $_GET['offset']]);
 		}
 		if ($rows) {
 			echo json_encode(['data' => $rows, 'end' => false]);
@@ -94,10 +94,10 @@
             </div>
             <?php
             	if (isset($_POST['submit'])) {
-            		$stmt = $pdo->prepare("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,S_doj FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username WHERE {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
+            		$stmt = $pdo->prepare("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,added_date FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username WHERE {$columnMap[$_POST['key']]}{$_POST['operator']}? LIMIT 5;");
             		$stmt->execute([trim($_POST['value'])]);
             	} else {
-            		$stmt = $pdo->query("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,S_doj FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username LIMIT 5;");
+            		$stmt = $pdo->query("SELECT tbl_Staff.Username,User_status,Staff_id,S_fname,S_lname,S_city,S_district,S_housename,S_pin,S_phno,added_date FROM tbl_Staff JOIN tbl_Login ON tbl_Login.Username = tbl_Staff.Username LIMIT 5;");
             	}
             	$i = 0;
             	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)):
@@ -111,7 +111,7 @@
                 <div class="cell" data-title="District"><?=htmlspecialchars($row['S_district'])?></div>
                 <div class="cell" data-title="Pincode"><?=htmlspecialchars($row['S_pin'])?></div>
                 <div class="cell" data-title="Phone number"><?=htmlspecialchars($row['S_phno'])?></div>
-                <div class="cell" data-title="Date of joining"><?=htmlspecialchars($row['S_doj'])?></div>
+                <div class="cell" data-title="Date of joining"><?=htmlspecialchars($row['added_date'])?></div>
                 <div class="cell" data-title="Email"><?=htmlspecialchars($row['Username'])?></div>
                 <div class="cell" data-title="Status">
                     <div class="dropdown-status">
@@ -269,7 +269,7 @@ class Row {
             <div class="cell" data-title="District">${data['S_district']}</div>
             <div class="cell" data-title="Pincode">${data['S_pin']}</div>
             <div class="cell" data-title="Phone number">${data['S_phno']}</div>
-            <div class="cell" data-title="Date of joining">${data['S_doj']}</div>
+            <div class="cell" data-title="Date of joining">${data['added_date']}</div>
             <div class="cell" data-title="Email">${data['Username']}</div>
             <div class="cell" data-title="Status">
                 <div class="dropdown-status">

@@ -19,7 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/bookmart/public/css/index.css">
-    <script defer src="/bookmart/public/js/jspdf.umd.min.js"></script>
+    <script src="/bookmart/public/js/jspdf.umd.min.js"></script>
+    <script src="/bookmart/public/js/jspdf-autotable.js"></script>
 </head>
 
 <body>
@@ -36,8 +37,20 @@
             <a href="/bookmart/purchases" id="purchase-link">PURCHASE</a>
             <a href="/bookmart/orders" id="orders-link">ORDERS</a>
             <a href="/bookmart/reviews" id="reviews-link">REVIEWS</a>
-            <a href="/bookmart/report" id="report-link">REPORT</a>
             <a href="/bookmart/<?php echo $userType == "staff" ? "staffs" : "admin" ?>/details.php" id="my-details-link">MY DETAILS</a>
+
+            <div class="dropdown-item">
+                <span id="reports-link">REPORT <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
+                <div class="dropdown-item-content">
+                    <a href="/bookmart/reports/salesreport.php">Sales Report</a>
+                    <a href="/bookmart/reports/purchasereport.php">Purchase Report</a>
+                    <?php if ($userType == "admin"): ?>
+                    <a href="/bookmart/reports/staffreport.php">Staff Report</a>
+                    <?php endif?>
+                    <a href="/bookmart/reports/customerreport.php">Customer Report</a>
+                </div>
+            </div>
+
             <div class="dropdown-item">
                 <span id="items-link">ITEM <img id="dropdownArrow" src="/bookmart/public/images/dropdownArrowBlue.svg" /></span>
                 <div class="dropdown-item-content">
@@ -48,6 +61,7 @@
                     <a href="/bookmart/items">Manage Item</a>
                 </div>
             </div>
+
             <a href="/bookmart/auth/logout.php" class="auth-header-btn">LOGOUT</a>
         </nav>
 
@@ -111,8 +125,8 @@
         var links = document.querySelectorAll("#orders-link");
         links.forEach(link => link.classList.add("highlighted"));
         document.title = "orders";
-    } else if (currentLink === "report") {
-        var links = document.querySelectorAll("#report-link");
+    } else if (currentLink === "reports") {
+        var links = document.querySelectorAll("#reports-link");
         links.forEach(link => link.classList.add("highlighted"));
         document.title = "report";
     } else if (currentLink === "reviews") {

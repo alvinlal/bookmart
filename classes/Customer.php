@@ -70,10 +70,11 @@ class Customer {
 	}
 
 	public function signup() {
-		return query('INSERT INTO tbl_Login (Username,User_type,Password) VALUES(:Username,:User_type,:Password)', [
+		return query('INSERT INTO tbl_Login (Username,User_type,Password,added_date) VALUES(:Username,:User_type,:Password,:Date)', [
 			'Username' => trim($this->email),
 			'User_type' => "customer",
 			'Password' => password_hash($this->password, PASSWORD_DEFAULT, ['cost' => 10]),
+			'Date' => date("Y-m-d"),
 		]);
 	}
 

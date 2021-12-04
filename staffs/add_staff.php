@@ -4,7 +4,8 @@
 	include "../classes/Staff.php";
 
 	if (isset($_POST['submit'])) {
-		$staff = new Staff($_POST['fname'], $_POST['lname'], $_POST['housename'], $_POST['city'], $_POST['district'], $_POST['pincode'], $_POST['phno'], $_POST['doj'], $_POST['email']);
+
+		$staff = new Staff(['fname' => $_POST['fname'], 'lname' => $_POST['lname'], 'housename' => $_POST['housename'], 'city' => $_POST['city'], 'district' => $_POST['district'], 'pincode' => $_POST['pincode'], 'phno' => $_POST['phno'], 'doj' => $_POST['doj'], 'email' => $_POST['email']]);
 		$errors = $staff->validateInput();
 		if (!array_filter($errors)) {
 			$staff->add();

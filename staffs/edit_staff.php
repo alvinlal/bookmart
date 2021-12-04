@@ -14,14 +14,16 @@
 		$pincode = $_POST['pincode'];
 		$phno = $_POST['phno'];
 		$doj = $_POST['doj'];
-		$staff = new Staff($fname, $lname, $housename, $city, $district, $pincode, $phno, $doj, );
+		$staff = new Staff(['fname' => $_POST['fname'], 'lname' => $_POST['lname'], 'housename' => $_POST['housename'], 'city' => $_POST['city'], 'district' => $_POST['district'], 'pincode' => $_POST['pincode'], 'phno' => $_POST['phno'], 'doj' => $_POST['doj']]);
+
 		$errors = $staff->validateInput();
+
 		if (!array_filter($errors)) {
 			$staff->update($id);
 			$success = true;
 		}
 	} else {
-		$details = selectOne('SELECT S_fname,S_lname,S_housename,S_city,S_city,S_district,S_pin,S_phno,S_doj FROM tbl_Staff WHERE Staff_id=?', [$id]);
+		$details = selectOne('SELECT S_fname,S_lname,S_housename,S_city,S_city,S_district,S_pin,S_phno,added_date FROM tbl_Staff JOIN tbl_Login ON tbl_Staff.Username=tbl_Login.Username WHERE Staff_id=?', [$id]);
 		if ($details) {
 			$fname = $details['S_fname'];
 			$lname = $details['S_lname'];
@@ -30,7 +32,7 @@
 			$district = $details['S_district'];
 			$pincode = $details['S_pin'];
 			$phno = $details['S_phno'];
-			$doj = $details['S_doj'];
+			$doj = $details['added_date'];
 		} else {
 			$notFound = true;
 		}

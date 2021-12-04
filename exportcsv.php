@@ -20,7 +20,7 @@ $fh = fopen('php://output', 'w');
 
 $queryMap = [
 	'tbl_Staff' => [
-		'query' => "SELECT * FROM tbl_Staff",
+		'query' => "SELECT * FROM tbl_Staff JOIN tbl_Login ON tbl_Staff.Username=tbl_Login.Username",
 		'clause' => " WHERE ",
 	],
 	'tbl_Customer' => [
