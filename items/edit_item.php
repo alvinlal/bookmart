@@ -23,7 +23,7 @@
 		$language = $_POST['language'];
 		$description = $_POST['description'];
 		$coverimage = $_FILES['coverimage'];
-		$item = new Item($title, $authorid, $subcategoryid, $publisherid, $isbn, $price, $noofpages, $language, $description, $coverimage);
+		$item = new Item($title, $authorid, $subcategoryid, $publisherid, $isbn, $noofpages, $language, $description, $coverimage, $price);
 		$errors = $item->validateInput(true);
 		if (!array_filter($errors)) {
 			$item->update($id);

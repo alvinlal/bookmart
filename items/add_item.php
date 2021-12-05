@@ -4,7 +4,7 @@
 	include "../classes/Item.php";
 
 	if (isset($_POST['submit'])) {
-		$item = new Item($_POST['title'], $_POST['authorid'], $_POST['subcategoryid'], $_POST['publisherid'], $_POST['isbn'], $_POST['price'], $_POST['noofpages'], $_POST['language'], $_POST['description'], $_FILES['coverimage']);
+		$item = new Item($_POST['title'], $_POST['authorid'], $_POST['subcategoryid'], $_POST['publisherid'], $_POST['isbn'], $_POST['noofpages'], $_POST['language'], $_POST['description'], $_FILES['coverimage']);
 		$errors = $item->validateInput();
 		if (!array_filter($errors)) {
 			$item->add();
@@ -73,11 +73,11 @@
                     <span class="floating-label">ISBN</span>
                     <p><?=$errors['isbn'] ?? ''?></p>
                 </div>
-                <div class="input-textfield">
+                <!-- <div class="input-textfield">
                     <input type="text" class="form-textfield" name="price" required value="<?php echo isset($success) || !isset($_POST['price']) ? "" : htmlspecialchars($_POST['price']) ?>" />
                     <span class="floating-label">Price</span>
                     <p><?=$errors['price'] ?? ''?></p>
-                </div>
+                </div> -->
                 <div class="input-textfield">
                     <input type="number" class="form-textfield" name="noofpages" required value="<?php echo isset($success) || !isset($_POST['noofpages']) ? "" : htmlspecialchars($_POST['noofpages']) ?>" />
                     <span class="floating-label">No of pages</span>

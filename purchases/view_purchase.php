@@ -33,7 +33,7 @@
             <?php while ($row = $purchaseChildDetails->fetch()): ?>
             <div class="fields-wrapper" data-id=<?=$row['Purchase_child_id']?> style="width:100%">
                 <div class="input-textfield">
-                    <input type="text" readonly class="form-textfield-readonly" name="item" value="<?=$row['I_title']?>" />
+                    <input type="text" readonly class="form-textfield-readonly" name="item" value="<?=$row['I_title']?>" style="width:270px" />
                     <span class="floating-label">Item</span>
                     <p id="purchase-price-error-div"></p>
                 </div>

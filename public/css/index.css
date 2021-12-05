@@ -1619,6 +1619,20 @@ footer {
   font-size: 12px;
 }
 
+.floating-label-selling {
+  position: absolute;
+  pointer-events: none;
+  top: 0px;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #6b727a;
+  transition: 0.2s ease all;
+  background-color: #f1f4f8;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
 .form-textfield-readonly {
   width: 200px;
   height: 40px;
@@ -1851,7 +1865,7 @@ footer {
   width: 90%;
   min-height: 450px;
   height: auto;
-  max-width: 1000px;
+  max-width: 1200px;
 }
 
 .add-category-form {

@@ -35,9 +35,15 @@ class Purchase {
 				query("INSERT INTO tbl_Purchase_child (Purchase_master_id,Item_id,Purchase_price,Quantity,Total_price) VALUES(?,?,?,?,?);", [
 					$purchaseMasterId, $item->itemId->value, $item->Purchase_price->value, $item->quantity->value, $item->Purchase_price->value * $item->quantity->value,
 				]);
-				query("UPDATE tbl_Item SET I_stock = I_stock + ? WHERE Item_id = ?;", [
-					$item->quantity->value, $item->itemId->value,
+				$profitPercentage = (int) $item->profitpercentage->value;
+				$purchasePrice = (int) $item->Purchase_price->value;
+				$sellingPrice = $purchasePrice + (($profitPercentage / 100) * $purchasePrice);
+
+				// echo $sellingPrice;
+				query("UPDATE tbl_Item SET I_stock = I_stock + ?,I_price=? WHERE Item_id = ?;", [
+					$item->quantity->value, $sellingPrice, $item->itemId->value,
 				]);
+
 			}
 
 			$pdo->commit();

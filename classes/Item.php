@@ -15,7 +15,7 @@ class Item {
 	private $description;
 	private $coverimage;
 
-	public function __construct($title, $authorid, $subcategoryid, $publisherid, $isbn, $price, $noofpages, $language, $description, $coverimage) {
+	public function __construct($title, $authorid, $subcategoryid, $publisherid, $isbn, $noofpages, $language, $description, $coverimage, $price = 0) {
 		$this->title = $title;
 		$this->authorid = $authorid;
 		$this->subcategoryid = $subcategoryid;
@@ -54,8 +54,16 @@ class Item {
 		if (!preg_match('/^[0-9]{10,13}$/', trim($this->isbn))) {
 			$errors['isbn'] = "Invalid isbn";
 		}
-		if (!preg_match('/^[0-9.]{1,11}$/', trim($this->price))) {
-			$errors['price'] = "Invalid price";
+		// if (!preg_match('/^[0-9.]{1,11}$/', trim($this->price))) {
+		// 	$errors['price'] = "Invalid price";
+		// }
+
+		if (!$errors['isbn']) {
+			$isbnExist = exists('SELECT I_isbn FROM tbl_Item WHERE I_isbn=?', [$this->isbn]);
+			if ($isbnExist) {
+				$errors['isbn'] = 'isbn already exists';
+			}
+
 		}
 
 		if (!preg_match('/^[0-9]+$/', trim($this->noofpages))) {
@@ -89,7 +97,7 @@ class Item {
 
 		move_uploaded_file($this->coverimage['tmp_name'], dirname(__FILE__, 2) . '/public/images/covers/' . $uploadName);
 		date_default_timezone_set("Asia/Kolkata");
-		query("INSERT INTO tbl_Item (I_title, Author_id,Publisher_id,SubCat_id, I_isbn, I_price, I_no_of_pages, I_language, I_date_added, I_description, I_cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, $this->price, $this->noofpages, trim($this->language), date("Y/m/d"), trim($this->description), $uploadName]);
+		query("INSERT INTO tbl_Item (I_title, Author_id,Publisher_id,SubCat_id, I_isbn, I_no_of_pages, I_language, I_date_added, I_description, I_cover_image) VALUES (?,?,?,?,?,?,?,?,?,?)", [trim($this->title), $this->authorid, $this->publisherid, $this->subcategoryid, $this->isbn, $this->noofpages, trim($this->language), date("Y/m/d"), trim($this->description), $uploadName]);
 	}
 
 	public function update($id) {
