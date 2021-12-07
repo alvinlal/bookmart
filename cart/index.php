@@ -245,6 +245,6 @@
 
 <?php if ($hasUpdated): ?>
 <script>
-document.getElementById('reflects').innerHTML = "<p>Your cart was updated to reflect stock changes !</p>";
+document.getElementById('reflects').innerHTML = "<p>Your cart was updated to reflect stock changes, Please review your cart before checkout</p>";
 </script>
 <?php endif?>

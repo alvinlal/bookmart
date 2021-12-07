@@ -2981,7 +2981,7 @@ footer {
 }
 
 .processing-payment {
-  width: 600px;
+  width: 750px;
   height: 400px;
   margin: 50px auto;
   background-color: white;
@@ -2990,6 +2990,7 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 15px;
 }
 
 .order-status {
@@ -3128,4 +3129,13 @@ footer {
   font-size: 14px;
   font-weight: bold;
   margin-top: 30px;
+}
+
+.small-font {
+  font-size: 19px !important;
+  text-align: center;
+}
+
+.flex-column {
+  flex-direction: column;
 }
