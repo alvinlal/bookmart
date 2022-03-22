@@ -228,7 +228,7 @@ class Row {
             </div>
             <div class="cell" data-title="Actions">
                 <div class="table-actions">
-                    <a href="/bookmart/categories/edit_categories.php?id=${data['Cat_id']}"><img src="/bookmart/public/images/edit.svg" /></a>
+                    <a href="/bookmart/categories/edit_category.php?id=${data['Cat_id']}"><img src="/bookmart/public/images/edit.svg" /></a>
                 </div>
             </div>
         `

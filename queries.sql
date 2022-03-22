@@ -8,16 +8,16 @@ ALTER TABLE tbl_Category RENAME COLUMN  Cat_Name TO Cat_name;
 
 CREATE TABLE tbl_category(
 Cat_id INT NOT NULL AUTO_INCREMENT,
-Cat_Name VARCHAR(20),
-Cat_status ENUM("active","deleted")  DEFAULT 'active',
+Cat_name VARCHAR(20),
+Cat_status ENUM("active","inactive")  DEFAULT 'active',
 PRIMARY KEY (categoryId )
 );
 
 CREATE TABLE tbl_SubCategory(
 SubCat_Id INT NOT NULL AUTO_INCREMENT,
-SubCat_name VARCHAR(20),
+SubCat_name VARCHAR(30),
 Cat_id INT NOT NULL,
-SubCat_status ENUM("active","deleted")  DEFAULT 'active',
+SubCat_status ENUM("active","inactive")  DEFAULT 'active',
 PRIMARY KEY(SubCat_Id),
 FOREIGN KEY (Cat_id) REFERENCES tbl_Category(Cat_id)
 );
@@ -26,7 +26,7 @@ FOREIGN KEY (Cat_id) REFERENCES tbl_Category(Cat_id)
 CREATE TABLE tbl_Author(
     Author_id INT NOT NULL AUTO_INCREMENT,
     A_name VARCHAR(30),
-    A_status ENUM("active","deleted")  DEFAULT 'active',
+    A_status ENUM("active","inactive")  DEFAULT 'active',
     A_description VARCHAR(200) NOT NULL,
 PRIMARY KEY(Author_id),
 );
@@ -40,7 +40,7 @@ P_name VARCHAR(60) NOT NULL,
 P_city VARCHAR(30) NOT NULL,
 P_district VARCHAR(30) NOT NULL,
 P_pin VARCHAR(6) NOT NULL,
-P_status ENUM('active','deleted') DEFAULT 'active',
+P_status ENUM('active','inactive') DEFAULT 'active',
 PRIMARY KEY(Publisher_id)
 
 );
@@ -58,7 +58,7 @@ CREATE table tbl_Item(
     I_stock INT NOT NULL,
     I_no_of_pages INT NOT NULL,
     I_language VARCHAR(20) NOT NULL,
-    I_status ENUM('active','deleted') DEFAULT 'active',
+    I_status ENUM('active','inactive') DEFAULT 'active',
     PRIMARY KEY(Item_id),
     FOREIGN KEY (Author_id) REFERENCES tbl_Author(Author_id),
     FOREIGN KEY (Publisher_id) REFERENCES tbl_Publisher(Publisher_id),
@@ -141,7 +141,7 @@ CREATE TABLE tbl_Admin(
 
 INSERT INTO tbl_Item(Author_id,Publisher_id,SubCat_id,I_cover_image,I_isbn,I_title,I_description,I_price,I_stock,I_no_of_pages,I_language,I_status) VALUES(2,1,28,'1123456789.jpg','9788175994317','Harry Potter And The Prisoner Of Azhkabhan','Harry Potter and the Prisoner of Azkaban is a fantasy novel written by British author J. K. Rowling and is the third in the Harry Potter series. The book follows Harry Potter, a young wizard, in his third year at Hogwarts School of Witchcraft and Wizardry. Along with friends Ronald Weasley and Hermione Granger, Harry investigates Sirius Black, an escaped prisoner from Azkaban, the wizard prison, believed to be one of Lord Voldemorts old allies',500,20,500,'English','active');
 
-INSERT INTO tbl_Category(categoryName) VALUES
+INSERT INTO tbl_Category(Cat_name) VALUES
 ("Art & Music"),
 ("Biographies"),
 ("Comics"),
@@ -245,7 +245,7 @@ CREATE TABLE tbl_Login(
 Username VARCHAR(255),
 User_type ENUM('admin','staff','customer'),
 
-User_status ENUM("active","deleted")  DEFAULT 'active',
+User_status ENUM("active","inactive")  DEFAULT 'active',
 Password VARCHAR(255) NOT NULL,
 PRIMARY KEY (Username)
 );
@@ -283,7 +283,7 @@ V_city VARCHAR(30) NOT NULL,
 V_district VARCHAR(30) NOT NULL,
 V_pincode VARCHAR(6) NOT NULL,
 
-V_status ENUM('active','deleted') DEFAULT 'active',
+V_status ENUM('active','inactive') DEFAULT 'active',
 PRIMARY KEY (V_id),
 FOREIGN KEY (V_added_by) REFERENCES tbl_Login(Username)
 );
@@ -296,7 +296,7 @@ Vendor_id INT NOT NULL ,
 Purchased_by VARCHAR(255) NOT NULL ,
 Total_amt DECIMAL(8,2) NOT NULL,
 Purchase_date date NOT NULL,
-Status ENUM("active","deleted") NOT NULL DEFAULT "active",
+Status ENUM("active","inactive") NOT NULL DEFAULT "active",
 PRIMARY KEY(Purchase_master_id),
 FOREIGN KEY(Vendor_id) REFERENCES tbl_Vendor(V_id),
 FOREIGN KEY(Purchased_by) REFERENCES tbl_Login(Username)

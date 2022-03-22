@@ -20,11 +20,11 @@ $fh = fopen('php://output', 'w');
 
 $queryMap = [
 	'tbl_Staff' => [
-		'query' => "SELECT * FROM tbl_Staff JOIN tbl_Login ON tbl_Staff.Username=tbl_Login.Username",
+		'query' => "SELECT tbl_Staff.Username,User_status,S_phno,S_fname,S_lname,S_housename,S_city,S_district,S_pin FROM tbl_Staff JOIN tbl_Login ON tbl_Staff.Username=tbl_Login.Username",
 		'clause' => " WHERE ",
 	],
 	'tbl_Customer' => [
-		'query' => "SELECT tbl_Login.Username,User_status,COALESCE(Cust_id,'Not provided') AS Cust_id,COALESCE(C_fname,'Not provided') AS C_fname,COALESCE(C_lname,'Not provided') AS C_lname,COALESCE(C_city,'Not provided') AS C_city ,COALESCE(C_district,'Not provided') AS C_district,COALESCE(C_housename,'Not provided') AS C_housename,COALESCE(C_pin,'Not provided') AS C_pin,COALESCE(C_phno,'Not provided') AS C_phno FROM tbl_Login LEFT JOIN tbl_Customer ON tbl_Customer.Username=tbl_Login.Username ",
+		'query' => "SELECT tbl_Login.Username,User_status,COALESCE(Cust_id,'Not provided') AS Cust_id,COALESCE(C_fname,'Not provided') AS C_fname,COALESCE(C_lname,'Not provided') AS C_lname,COALESCE(C_city,'Not provided') AS C_city ,COALESCE(C_district,'Not provided') AS C_district,COALESCE(C_housename,'Not provided') AS C_housename,COALESCE(C_pin,'Not provided') AS C_pin,COALESCE(C_phno,'Not provided') AS C_phno FROM tbl_Login JOIN tbl_Customer ON tbl_Customer.Username=tbl_Login.Username ",
 		'clause' => " HAVING ",
 	],
 	'tbl_Vendor' => [

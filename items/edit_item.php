@@ -18,12 +18,11 @@
 		$publisherid = $_POST['publisherid'];
 		$publisher = $_POST['publisher'];
 		$isbn = $_POST['isbn'];
-		$price = $_POST['price'];
 		$noofpages = $_POST['noofpages'];
 		$language = $_POST['language'];
 		$description = $_POST['description'];
 		$coverimage = $_FILES['coverimage'];
-		$item = new Item($title, $authorid, $subcategoryid, $publisherid, $isbn, $noofpages, $language, $description, $coverimage, $price);
+		$item = new Item($title, $authorid, $subcategoryid, $publisherid, $isbn, $noofpages, $language, $description, $coverimage);
 		$errors = $item->validateInput(true);
 		if (!array_filter($errors)) {
 			$item->update($id);
@@ -110,11 +109,6 @@
                     <input type="number" class="form-textfield" name="isbn" required value="<?=htmlspecialchars($isbn)?>" />
                     <span class="floating-label">ISBN</span>
                     <p><?=$errors['isbn'] ?? ''?></p>
-                </div>
-                <div class="input-textfield">
-                    <input type="text" class="form-textfield" name="price" required value="<?=htmlspecialchars($price)?>" />
-                    <span class="floating-label">Price</span>
-                    <p><?=$errors['price'] ?? ''?></p>
                 </div>
                 <div class="input-textfield">
                     <input type="number" class="form-textfield" name="noofpages" required value="<?=htmlspecialchars($noofpages)?>" />

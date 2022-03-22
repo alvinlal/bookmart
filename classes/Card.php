@@ -66,8 +66,7 @@ class Card {
 
 	public function update($id) {
 		try {
-
-			query("UPDATE tbl_Card SET Card_no=?,Card_cvv=?,Card_name=?,Expiry_date=? WHERE Card_id=?';", [
+			query("UPDATE tbl_Card SET Card_no=?,Card_cvv=?,Card_name=?,Expiry_date=? WHERE Card_id=?;", [
 				trim($this->cardno), trim($this->cardcvv), trim($this->cardname), $this->expirydate, $id,
 			]);
 			return true;

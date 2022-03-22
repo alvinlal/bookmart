@@ -43,7 +43,7 @@ class Item {
 			$errors['title'] = "Invalid title";
 		}
 
-		if (!$errors['title'] && !$isEditing) {
+		if (!$errors['title']) {
 			$titleExists = exists('SELECT I_status FROM tbl_Item WHERE I_title=?', [$this->title]);
 			if ($titleExists) {
 				$errors['title'] = "title already exists";
@@ -58,12 +58,14 @@ class Item {
 		// 	$errors['price'] = "Invalid price";
 		// }
 
-		if (!$errors['isbn']) {
-			$isbnExist = exists('SELECT I_isbn FROM tbl_Item WHERE I_isbn=?', [$this->isbn]);
-			if ($isbnExist) {
-				$errors['isbn'] = 'isbn already exists';
-			}
+		if (!$isEditing) {
+			if (!$errors['isbn']) {
+				$isbnExist = exists('SELECT I_isbn FROM tbl_Item WHERE I_isbn=?', [$this->isbn]);
+				if ($isbnExist) {
+					$errors['isbn'] = 'isbn already exists';
+				}
 
+			}
 		}
 
 		if (!preg_match('/^[0-9]+$/', trim($this->noofpages))) {

@@ -34,7 +34,7 @@
         🚀 Subcategory edited successfully
     </div>
     <?php endif?>
-    <form class="form add-vendor-form" action="<?=$_SERVER['PHP_SELF'] . "?id=" . $id?>" method="post">
+    <form class="form add-vendor-form" action="<?=$_SERVER['PHP_SELF'] . "?id=" . $id?>" method="post" onsubmit="return onSubmit()">
         <h1>Edit Sub Category</h1>
         <div class="fields-wrapper">
             <div class="input-textfield">
